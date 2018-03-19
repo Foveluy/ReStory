@@ -7,6 +7,7 @@ import { Layout, Menu, Icon } from 'antd'
 import tst from './test.md'
 import MdConvertor from './utils/utils'
 
+const { SubMenu } = Menu
 const { Header, Content, Footer, Sider } = Layout
 
 const instance = new MdConvertor()
@@ -18,15 +19,26 @@ const Page = () => {
 }
 
 const makeMenu = () => {
-    console.log(instance.header)
-  return instance.header.map((item, index) => {
-    return (
-      <Menu.Item key={`${index}`}>
-        <Icon type="user" />
-        <span className="nav-text">{item.hText}</span>
-      </Menu.Item>
-    )
-  })
+  console.log(instance.header)
+  return (
+    <SubMenu
+      key="sub1"
+      title={
+        <span>
+          <Icon type="user" />subnav 1
+        </span>
+      }
+    >
+      {instance.header.map((item, index) => {
+        return (
+          <Menu.Item key={`${index}`}>
+            <Icon type="user" />
+            <span className="nav-text">{item.hText}</span>
+          </Menu.Item>
+        )
+      })}
+    </SubMenu>
+  )
 }
 
 const Page2 = () => {
