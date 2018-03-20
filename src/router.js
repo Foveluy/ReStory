@@ -1,8 +1,8 @@
 import React from 'react'
 import './index.css'
 
-import { HashRouter as Router, Route, Link } from 'react-router-dom'
-import { Layout, Menu, Icon } from 'antd'
+import { HashRouter as Router, Route } from 'react-router-dom'
+import { Layout } from 'antd'
 
 import SiderRenderer from './views/sider'
 import PageRenderer from './views/page'

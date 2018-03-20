@@ -47,6 +47,7 @@
         "react-redux": "^5.0.6",
         "react-router-dom": "^4.2.2",
         "redux": "^3.7.2",
+        "redux-saga": "^0.16.0",
         "rluy": "^0.2.2",
         "showdown": "^1.8.6",
         "showdown-highlight": "^2.0.0",
