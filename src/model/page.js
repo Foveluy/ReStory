@@ -36,7 +36,7 @@ export default {
         },
         *fetchDocList({ put, call, fork }, { payload }) {
             const d = new BaseManager()
-            const md = yield d.Get('Dragact/_sider.md')
+            const md = yield d.Get('_sider.md')
             const docList = SiderParser(md)
 
             const rawTexts = yield docList.map(item => {
@@ -44,7 +44,7 @@ export default {
                     //我们必须在这里判断是否是网址
                     return item.url
                 }
-                return d.Get(`Dragact/${item.url}`)
+                return d.Get(`${item.url}`)
             })
 
             const newDocList = docList.map((item, index) => {

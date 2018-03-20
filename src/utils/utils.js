@@ -76,6 +76,7 @@ export default class MdConvertor {
     })
 
     this.convertor = new showdown.Converter({ extensions: ['custom-header-id'] })
+    this.convertor.setOption('tasklists',true)
     return this.convertor
   }
 }

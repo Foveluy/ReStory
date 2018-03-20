@@ -1,13 +1,17 @@
 import { message } from 'antd'
 import { call } from 'redux-saga/effects'
 
+
 export class BaseManager {
     constructor() {
         this.call = call
+        this.user = '215566435'
+        this.repo = 'TrumpDoc'
+
         this.domain =
             process.env.NODE_ENV === 'production'
-                ? 'https://215566435.github.io/'
-                : 'https://215566435.github.io/'
+                ? `https://${this.user}.github.io/${this.repo}/`
+                : `https://${this.user}.github.io/${this.repo}/`
         this.token = localStorage.getItem('token')
     }
 
@@ -27,7 +31,7 @@ export class BaseManager {
                 method: 'GET'
             })
             this.loginFail(res.status)
-           
+
             const buffer = yield res.arrayBuffer()
             const string = new TextDecoder('utf-8').decode(buffer)
             return string
