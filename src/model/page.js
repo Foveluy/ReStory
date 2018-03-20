@@ -25,7 +25,7 @@ export default {
     effects: {
         *fetchMenu({ put, select }, { payload }) {
             const pageState = yield select(state => state.page)
-
+            
             yield put({
                 type: 'sideChange',
                 payload: {

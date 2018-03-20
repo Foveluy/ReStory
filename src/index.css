@@ -10,3 +10,21 @@ body {
     margin: 16px;
 }
 
+@media screen and (min-width:800px) {
+    .root-wapper {
+        padding: 24px;
+        background: #fff;
+        display: flex;
+        justify-content: 'center'
+    }
+    .trump-layout {
+        margin-left: 200px;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .root-wapper {
+        padding: 24px;
+        background: #fff;
+    }
+}

@@ -29,7 +29,6 @@ class App extends React.Component {
                         breakpoint="lg"
                         collapsedWidth="0"
                         onCollapse={(collapsed, type) => {
-                            console.log(collapsed, type)
                             this.props.dispatch({
                                 type: 'fetchMenu',
                                 payload: collapsed
@@ -39,9 +38,7 @@ class App extends React.Component {
                         <div className="logo" />
                         <SiderRenderer />
                     </Sider>
-                    <Layout
-                        style={this.props.sideHide ? {} : { marginLeft: 200 }}
-                    >
+                    <Layout className="trump-layout">
                         <Header style={{ background: '#fff', padding: 0 }} />
                         <Content
                             style={{
@@ -49,16 +46,7 @@ class App extends React.Component {
                                 overflow: 'initial'
                             }}
                         >
-                            <div
-                                style={{
-                                    padding: 24,
-                                    background: '#fff',
-                                    display: this.props.sideHide ? '' : 'flex',
-                                    justifyContent: this.props.sideHide
-                                        ? ''
-                                        : 'center'
-                                }}
-                            >
+                            <div className="root-wapper">
                                 <Route
                                     exact
                                     path="/"
