@@ -12,7 +12,7 @@ export default class MdConvertor {
   init() {
     var that = this
     showdown.extension('custom-header-id', () => {
-      var rgx = /^(\#{1,6})([^\#\n]+)$/gim // eslint-disable-line
+      var rgx = /^(\#{1,6})([^\#\n]+)$/gmi // eslint-disable-line
 
       return [
         {
@@ -29,17 +29,18 @@ export default class MdConvertor {
                 // find how many # there are at the beginning of the header
                 // these will define the header level
                 hLevel = hLevel.length
-                that.header.push({
-                  wm,
-                  hLevel,
-                  hText: trim(hText),
-                  hCustomId
-                })
+                
+               
+                // const code = hText.match( /\s\`\`\`\n?([^`]+)\`\`\`/g)
+                // console.log(code)
                 // since headers can have markdown in them (ex: # some *italic* header)
                 // we need to pass the text to the span parser
                 hText = showdown.subParser('spanGamut')(hText, options, globals)
-                hText = trim(hText)
+                
 
+               
+                hText = trim(hText)
+               
                 // create the appropriate HTML
                 var header =
                   '<h' +
@@ -52,8 +53,18 @@ export default class MdConvertor {
                   hLevel +
                   '>'
 
+                  if (hLevel <= 2) {
+                    that.header.push({
+                      wm,
+                      hLevel,
+                      hText: trim(hText),
+                      hCustomId
+                    })
+                  }
+                 
                 // hash block to prevent any further modification
-                return showdown.subParser('hashBlock')(header, options, globals)
+                const res = showdown.subParser('hashBlock')(header, options, globals)
+                return res
               })
 
               // return the changed text
@@ -63,6 +74,8 @@ export default class MdConvertor {
         }
       ]
     })
-    return new showdown.Converter({ extensions: ['custom-header-id'] })
+
+    this.convertor = new showdown.Converter({ extensions: ['custom-header-id'] })
+    return this.convertor
   }
 }

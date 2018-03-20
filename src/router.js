@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.css'
 
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route, Link } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 
 import tst from './test.md'
@@ -18,19 +18,41 @@ const Page = () => {
   return <div dangerouslySetInnerHTML={{ __html: html }} />
 }
 
-const st = fetch('https://215566435.github.io/Dragact/README.md', {
-  method: 'get'
-})
+class ItemCli extends React.Component {
+  onClick = () => {
+    if (document.getElementById(this.props.text)) {
+      // #todo 除去document使用变量代替
+      const s = document.getElementById(this.props.text).offsetTop
+      const a = []
+      const os = s - window.scrollY
+      for (let i = 0; i < 10; i++) {
+        a.push(os / 10)
+      }
+      requestAnimationFrame(() => {
+        this.scroll(a)
+      })
+    }
+  }
 
-st.then(res => {
-  res.arrayBuffer().then(r => {
-    var string = new TextDecoder('utf-8').decode(r)
-    console.log(string)
-  })
-})
+  scroll = ary => {
+    if (ary.length === 0) return
+    window.scrollTo(0, window.scrollY + ary[0])
+    ary.shift()
+    requestAnimationFrame(() => {
+      this.scroll(ary)
+    })
+  }
+
+  render() {
+    return (
+      <div onClick={this.onClick} style={{ fontSize: 12 }}>
+        {this.props.text}
+      </div>
+    )
+  }
+}
 
 const makeMenu = () => {
-  console.log(instance.header)
   return (
     <SubMenu
       key="sub1"
@@ -43,8 +65,9 @@ const makeMenu = () => {
       {instance.header.map((item, index) => {
         return (
           <Menu.Item key={`${index}`}>
-            <Icon type="user" />
-            <span className="nav-text">{item.hText}</span>
+            <span>
+              <ItemCli text={item.hText} />
+            </span>
           </Menu.Item>
         )
       })}
