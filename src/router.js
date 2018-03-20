@@ -16,7 +16,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        window['$trumpDoc'] = this
         window.addEventListener('resize', this.resize)
         this.resize()
     }

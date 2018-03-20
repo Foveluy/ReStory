@@ -1,12 +1,18 @@
 import { message } from 'antd'
 import { call } from 'redux-saga/effects'
 
+const win = window
 
 export class BaseManager {
     constructor() {
         this.call = call
-        this.user = '215566435'
-        this.repo = 'TrumpDoc'
+
+        if (!win['$trumpDoc']) {
+            win['$trumpDoc'] = {}
+        }
+
+        this.user = win['$trumpDoc'].user
+        this.repo = win['$trumpDoc'].repo
 
         this.domain =
             process.env.NODE_ENV === 'production'

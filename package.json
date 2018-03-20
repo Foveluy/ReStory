@@ -1,7 +1,6 @@
 {
-    "name": "trainnote",
-    "version": "0.1.0",
-    "private": true,
+    "name": "trumpdoc",
+    "version": "0.1.1",
     "dependencies": {
         "antd": "^3.2.0",
         "autoprefixer": "7.1.6",
