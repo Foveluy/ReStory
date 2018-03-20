@@ -1,4 +1,5 @@
 import { message } from 'antd'
+import {} from 'redux'
 
 export class BaseManager {
     constructor(call) {
