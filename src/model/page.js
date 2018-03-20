@@ -2,12 +2,12 @@ import MdConvertor from '../utils/utils'
 import { BaseManager } from '../Manager/base'
 
 const SiderParser = str => {
-    const obj = str.match(/!?\[([^\]<>]+)\]\(([^ \)<>]+)( "[^\(\)\"]+")?\)/g) //match url
+    const obj = str.match(/!?\[([^\]<>]+)\]\(([^ \)<>]+)( "[^\(\)\"]+")?\)/g) // eslint-disable-line 
     if (obj) {
         return obj.map(link => {
             console.log(link)
-            const title = /\[(.*?)\]/g.exec(link)[1]
-            const url = /\((.*?)\)/g.exec(link)[1]
+            const title = /\[(.*?)\]/g.exec(link)[1] // eslint-disable-line
+            const url = /\((.*?)\)/g.exec(link)[1] // eslint-disable-line
             return {
                 title,
                 url

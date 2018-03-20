@@ -2,7 +2,6 @@ import React from 'react'
 import { Menu } from 'antd'
 import { SiderItem } from '../component/sider-item'
 import { connect } from 'react-redux'
-import { SiderHeadItem } from '../component/sider-head-item'
 
 const SubMenu = Menu.SubMenu
 
