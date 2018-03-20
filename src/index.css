@@ -20,6 +20,15 @@ body {
     .trump-layout {
         margin-left: 200px;
     }
+    .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color .3s;
+        position: fixed;
+        color: #1890ff;
+    }
 }
 
 @media screen and (max-width:800px) {
@@ -27,4 +36,14 @@ body {
         padding: 24px;
         background: #fff;
     }
+    .trigger {
+        font-size: 30px;
+        line-height: 64px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color .3s;
+        position: fixed;
+        color: #1890ff;
+    }
 }
+

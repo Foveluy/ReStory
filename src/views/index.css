@@ -1,5 +1,5 @@
-
-
-.content-wapper>p>img {
-    width: 80%;
+@media screen and (max-width:800px) {
+    .content-wapper>p>img {
+        width: 80%;
+    }
 }
