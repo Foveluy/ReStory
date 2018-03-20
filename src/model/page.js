@@ -36,7 +36,7 @@ export default {
         },
         *fetchDocList({ put, call, fork }, { payload }) {
             const d = new BaseManager()
-            const md = yield d.Get('_sider.md')
+            const md = yield d.Get('leftSider.md')
             const docList = SiderParser(md)
 
             const rawTexts = yield docList.map(item => {

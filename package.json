@@ -1,6 +1,6 @@
 {
     "name": "trumpdoc",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "dependencies": {
         "antd": "^3.2.0",
         "autoprefixer": "7.1.6",
@@ -62,7 +62,7 @@
     },
     "scripts": {
         "start": "node scripts/start.js",
-        "build": "node scripts/build.js",
+        "build": "rm ./trumpdoc.js && node scripts/build.js && cp ./build/static/js/main.js ./trumpdoc.js",
         "test": "node scripts/test.js --env=jsdom"
     },
     "jest": {
