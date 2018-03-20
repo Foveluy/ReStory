@@ -3,14 +3,20 @@ import './index.css'
 
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { Layout } from 'antd'
+import { connect } from 'react-redux'
 
 import SiderRenderer from './views/sider'
 import PageRenderer from './views/page'
 
 const { Header, Content, Footer, Sider } = Layout
-export default () => {
-    return (
-        <div className="rootWrapper">
+
+class App extends React.Component {
+    componentDidMount() {
+        window['$trumpDoc'] = this
+    }
+
+    render() {
+        return (
             <Router>
                 <Layout>
                     <Sider
@@ -24,6 +30,10 @@ export default () => {
                         collapsedWidth="0"
                         onCollapse={(collapsed, type) => {
                             console.log(collapsed, type)
+                            this.props.dispatch({
+                                type: 'fetchMenu',
+                                payload: collapsed
+                            })
                         }}
                     >
                         <div className="logo" />
@@ -59,6 +69,16 @@ export default () => {
                     </Layout>
                 </Layout>
             </Router>
+        )
+    }
+}
+
+const AppContainer = connect()(App)
+
+export default () => {
+    return (
+        <div className="rootWrapper">
+            <AppContainer />
         </div>
     )
 }
