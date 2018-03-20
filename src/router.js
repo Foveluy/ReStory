@@ -57,7 +57,8 @@ class App extends React.Component {
                             >
                                 <div className="router-wrapper">
                                     <Route
-                                        path="/:id"
+                                        exact
+                                        path="/"
                                         component={PageRenderer}
                                     />
                                 </div>

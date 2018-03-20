@@ -1,21 +1,6 @@
 import MdConvertor from '../utils/utils'
 import { BaseManager } from '../Manager/base'
-
-const SiderParser = str => {
-    const obj = str.match(/!?\[([^\]<>]+)\]\(([^ \)<>]+)( "[^\(\)\"]+")?\)/g) // eslint-disable-line 
-    if (obj) {
-        return obj.map(link => {
-            console.log(link)
-            const title = /\[(.*?)\]/g.exec(link)[1] // eslint-disable-line
-            const url = /\((.*?)\)/g.exec(link)[1] // eslint-disable-line
-            return {
-                title,
-                url
-            }
-        })
-    }
-    throw new Error('没有文档，赶快创建吧！')
-}
+import { SiderParser } from '../utils/url-check'
 
 export default {
     namespace: 'page',
@@ -36,12 +21,10 @@ export default {
         *fetchMenu({ put, select }, { payload }) {
             if (payload === false) {
                 const pageState = yield select(state => state.page)
+
                 yield put({
                     type: 'mapHtml',
-                    payload: {
-                        html: pageState.html,
-                        headers: [...pageState.headers]
-                    }
+                    payload: [...pageState.docList]
                 })
             }
         },
@@ -51,6 +34,10 @@ export default {
             const docList = SiderParser(md)
 
             const rawTexts = yield docList.map(item => {
+                if (item.isWebUrl) {
+                    //我们必须在这里判断是否是网址
+                    return item.url
+                }
                 return d.Get(`Dragact/${item.url}`)
             })
 
@@ -70,7 +57,10 @@ export default {
         *renderDocs({ put, call, select }, { payload }) {
             const docList = yield select(state => state.page.docList)
             const item = docList.find(item => item.title === payload)
-            console.log(item)
+            if (item.headers.length === 0) {
+                if (item.isWebUrl) window.open(item.url)
+                return
+            }
             yield put({
                 type: 'mapHtml',
                 payload: item.mdText
