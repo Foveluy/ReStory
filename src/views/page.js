@@ -1,8 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import './index.css'
+
 const page = ({ html }) => {
-    return <div dangerouslySetInnerHTML={{ __html: html }} />
+    return (
+        <div
+            className="content-wapper"
+            dangerouslySetInnerHTML={{ __html: html }}
+        />
+    )
 }
 
 const mapStateToProps = state => {

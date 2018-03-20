@@ -5,8 +5,9 @@ import { SiderParser } from '../utils/url-check'
 export default {
     namespace: 'page',
     state: {
-        rawTexts: '',
-        docList: []
+        html: '',
+        docList: [],
+        sideHide: false
     },
     reducer: {
         mapHtml(state, { payload }) {
@@ -14,19 +15,24 @@ export default {
         },
         mapDocList(state, { payload }) {
             return { ...state, docList: payload }
+        },
+        sideChange(state, { payload }) {
+            const { sideHide, docList } = payload
+            return { ...state, docList, sideHide }
         }
     },
 
     effects: {
         *fetchMenu({ put, select }, { payload }) {
-            if (payload === false) {
-                const pageState = yield select(state => state.page)
+            const pageState = yield select(state => state.page)
 
-                yield put({
-                    type: 'mapHtml',
-                    payload: [...pageState.docList]
-                })
-            }
+            yield put({
+                type: 'sideChange',
+                payload: {
+                    docList: [...pageState.docList],
+                    sideHide: payload
+                }
+            })
         },
         *fetchDocList({ put, call, fork }, { payload }) {
             const d = new BaseManager()

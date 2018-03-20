@@ -39,7 +39,9 @@ class App extends React.Component {
                         <div className="logo" />
                         <SiderRenderer />
                     </Sider>
-                    <Layout style={{ marginLeft: 200 }}>
+                    <Layout
+                        style={this.props.sideHide ? {} : { marginLeft: 200 }}
+                    >
                         <Header style={{ background: '#fff', padding: 0 }} />
                         <Content
                             style={{
@@ -51,17 +53,17 @@ class App extends React.Component {
                                 style={{
                                     padding: 24,
                                     background: '#fff',
-                                    display: 'flex',
-                                    justifyContent: 'center'
+                                    display: this.props.sideHide ? '' : 'flex',
+                                    justifyContent: this.props.sideHide
+                                        ? ''
+                                        : 'center'
                                 }}
                             >
-                                <div className="router-wrapper">
-                                    <Route
-                                        exact
-                                        path="/"
-                                        component={PageRenderer}
-                                    />
-                                </div>
+                                <Route
+                                    exact
+                                    path="/"
+                                    component={PageRenderer}
+                                />
                             </div>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
@@ -74,7 +76,11 @@ class App extends React.Component {
     }
 }
 
-const AppContainer = connect()(App)
+const mapStateToProps = state => {
+    return state.page
+}
+
+const AppContainer = connect(mapStateToProps)(App)
 
 export default () => {
     return (
