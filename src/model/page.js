@@ -25,7 +25,7 @@ export default {
     effects: {
         *fetchMenu({ put, select }, { payload }) {
             const pageState = yield select(state => state.page)
-            
+
             yield put({
                 type: 'sideChange',
                 payload: {
@@ -36,7 +36,7 @@ export default {
         },
         *fetchDocList({ put, call, fork }, { payload }) {
             const d = new BaseManager()
-            const md = yield d.Get('Dragact/_sidebar.md')
+            const md = yield d.Get('Dragact/_sider.md')
             const docList = SiderParser(md)
 
             const rawTexts = yield docList.map(item => {
