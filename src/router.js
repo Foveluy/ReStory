@@ -18,6 +18,17 @@ const Page = () => {
   return <div dangerouslySetInnerHTML={{ __html: html }} />
 }
 
+const st = fetch('https://215566435.github.io/Dragact/README.md', {
+  method: 'get'
+})
+
+st.then(res => {
+  res.arrayBuffer().then(r => {
+    var string = new TextDecoder('utf-8').decode(r)
+    console.log(string)
+  })
+})
+
 const makeMenu = () => {
   console.log(instance.header)
   return (
