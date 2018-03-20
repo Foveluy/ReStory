@@ -1,13 +1,13 @@
 import { message } from 'antd'
-import {} from 'redux'
+import { call } from 'redux-saga/effects'
 
 export class BaseManager {
-    constructor(call) {
+    constructor() {
         this.call = call
         this.domain =
             process.env.NODE_ENV === 'production'
-                ? 'http://www.foveluy.com/api'
-                : 'http://192.168.1.73:7001/api'
+                ? 'https://215566435.github.io/'
+                : 'https://215566435.github.io/'
         this.token = localStorage.getItem('token')
     }
 
@@ -24,15 +24,13 @@ export class BaseManager {
     *Get(url) {
         try {
             const res = yield this.call(fetch, this.domain + url, {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + this.token
-                }
+                method: 'GET'
             })
             this.loginFail(res.status)
-
-            const json = yield res.json()
-            return json
+           
+            const buffer = yield res.arrayBuffer()
+            const string = new TextDecoder('utf-8').decode(buffer)
+            return string
         } catch (e) {
             console.log(e)
         }

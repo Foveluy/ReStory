@@ -7,35 +7,35 @@ import { connect } from 'react-redux'
 
 const SubMenu = Menu.SubMenu
 
-const SubMenuContainer = ({ html, headers }) => {
-  return (
-    <SubMenu key="sub1" title={<span>subnav 1</span>}>
-      {headers.map((item, index) => {
+class MenuContainer extends React.Component {
+    componentWillMount() {
+        this.props.dispatch({ type: 'fetchMarkdown' })
+    }
+
+    renderHeader = () => {
+        const { html, headers } = this.props
+        return headers.map((item, index) => {
+            return (
+                <Menu.Item key={`${index}`}>
+                    <SiderItem text={item.hText} />
+                </Menu.Item>
+            )
+        })
+    }
+
+    render() {
         return (
-          <Menu.Item key={`${index}`}>
-            <SiderItem text={item.hText} />
-          </Menu.Item>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
+                <SubMenu key="sub1" title={<span>test</span>}>
+                    {this.renderHeader()}
+                </SubMenu>
+            </Menu>
         )
-      })}
-    </SubMenu>
-  )
-}
-
-const MenuContainer = ({ dispatch }) => {
-  const instance = new MdConvertor()
-  const convertor = instance.init()
-  const html = convertor.makeHtml(tst)
-  dispatch({ type: 'finishedConvert', payload: html })
-
-  return (
-    <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
-      {SubMenuContainer({ html, headers: instance.header })}
-    </Menu>
-  )
+    }
 }
 
 const mapStateToProps = state => {
-  return state.page
+    return state.page
 }
 
 export default connect(mapStateToProps)(MenuContainer)
