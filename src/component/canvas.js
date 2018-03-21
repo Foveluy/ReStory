@@ -6,6 +6,17 @@ import React from 'react'
  ** @licence: MIT licence
  */
 
+var Tween = {
+    Expo: {
+        easeIn: function(t, b, c, d) {
+            return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b
+        },
+        easeOut: function(t, b, c, d) {
+            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b
+        }
+    }
+}
+
 class Ball {
     constructor(width, height) {
         this.x = width
@@ -19,7 +30,8 @@ class Ball {
         //到达最大次数的时候，会一直原地抖动
         this.has_interval = 0
 
-        this.shake = []
+        this.shakeX = []
+        this.shakeY = []
         this.isNextShake = true
     }
 
@@ -33,24 +45,35 @@ class Ball {
 
     shaking = () => {
         if (this.isNextShake) {
-            const shakeFator =
-                Math.random() * 7 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
+            const shakeFatorX =
+                Math.random() * 13 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
+
+            const shakeFatorY =
+                Math.random() * 13 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
 
             for (let i = 0; i < 68; i++) {
-                this.shake.push(shakeFator / 34)
+                // console.log()
+
+                this.shakeX.push(shakeFatorX / 34)
+                this.shakeY.push(shakeFatorY / 34)
             }
+
             this.isNextShake = false
             this.y = this.desY
+            this.x = this.desX
         } else {
-            const _delt = this.shake.shift()
+            const _deltX = this.shakeX.shift()
+            const _deltY = this.shakeY.shift()
 
-            if (this.shake.length < 34) {
-                this.y = this.y - _delt
+            if (this.shakeX.length < 34) {
+                this.y = this.y - _deltY
+                this.x = this.x + _deltX
             } else {
-                this.y = this.y + _delt
+                this.y = this.y + _deltY
+                this.x = this.x - _deltX
             }
 
-            if (this.shake.length === 0) this.isNextShake = true
+            if (this.shakeX.length === 0) this.isNextShake = true
         }
     }
 
@@ -78,7 +101,7 @@ class Ball {
 
 export class Canvas extends React.Component {
     componentDidMount() {
-        this.zi = ['s', 'c', 'd', 'x', 'y']
+        this.zi = ['T', 'R', 'U', 'M', 'P']
         this.drawCanvas()
     }
 
@@ -91,7 +114,7 @@ export class Canvas extends React.Component {
         context.fillStyle = 'black'
         context.textBaseline = 'middle'
         context.textAlign = 'center'
-        context.font = 'bold 250px arial'
+        context.font = 'bold 300px arial'
         context.fillText(this.zi.shift(), width / 2, height / 2)
         const imgData = context.getImageData(0, 0, width, height).data
 
