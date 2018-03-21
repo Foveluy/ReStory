@@ -51,11 +51,11 @@ class Ball {
             const shakeFatorY =
                 Math.random() * 13 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
 
-            for (let i = 0; i < 68; i++) {
+            for (let i = 0; i < 160; i++) {
                 // console.log()
 
-                this.shakeX.push(shakeFatorX / 34)
-                this.shakeY.push(shakeFatorY / 34)
+                this.shakeX.push(shakeFatorX / 40)
+                this.shakeY.push(shakeFatorY / 40)
             }
 
             this.isNextShake = false
@@ -65,11 +65,17 @@ class Ball {
             const _deltX = this.shakeX.shift()
             const _deltY = this.shakeY.shift()
 
-            if (this.shakeX.length < 34) {
+            if (this.shakeX.length > 120 && this.shakeX.length <= 160) {
                 this.y = this.y - _deltY
-                this.x = this.x + _deltX
-            } else {
+                this.x = this.x - _deltX
+            }
+            if (this.shakeX.length <= 120 && this.shakeX.length > 40) {
                 this.y = this.y + _deltY
+                this.x = this.x + _deltX
+            }
+
+            if (this.shakeX.length < 40) {
+                this.y = this.y - _deltY
                 this.x = this.x - _deltX
             }
 
