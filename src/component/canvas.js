@@ -21,21 +21,35 @@ class Ball {
     constructor(width, height) {
         this.x = width
         this.y = height
-        this.interval = 17
+
+        this.startX = width
+        this.startY = height
+
+        this.interval = 60
         this.distanceX = 0
         this.distanceY = 0
-        const r = Math.round(Math.random() * 10)
-        this.r = r
+        this.r = Math.round(Math.random() * 10)
+        this.opacity = 1
 
         //到达最大次数的时候，会一直原地抖动
         this.has_interval = 0
 
         this.shakeX = []
         this.shakeY = []
+
         this.isNextShake = true
     }
 
     setDes = (x, y) => {
+        this.shakeX = []
+        this.shakeY = []
+        this.isNextShake = true
+
+        this.startX = this.x
+        this.startY = this.y
+
+        this.has_interval = 0
+
         this.desX = x
         this.desY = y
 
@@ -46,16 +60,15 @@ class Ball {
     shaking = () => {
         if (this.isNextShake) {
             const shakeFatorX =
-                Math.random() * 13 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
+                Math.random() * 5 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
 
             const shakeFatorY =
-                Math.random() * 13 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
-
-            for (let i = 0; i < 160; i++) {
+                Math.random() * 5 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
+            for (let i = 0; i < 40; i++) {
                 // console.log()
 
-                this.shakeX.push(shakeFatorX / 40)
-                this.shakeY.push(shakeFatorY / 40)
+                this.shakeX.push(shakeFatorX / 10)
+                this.shakeY.push(shakeFatorY / 10)
             }
 
             this.isNextShake = false
@@ -65,16 +78,16 @@ class Ball {
             const _deltX = this.shakeX.shift()
             const _deltY = this.shakeY.shift()
 
-            if (this.shakeX.length > 120 && this.shakeX.length <= 160) {
+            if (this.shakeX.length > 30 && this.shakeX.length <= 40) {
                 this.y = this.y - _deltY
                 this.x = this.x - _deltX
             }
-            if (this.shakeX.length <= 120 && this.shakeX.length > 40) {
+            if (this.shakeX.length <= 30 && this.shakeX.length > 10) {
                 this.y = this.y + _deltY
                 this.x = this.x + _deltX
             }
 
-            if (this.shakeX.length < 40) {
+            if (this.shakeX.length < 10) {
                 this.y = this.y - _deltY
                 this.x = this.x - _deltX
             }
@@ -84,85 +97,159 @@ class Ball {
     }
 
     next = () => {
-        // if (this.has_interval < 18) {
-        //     this.x = this.distanceX / 17 + this.x
-        //     this.y = this.distanceY / 17 + this.y
-        // } else {
-        //     if (this.has_interval % 4 === 0) {
-        //         this.shaking()
-        //     }
-        // }
+        if (this.has_interval < this.interval) {
+            // console.log()
 
-        if (this.has_interval % 8 === 0) {
-            this.shaking()
+            // console.log(this.startX,this.desX)
+
+            this.y = Tween.Expo.easeOut(
+                this.has_interval,
+                this.startY,
+                this.desY - this.startY,
+                this.interval
+            )
+
+            this.x = Tween.Expo.easeOut(
+                this.has_interval,
+                this.startX,
+                this.desX - this.startX,
+                this.interval
+            )
+            // this.y = this.y + this.distanceY / 17
+        } else {
+            if (this.has_interval % 8 === 0) {
+                this.shaking()
+            }
         }
 
         this.has_interval = this.has_interval + 1
     }
 
+    show = context => {
+        this.opacity = 1
+        this.draw(context)
+    }
+
+    clearSelf = context => {
+        this.opacity = 0
+        this.draw(context)
+    }
+
     draw = context => {
         context.beginPath()
-        context.fillStyle = `#${this.r}${this.r}${this.r}`
+        context.fillStyle = `rgba(${this.r * 20},${this.r * 10},${this.r *
+            10},${this.opacity})`
         context.arc(this.x, this.y, this.r, 0, Math.PI * 2)
         context.closePath()
         context.fill()
     }
 }
 
+/**
+ * 获取image的data
+ * @param {*} imgData
+ */
+const getPoints = (imgData, width) => {
+    var gap = 13
+    var pos = []
+    var x = 0,
+        y = 0,
+        index = 0
+    for (var i = 0; i < imgData.length; i += 4 * gap) {
+        if (imgData[i + 3] == 255) {
+            // 塞入此时的坐标
+            pos.push({
+                x: x,
+                y: y
+            })
+        }
+        index = Math.floor(i / 4)
+        x = index % width
+        y = Math.floor(index / width)
+        if (x >= width - gap) {
+            i += gap * 4 * width
+        }
+    }
+    return pos
+}
+
 export class Canvas extends React.Component {
     componentDidMount() {
+        this.store = []
         this.zi = ['Trump']
+
+        this.ziIndex = -1
+        this.firstCopy = []
+
         this.drawCanvas()
+
+        setInterval(()=>{
+            this.handleChange()
+        },3000)
+    }
+
+    getZi = () => {
+        this.ziIndex++
+        return this.zi[this.ziIndex % 5]
     }
 
     drawCanvas = () => {
         const context = this.canvas.getContext('2d')
         const width = 1200
         const height = 400
+        const store = this.store
 
         context.clearRect(0, 0, width, height)
         context.fillStyle = 'black'
         context.textBaseline = 'middle'
         context.textAlign = 'center'
         context.font = 'bold 300px arial'
-        context.fillText(this.zi.shift(), width / 2, height / 2)
+        context.fillText(this.getZi(), width / 2, height / 2)
+
+        //get filled imgdata
         const imgData = context.getImageData(0, 0, width, height).data
+        const pos = getPoints(imgData, width)
 
-        var gap = 13
-        var pos = []
-        var x = 0,
-            y = 0,
-            index = 0
-        for (var i = 0; i < imgData.length; i += 4 * gap) {
-            if (imgData[i + 3] == 255) {
-                // 塞入此时的坐标
-                pos.push({
-                    x: x,
-                    y: y
-                })
-            }
-            index = Math.floor(i / 4)
-            x = index % width
-            y = Math.floor(index / width)
-            if (x >= width - gap) {
-                i += gap * 4 * width
-            }
-        }
-
-        //清除
+        //clear
         context.clearRect(0, 0, width, height)
 
-        let store = []
+        if (pos.length > store.length) {
+            //add points
+            console.log('新增')
+            if (store.length > 0) {
+                //how many points we need to add
+                const len = pos.length - store.length
+                for (let i = 0; i < len; i++) {
+                    store.push(new Ball(width / 2, height / 2))
+                }
+                pos.forEach(({ x, y }, index) => {
+                    const b = store[index]
+                    b.show(context)
+                    b.setDes(x, y)
+                })
+            } else {
+                pos.forEach(({ x, y }, index) => {
+                    const b = new Ball(width / 2, height / 2)
+                    b.setDes(x, y)
+                    store.push(b)
+                    this.firstCopy.push({ x, y })
+                })
+            }
+        } else {
+            //how many points we need to remove
+            const len = store.length - pos.length
+            console.log('清理')
+            store.forEach((ball, index) => {
+                if (index >= pos.length) {
+                    ball.clearSelf(context)
+                } else {
+                    const { x, y } = pos[index]
+                    ball.show(context)
+                    ball.setDes(x, y)
+                }
+            })
+        }
 
-        pos.forEach(({ x, y }) => {
-            const b = new Ball(width / 2, height / 2)
-            b.setDes(x, y)
-            store.push(b)
-        })
-
-
-
-        
         const draw = () => {
             store.forEach(ball => {
                 ball.next()
@@ -170,20 +257,51 @@ export class Canvas extends React.Component {
             })
         }
 
+        var drawIndex = 0
         const render = () => {
+            if (drawIndex > 18) return
             context.clearRect(0, 0, width, height)
 
             draw()
 
+            // drawIndex++
             requestAnimationFrame(render)
         }
 
         render()
     }
 
-    // handleChange = () => {
-    //     this.drawCanvas()
-    // }
+    FlashCanvas = () => {
+        const context = this.canvas.getContext('2d')
+        const width = 1200
+        const height = 1200
+        const store = this.store
+
+        //clear
+        context.clearRect(0, 0, width, height)
+
+        if (store.length > 0) {
+            //how many points we need to add
+            if (this.ziIndex % 2 === 0) {
+                store.forEach(({ x, y }, index) => {
+                    const rx = Math.random() * 400 * (index % 2 === 0 ? -1 : 1)
+                    const ry = Math.random() * 200 * (index % 2 === 0 ? -1 : 1)
+                    const b = store[index]
+                    b.setDes(x + rx, y + ry)
+                })
+            } else {
+                this.firstCopy.forEach(({ x, y }, index) => {
+                    const b = store[index]
+                    b.setDes(x, y)
+                })
+            }
+        }
+    }
+
+    handleChange = () => {
+        this.ziIndex++
+        this.FlashCanvas()
+    }
 
     render() {
         return (
@@ -192,7 +310,7 @@ export class Canvas extends React.Component {
                 id="plexus"
                 ref={node => (this.canvas = node)}
                 width={1200}
-                height={800}
+                height={400}
                 style={{ zIndex: 10 }}
             />
         )
