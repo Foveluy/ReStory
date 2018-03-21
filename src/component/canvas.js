@@ -37,10 +37,18 @@ class Ball {
         this.shakeX = []
         this.shakeY = []
 
+        this.shakingSpeed = 6
+
         this.isNextShake = true
     }
 
+    sInterval = () => {
+        this.interval = Math.round(Math.random() * 10) * 3
+    }
+
     setDes = (x, y) => {
+        this.sInterval()
+
         this.shakeX = []
         this.shakeY = []
         this.isNextShake = true
@@ -60,10 +68,10 @@ class Ball {
     shaking = () => {
         if (this.isNextShake) {
             const shakeFatorX =
-                Math.random() * 5 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
+                Math.random() * 5 * ( Math.round( (Math.random() * 10) )% 2 === 0 ? 1 : -1)
 
             const shakeFatorY =
-                Math.random() * 5 * ((Math.random() * 10) % 2 === 0 ? 1 : -1)
+                Math.random() * 5 * (Math.round( (Math.random() * 10) ) % 2 === 0 ? 1 : -1)
             for (let i = 0; i < 40; i++) {
                 // console.log()
 
@@ -92,7 +100,9 @@ class Ball {
                 this.x = this.x - _deltX
             }
 
-            if (this.shakeX.length === 0) this.isNextShake = true
+            if (this.shakeX.length === 0) {
+                this.isNextShake = true
+            }
         }
     }
 
@@ -117,7 +127,7 @@ class Ball {
             )
             // this.y = this.y + this.distanceY / 17
         } else {
-            if (this.has_interval % 8 === 0) {
+            if (this.has_interval % this.shakingSpeed === 0) {
                 this.shaking()
             }
         }
@@ -183,9 +193,9 @@ export class Canvas extends React.Component {
 
         this.drawCanvas()
 
-        setInterval(()=>{
+        setInterval(() => {
             this.handleChange()
-        },3000)
+        }, 4000)
     }
 
     getZi = () => {
@@ -251,7 +261,7 @@ export class Canvas extends React.Component {
         }
 
         const draw = () => {
-            store.forEach(ball => {
+            store.forEach((ball,index) => {
                 ball.next()
                 ball.draw(context)
             })
@@ -299,8 +309,9 @@ export class Canvas extends React.Component {
     }
 
     handleChange = () => {
-        this.ziIndex++
+       
         this.FlashCanvas()
+        this.ziIndex++
     }
 
     render() {
@@ -309,7 +320,7 @@ export class Canvas extends React.Component {
                 onClick={this.handleChange}
                 id="plexus"
                 ref={node => (this.canvas = node)}
-                width={1200}
+                width={1000}
                 height={400}
                 style={{ zIndex: 10 }}
             />
