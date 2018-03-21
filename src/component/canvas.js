@@ -84,13 +84,17 @@ class Ball {
     }
 
     next = () => {
-        if (this.has_interval < 18) {
-            this.x = this.distanceX / 17 + this.x
-            this.y = this.distanceY / 17 + this.y
-        } else {
-            if (this.has_interval % 4 === 0) {
-                this.shaking()
-            }
+        // if (this.has_interval < 18) {
+        //     this.x = this.distanceX / 17 + this.x
+        //     this.y = this.distanceY / 17 + this.y
+        // } else {
+        //     if (this.has_interval % 4 === 0) {
+        //         this.shaking()
+        //     }
+        // }
+
+        if (this.has_interval % 8 === 0) {
+            this.shaking()
         }
 
         this.has_interval = this.has_interval + 1
@@ -98,7 +102,7 @@ class Ball {
 
     draw = context => {
         context.beginPath()
-        context.fillStyle = `#${this.r}6${this.r}`
+        context.fillStyle = `#${this.r}${this.r}${this.r}`
         context.arc(this.x, this.y, this.r, 0, Math.PI * 2)
         context.closePath()
         context.fill()
@@ -107,13 +111,13 @@ class Ball {
 
 export class Canvas extends React.Component {
     componentDidMount() {
-        this.zi = ['T', 'R', 'U', 'M', 'P']
+        this.zi = ['Trump']
         this.drawCanvas()
     }
 
     drawCanvas = () => {
         const context = this.canvas.getContext('2d')
-        const width = 400
+        const width = 1200
         const height = 400
 
         context.clearRect(0, 0, width, height)
@@ -156,6 +160,9 @@ export class Canvas extends React.Component {
             store.push(b)
         })
 
+
+
+        
         const draw = () => {
             store.forEach(ball => {
                 ball.next()
@@ -174,9 +181,9 @@ export class Canvas extends React.Component {
         render()
     }
 
-    handleChange = () => {
-        this.drawCanvas()
-    }
+    // handleChange = () => {
+    //     this.drawCanvas()
+    // }
 
     render() {
         return (
@@ -184,8 +191,8 @@ export class Canvas extends React.Component {
                 onClick={this.handleChange}
                 id="plexus"
                 ref={node => (this.canvas = node)}
-                width={400}
-                height={400}
+                width={1200}
+                height={800}
                 style={{ zIndex: 10 }}
             />
         )
