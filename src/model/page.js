@@ -2,14 +2,19 @@ import MdConvertor from '../utils/utils'
 import { BaseManager } from '../Manager/base'
 import { SiderParser } from '../utils/url-check'
 
+const win = window
 export default {
     namespace: 'page',
     state: {
         html: '',
         docList: [],
-        sideHide: false
+        sideHide: false,
+        cover: window.$trumpDoc.cover
     },
     reducer: {
+        toDocs(state) {
+            return { ...state, cover: false }
+        },
         mapHtml(state, { payload }) {
             return { ...state, html: payload }
         },
@@ -47,8 +52,6 @@ export default {
                 }
                 return d.Get(`${item.url}`)
             })
-
-            
 
             const newDocList = docList.map((item, index) => {
                 const instance = new MdConvertor()

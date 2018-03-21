@@ -8,17 +8,17 @@ class PageContainer extends React.Component {
     shouldComponentUpdate(nextProps) {
         return this.props.html !== nextProps.html
     }
+    componentDidMount(){
+       
+    }
 
     render() {
         const { html } = this.props
         return (
-            <div>
-                <div
-                    className="content-wapper"
-                    dangerouslySetInnerHTML={{ __html: html }}
-                />
-                <Canvas />
-            </div>
+            <div
+                className="content-wapper"
+                dangerouslySetInnerHTML={{ __html: html }}
+            />
         )
     }
 }

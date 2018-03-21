@@ -29,7 +29,7 @@ class Ball {
         this.distanceX = 0
         this.distanceY = 0
         this.r = Math.round(Math.random() * 10)
-        this.opacity = 1
+        this.opacity = 0.4
 
         //到达最大次数的时候，会一直原地抖动
         this.has_interval = 0
@@ -68,10 +68,14 @@ class Ball {
     shaking = () => {
         if (this.isNextShake) {
             const shakeFatorX =
-                Math.random() * 5 * ( Math.round( (Math.random() * 10) )% 2 === 0 ? 1 : -1)
+                Math.random() *
+                5 *
+                (Math.round(Math.random() * 10) % 2 === 0 ? 1 : -1)
 
             const shakeFatorY =
-                Math.random() * 5 * (Math.round( (Math.random() * 10) ) % 2 === 0 ? 1 : -1)
+                Math.random() *
+                5 *
+                (Math.round(Math.random() * 10) % 2 === 0 ? 1 : -1)
             for (let i = 0; i < 40; i++) {
                 // console.log()
 
@@ -147,8 +151,8 @@ class Ball {
 
     draw = context => {
         context.beginPath()
-        context.fillStyle = `rgba(${this.r * 20},${this.r * 10},${this.r *
-            10},${this.opacity})`
+        context.fillStyle = `rgba(${this.r },${this.r * 13},${this.r *
+            23},${this.opacity})`
         context.arc(this.x, this.y, this.r, 0, Math.PI * 2)
         context.closePath()
         context.fill()
@@ -186,16 +190,20 @@ const getPoints = (imgData, width) => {
 export class Canvas extends React.Component {
     componentDidMount() {
         this.store = []
-        this.zi = ['Trump']
+        this.zi = [' T       D']
 
         this.ziIndex = -1
         this.firstCopy = []
 
         this.drawCanvas()
 
-        setInterval(() => {
+        this.timer = setInterval(() => {
             this.handleChange()
-        }, 4000)
+        }, 5000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer)
     }
 
     getZi = () => {
@@ -205,8 +213,8 @@ export class Canvas extends React.Component {
 
     drawCanvas = () => {
         const context = this.canvas.getContext('2d')
-        const width = 1200
-        const height = 400
+        const width = this.canvas.width
+        const height = this.canvas.height
         const store = this.store
 
         context.clearRect(0, 0, width, height)
@@ -261,7 +269,7 @@ export class Canvas extends React.Component {
         }
 
         const draw = () => {
-            store.forEach((ball,index) => {
+            store.forEach((ball, index) => {
                 ball.next()
                 ball.draw(context)
             })
@@ -283,8 +291,8 @@ export class Canvas extends React.Component {
 
     FlashCanvas = () => {
         const context = this.canvas.getContext('2d')
-        const width = 1200
-        const height = 1200
+        const width = this.canvas.width
+        const height = this.canvas.height
         const store = this.store
 
         //clear
@@ -294,8 +302,8 @@ export class Canvas extends React.Component {
             //how many points we need to add
             if (this.ziIndex % 2 === 0) {
                 store.forEach(({ x, y }, index) => {
-                    const rx = Math.random() * 400 * (index % 2 === 0 ? -1 : 1)
-                    const ry = Math.random() * 200 * (index % 2 === 0 ? -1 : 1)
+                    const rx = Math.random() * 600 * (index % 2 === 0 ? -1 : 1)
+                    const ry = Math.random() * 400 * (index % 2 === 0 ? -1 : 1)
                     const b = store[index]
                     b.setDes(x + rx, y + ry)
                 })
@@ -309,20 +317,19 @@ export class Canvas extends React.Component {
     }
 
     handleChange = () => {
-       
         this.FlashCanvas()
         this.ziIndex++
     }
 
     render() {
         return (
+
             <canvas
-                onClick={this.handleChange}
+                // onClick={this.handleChange}
                 id="plexus"
                 ref={node => (this.canvas = node)}
-                width={1000}
-                height={400}
-                style={{ zIndex: 10 }}
+                width={1600}
+                height={900}
             />
         )
     }
