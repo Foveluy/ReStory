@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './index.css'
+import { Canvas } from '../component/canvas'
 
 class PageContainer extends React.Component {
     shouldComponentUpdate(nextProps) {
@@ -11,10 +12,13 @@ class PageContainer extends React.Component {
     render() {
         const { html } = this.props
         return (
-            <div
-                className="content-wapper"
-                dangerouslySetInnerHTML={{ __html: html }}
-            />
+            <div>
+                <div
+                    className="content-wapper"
+                    dangerouslySetInnerHTML={{ __html: html }}
+                />
+                <Canvas />
+            </div>
         )
     }
 }

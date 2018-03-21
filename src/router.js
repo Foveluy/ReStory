@@ -93,6 +93,7 @@ class App extends React.Component {
                                 }
                                 onClick={this.toggle}
                             />
+                           
                         </Header>
                         <Content
                             style={{

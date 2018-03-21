@@ -37,6 +37,7 @@ export default {
         *fetchDocList({ put, call, fork }, { payload }) {
             const d = new BaseManager()
             const md = yield d.Get('leftSider.md')
+            console.log(md)
             const docList = SiderParser(md)
 
             const rawTexts = yield docList.map(item => {
@@ -46,6 +47,8 @@ export default {
                 }
                 return d.Get(`${item.url}`)
             })
+
+            
 
             const newDocList = docList.map((item, index) => {
                 const instance = new MdConvertor()
