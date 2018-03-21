@@ -107,7 +107,7 @@ class App extends React.Component {
                         }}
                     >
                         <div className="root-wapper">
-                            <Route path="home" component={PageRenderer} />
+                            <Route path="/home" component={PageRenderer} />
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>

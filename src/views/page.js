@@ -9,11 +9,12 @@ class PageContainer extends React.Component {
         return this.props.html !== nextProps.html
     }
     componentDidMount(){
-       
+        console.log('渲染')
     }
 
     render() {
         const { html } = this.props
+        console.log(html)
         return (
             <div
                 className="content-wapper"
@@ -24,6 +25,7 @@ class PageContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
+   
     return state.page
 }
 

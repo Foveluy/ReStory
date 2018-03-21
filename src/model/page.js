@@ -16,6 +16,7 @@ export default {
             return { ...state, cover: false }
         },
         mapHtml(state, { payload }) {
+            console.log({html: payload})
             return { ...state, html: payload }
         },
         mapDocList(state, { payload }) {
@@ -69,6 +70,8 @@ export default {
         *renderDocs({ put, call, select }, { payload }) {
             const docList = yield select(state => state.page.docList)
             const item = docList.find(item => item.title === payload)
+
+         
             if (item.headers.length === 0) {
                 if (item.isWebUrl) window.open(item.url)
                 return
