@@ -42,9 +42,7 @@ export default {
         *fetchDocList({ put, call, fork }, { payload }) {
             const d = new BaseManager()
             const md = yield d.Get('leftSider.md')
-            console.log(md)
             const docList = SiderParser(md)
-
             const rawTexts = yield docList.map(item => {
                 if (item.isWebUrl) {
                     //我们必须在这里判断是否是网址
