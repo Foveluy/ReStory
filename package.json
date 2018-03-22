@@ -1,6 +1,6 @@
 {
     "name": "trumpdoc",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "dependencies": {
         "@koa/cors": "^2.2.1",
         "antd": "^3.2.0",
@@ -70,7 +70,7 @@
     "scripts": {
         "start": "node scripts/start.js",
         "build": "rm ./trumpdoc.js && node scripts/build.js && cp ./build/static/js/main.js ./trumpdoc.js && cp ./build/static/css/main.css ./trumpdoc.css ",
-        "publish":"node ./scripts/generate.js && npm publish",
+        "publish": "node ./scripts/generate.js && npm publish",
         "test": "node scripts/test.js --env=jsdom",
         "static": "node ./scripts/static.js&",
         "check": "lsof -i:54321"

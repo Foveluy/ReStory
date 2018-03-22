@@ -198,12 +198,15 @@ export class Canvas extends React.Component {
 
         this.drawCanvas()
 
+        this.isStop = false
+
         this.timer = setInterval(() => {
             this.handleChange()
         }, 5000)
     }
 
     componentWillUnmount() {
+        this.isStop = true
         clearInterval(this.timer)
     }
 
@@ -274,11 +277,10 @@ export class Canvas extends React.Component {
             })
         }
 
-        var drawIndex = 0
-        const render = () => {
-            if (drawIndex > 18) return
-            context.clearRect(0, 0, width, height)
 
+        const render = () => {
+            if (this.isStop) return
+            context.clearRect(0, 0, width, height)
             draw()
 
             // drawIndex++

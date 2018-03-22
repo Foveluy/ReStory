@@ -45,6 +45,7 @@ rl.question('是否要发布？(y/N)', function(answer) {
             JSON.stringify(nextPkg, null, 4),
             'utf-8'
         )
+        process.exit(0)
     }
 
     console.log('取消发布')
