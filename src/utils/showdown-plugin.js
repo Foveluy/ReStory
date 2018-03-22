@@ -1,12 +1,10 @@
-
-
 const decodeHtml = require('html-encoder-decoder').decode,
     showdown = require('showdown'),
-    hljs = require('highlight.js')
-
+    Prism = require('prismjs'),
+    languages = require('prism-languages')
 
 export function showdownHighlight() {
-    return  {
+    return {
         type: 'output',
         filter(text, converter, options) {
             let left = '<pre><code\\b[^>]*>',
@@ -14,15 +12,16 @@ export function showdownHighlight() {
                 flags = 'g',
                 replacement = (wholeMatch, match, left, right) => {
                     match = decodeHtml(match)
-                    let lang = (left.match(/class=\"([^ \"]+)/) || [])[1]
-                    if (lang) {
+                    let lang = (left.match(/class=\"([^ \"]+)/) || [])[1]// eslint-disable-line 
+
+                    if (languages[lang]) {
                         return (
-                            left + hljs.highlight(lang, match).value + right
+                            left +
+                            Prism.highlight(match, languages[lang]) +
+                            right
                         )
                     } else {
-                        return (
-                            left + hljs.highlightAuto(match).value + right
-                        )
+                        return left + Prism.highlight(match) + right
                     }
                 }
 

@@ -157,6 +157,10 @@ module.exports = {
                             compact: true,
                             plugins: [
                                 [
+                                    'transform-remove-console',
+                                    { exclude: ['error', 'warn'] }
+                                ],
+                                [
                                     'import',
                                     {
                                         libraryName: 'antd',
