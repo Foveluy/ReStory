@@ -9,10 +9,10 @@ import React from 'react'
 var Tween = {
     Expo: {
         easeIn: function(t, b, c, d) {
-            return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b
+            return t === 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b
         },
         easeOut: function(t, b, c, d) {
-            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b
+            return t === d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b
         }
     }
 }
@@ -151,8 +151,9 @@ class Ball {
 
     draw = context => {
         context.beginPath()
-        context.fillStyle = `rgba(${this.r },${this.r * 13},${this.r *
-            23},${this.opacity})`
+        context.fillStyle = `rgba(${this.r},${this.r * 13},${this.r * 23},${
+            this.opacity
+        })`
         context.arc(this.x, this.y, this.r, 0, Math.PI * 2)
         context.closePath()
         context.fill()
@@ -170,7 +171,7 @@ const getPoints = (imgData, width) => {
         y = 0,
         index = 0
     for (var i = 0; i < imgData.length; i += 4 * gap) {
-        if (imgData[i + 3] == 255) {
+        if (imgData[i + 3] === 255) {
             // 塞入此时的坐标
             pos.push({
                 x: x,
@@ -255,8 +256,6 @@ export class Canvas extends React.Component {
             }
         } else {
             //how many points we need to remove
-            const len = store.length - pos.length
-            console.log('清理')
             store.forEach((ball, index) => {
                 if (index >= pos.length) {
                     ball.clearSelf(context)
@@ -302,8 +301,22 @@ export class Canvas extends React.Component {
             //how many points we need to add
             if (this.ziIndex % 2 === 0) {
                 store.forEach(({ x, y }, index) => {
-                    const rx = Math.random() * 600 * (index % 2 === 0 ? -1 : 1)
-                    const ry = Math.random() * 400 * (index % 2 === 0 ? -1 : 1)
+                    let rx = Math.random() * 600
+                    let ry = Math.random() * 600
+                    switch (index % 4) {
+                        case 1:
+                            rx = rx * -1
+                            break
+                        case 2:
+                            ry = ry * -1
+                            break
+                        case 3:
+                            rx = rx * -1
+                            ry = ry * -1
+                            break
+                        default:
+                            break
+                    }
                     const b = store[index]
                     b.setDes(x + rx, y + ry)
                 })
@@ -323,7 +336,6 @@ export class Canvas extends React.Component {
 
     render() {
         return (
-
             <canvas
                 // onClick={this.handleChange}
                 id="plexus"

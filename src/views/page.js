@@ -1,14 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import './index.css'
-import { Canvas } from '../component/canvas'
 
 class PageContainer extends React.Component {
     shouldComponentUpdate(nextProps) {
         return this.props.html !== nextProps.html
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log('渲染')
     }
 
@@ -25,7 +23,6 @@ class PageContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-   
     return state.page
 }
 

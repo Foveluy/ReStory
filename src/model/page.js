@@ -2,7 +2,6 @@ import MdConvertor from '../utils/utils'
 import { BaseManager } from '../Manager/base'
 import { SiderParser } from '../utils/url-check'
 
-const win = window
 export default {
     namespace: 'page',
     state: {
@@ -16,7 +15,7 @@ export default {
             return { ...state, cover: false }
         },
         mapHtml(state, { payload }) {
-            console.log({html: payload})
+            console.log({ html: payload })
             return { ...state, html: payload }
         },
         mapDocList(state, { payload }) {
@@ -71,7 +70,6 @@ export default {
             const docList = yield select(state => state.page.docList)
             const item = docList.find(item => item.title === payload)
 
-         
             if (item.headers.length === 0) {
                 if (item.isWebUrl) window.open(item.url)
                 return

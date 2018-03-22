@@ -29,13 +29,16 @@ class Cover extends React.Component {
                     </h1>
                     <div>
                         <p className="cover-li">
-                            😄 Build your documentation site without tear
+                            <span role="img" aria-label="smile">😄</span> Build your documentation
+                            site without tear
                         </p>
                         <p className="cover-li">
-                            👍 Simple and powerful, pure React application
+                            <span role="img" aria-label="good">👍</span> Simple and powerful, pure
+                            React application
                         </p>
                         <p className="cover-li">
-                            😈 Manage your documentation like a president
+                            <span role="img" aria-label="devil">😈</span> Manage your documentation
+                            like a president
                         </p>
                     </div>
                 </div>
@@ -47,7 +50,11 @@ class Cover extends React.Component {
                     >
                         Github
                     </Button>
-                    <Button type="ghost"  className="button-block" onClick={this.handleDocs}>
+                    <Button
+                        type="ghost"
+                        className="button-block"
+                        onClick={this.handleDocs}
+                    >
                         <Link to="home"> Docs</Link>
                     </Button>
                 </div>
