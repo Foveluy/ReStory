@@ -5,7 +5,7 @@ const win = window
 
 export class BaseManager {
     constructor() {
-        this.call = call
+        this.call = call //for saga
 
         if (!win['$trumpDoc']) {
             win['$trumpDoc'] = {}
@@ -17,47 +17,26 @@ export class BaseManager {
         this.domain =
             process.env.NODE_ENV === 'production'
                 ? `https://${this.user}.github.io/${this.repo}/`
-                : `https://${this.user}.github.io/${this.repo}/`
-        this.token = localStorage.getItem('token')
+                : `http://127.0.0.1:54321/`
     }
 
-    loginFail(status) {
-        if (status === 401) {
-            message.error('登陆失效，请重新登陆')
-            localStorage.removeItem('token')
-            setTimeout(() => {
-                window.location.href = '/login'
-            }, 2000)
-        }
-    }
+    isDev = () => {
+        if (process.env.NODE_ENV === 'production') return false
+        return true
+    };
 
     *Get(url) {
         try {
-            const res = yield this.call(fetch, this.domain + url, {
+            const option = {
                 method: 'GET'
-            })
-            this.loginFail(res.status)
+            }
+
+            const res = yield this.call(fetch, this.domain + url, option)
 
             const buffer = yield res.arrayBuffer()
+            console.log(res)
             const string = new TextDecoder('utf-8').decode(buffer)
             return string
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    *delete(url, body) {
-        try {
-            const res = yield this.call(fetch, this.domain + url, {
-                method: 'DELETE',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'token ' + this.token
-                }
-            })
-            this.loginFail(res.status)
-            const json = yield res.json()
-            return json
         } catch (e) {
             console.log(e)
         }
@@ -71,23 +50,6 @@ export class BaseManager {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: 'token ' + this.token
-                }
-            })
-            this.loginFail(res.status)
-            const json = yield res.json()
-            return json
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    *fetchNoHeader(url, body) {
-        try {
-            const res = yield this.call(fetch, this.domain + url, {
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             })
             this.loginFail(res.status)

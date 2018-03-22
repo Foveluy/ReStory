@@ -1,7 +1,8 @@
 {
     "name": "trumpdoc",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "dependencies": {
+        "@koa/cors": "^2.2.1",
         "antd": "^3.2.0",
         "autoprefixer": "7.1.6",
         "babel-core": "6.26.0",
@@ -18,6 +19,7 @@
         "dotenv": "4.0.0",
         "dotenv-expand": "4.0.1",
         "dragact": "^0.1.8",
+        "ejs": "^2.5.7",
         "eslint": "4.10.0",
         "eslint-config-react-app": "^2.1.0",
         "eslint-loader": "1.9.0",
@@ -31,6 +33,8 @@
         "highlightjs": "^9.10.0",
         "html-webpack-plugin": "2.29.0",
         "jest": "20.0.4",
+        "koa": "^2.5.0",
+        "koa-static": "^4.0.2",
         "less": "^2.7.3",
         "less-loader": "^4.0.5",
         "loader-utils": "^1.1.0",
@@ -65,8 +69,10 @@
     },
     "scripts": {
         "start": "node scripts/start.js",
-        "build": "rm ./trumpdoc.js && node scripts/build.js && cp ./build/static/js/main.js ./trumpdoc.js",
-        "test": "node scripts/test.js --env=jsdom"
+        "build": "rm ./trumpdoc.js && node scripts/build.js && cp ./build/static/js/main.js ./trumpdoc.js && cp ./build/static/css/main.css ./trumpdoc.css ",
+        "test": "node scripts/test.js --env=jsdom",
+        "static": "node ./scripts/static.js&",
+        "check": "lsof -i:54321"
     },
     "jest": {
         "collectCoverageFrom": [

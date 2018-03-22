@@ -1,6 +1,7 @@
 import MdConvertor from '../utils/utils'
 import { BaseManager } from '../Manager/base'
 import { SiderParser } from '../utils/url-check'
+import { MarkdownManager } from '../Manager/md-manager'
 
 export default {
     namespace: 'page',
@@ -40,36 +41,42 @@ export default {
             })
         },
         *fetchDocList({ put, call, fork }, { payload }) {
-            const d = new BaseManager()
-            const md = yield d.Get('leftSider.md')
-            const docList = SiderParser(md)
-            const rawTexts = yield docList.map(item => {
-                if (item.isWebUrl) {
-                    //我们必须在这里判断是否是网址
-                    return item.url
-                }
-                return d.Get(`${item.url}`)
-            })
+            const mdmanager = new MarkdownManager()
+            const rawTexts = yield mdmanager.getMardownList()
 
-            const newDocList = docList.map((item, index) => {
+            const newDocList = rawTexts.map((item, index) => {
                 const instance = new MdConvertor()
                 const convertor = instance.init()
-                const md = convertor.makeHtml(rawTexts[index])
-
-                return { ...item, mdText: md, headers: instance.header }
+                const md = item.isWebUrl
+                    ? item.rawMarkdown
+                    : convertor.makeHtml(item.rawMarkdown)
+                return {
+                    isWebUrl: item.isWebUrl,
+                    title: item.title,
+                    mdText: md,
+                    headers: instance.header
+                }
             })
 
             yield put({
                 type: 'mapDocList',
                 payload: newDocList
             })
+
+            //maping the first artcle in the list to page
+            if (newDocList.length > 0) {
+                yield put({
+                    type: 'mapHtml',
+                    payload: newDocList[0].mdText
+                })
+            }
         },
         *renderDocs({ put, call, select }, { payload }) {
             const docList = yield select(state => state.page.docList)
             const item = docList.find(item => item.title === payload)
 
             if (item.headers.length === 0) {
-                if (item.isWebUrl) window.open(item.url)
+                if (item.isWebUrl) window.open(item.mdText)
                 return
             }
             yield put({

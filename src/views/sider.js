@@ -50,6 +50,7 @@ class MenuContainer extends React.Component {
                 onOpenChange={this.handleSubMenuClick}
             >
                 {this.props.docList.map((listItem, index) => {
+                    console.log(listItem)
                     return (
                         <SubMenu
                             key={listItem.title}
