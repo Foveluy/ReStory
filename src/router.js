@@ -11,7 +11,10 @@ import Cover from './views/cover/index'
 
 const { Header, Content, Footer, Sider } = Layout
 
-const skin = window.$trumpDoc.skin || 'white'
+const skin = window.$trumpDoc.skin === 'dark' ? '#000c17' : 'white'
+document.body.style.backgroundColor = skin
+const trumpDoc = window.$trumpDoc
+
 
 class App extends React.Component {
     state = {
@@ -91,7 +94,7 @@ class App extends React.Component {
                         marginLeft: this.state.siderCollapsed ? 0 : 200
                     }}
                 >
-                    <Header style={{ background:'black', padding: 0 }}>
+                    <Header style={{ background: skin, padding: 0 }}>
                         <Icon
                             className="trigger"
                             type={
@@ -119,7 +122,7 @@ class App extends React.Component {
                         style={{
                             textAlign: 'center',
                             backgroundColor: skin,
-                            color: 'white'
+                            color: trumpDoc.skin === 'dark' ? 'white' : 'black'
                         }}
                     >
                         ZhiHu@ZhengFang

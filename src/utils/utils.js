@@ -5,6 +5,13 @@ function trim(str) {
     return str.replace(/(^\s*)|(\s*$)/, '')
 }
 
+var fontColor
+if (window.$trumpDoc.skin) {
+    fontColor = window.$trumpDoc.skin === 'dark' ? 'white' : '#000c17'
+} else {
+    fontColor = '#000c17'
+}
+
 export default class MdConvertor {
     constructor() {
         this.header = []
@@ -54,7 +61,7 @@ export default class MdConvertor {
                                     hLevel +
                                     ' id="' +
                                     hText +
-                                    '" style="color: #fafafa; " >' +
+                                    `" style="color:${fontColor} " >` +
                                     hText +
                                     '</h' +
                                     hLevel +
