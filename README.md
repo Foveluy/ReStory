@@ -8,12 +8,8 @@
  
 # Quick start
 
-[快速开始](https://215566435.github.io/TrumpDoc/)
+[Quick start](https://215566435.github.io/TrumpDoc/)
 
-
-open it in browser(>ie9)
-
-done!
 
 # Contributing
 
