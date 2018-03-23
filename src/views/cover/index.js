@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import './index.css'
 
+const coverDetail = window.$trumpDoc.coverDetail
+
+const Gets = s => {
+    return s ? s : null
+}
+
 class Cover extends React.Component {
     handleDocs = () => {
         this.props.dispatch({
@@ -23,23 +29,24 @@ class Cover extends React.Component {
                     <Canvas />
                 </div>
                 <div className="content-block">
-                    <h1 className="cover-title">TrumpDoc</h1>
+                    <h1 className="cover-title">
+                        {Gets(coverDetail && coverDetail.title)}
+                    </h1>
                     <h1 className="cover-sub-title">
-                        Make your documentation great again
+                        {Gets(coverDetail && coverDetail.subTitle)}
                     </h1>
                     <div>
-                        <p className="cover-li">
-                            <span role="img" aria-label="smile">😄</span> Build your documentation
-                            site without tear
-                        </p>
-                        <p className="cover-li">
-                            <span role="img" aria-label="good">👍</span> Simple and powerful, pure
-                            React application
-                        </p>
-                        <p className="cover-li">
-                            <span role="img" aria-label="devil">😈</span> Manage your documentation
-                            like a president
-                        </p>
+                        {coverDetail && coverDetail.list
+                            ? coverDetail.list.map((i, index) => {
+                                  return (
+                                      <p className="cover-li" key={index}>
+                                          <span role="img" aria-label="smile">
+                                              😄
+                                          </span>{' '}
+                                      </p>
+                                  )
+                              })
+                            : null}
                     </div>
                 </div>
                 <div className="button-block">

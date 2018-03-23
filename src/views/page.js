@@ -21,13 +21,7 @@ class PageContainer extends React.Component {
         const { html } = this.props
         console.log(html)
         return (
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    width: '100%'
-                }}
-            >
+            <div className="page-paper-wrapper">
                 <div
                     className="content-wapper"
                     dangerouslySetInnerHTML={{ __html: html }}

@@ -1,6 +1,14 @@
-@media screen and (max-width:800px) {
+@media screen and (max-width:960px) {
     .content-wapper>p>img {
         width: 80%;
+    }
+}
+
+@media screen and (min-width:960px) {
+    .page-paper-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 }
 
