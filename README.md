@@ -1,4 +1,4 @@
-<center># TrumpDoc</center>
+# <center>TrumpDoc</center>
 
 # Features
 - 😄 Suuuupppper easy to build. Do not need any shiz to build.(such as webpack)
