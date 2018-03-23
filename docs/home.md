@@ -1,13 +1,13 @@
-<center># TrumpDoc</center>
+# TrumpDoc
 
-# Features
+## Features
 - 😄 Suuuupppper easy to build. Do not need any shiz to build.(such as webpack)
 - 👍 Simple and powerful, pure React application
 - 😈 Manage your documentation like a president
 - 📄 code-block styles
  
-# Quick start
-```
+## Quick start
+```js
 copy the code to a html file
 
 change the config to your repo
@@ -46,7 +46,7 @@ open it in browser(>ie9)
 
  done!
 
-# Contributing
+## Contributing
 
 1. Fork it!
 2. Create your feature branch: git checkout -b my-new-feature
