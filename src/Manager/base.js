@@ -1,5 +1,5 @@
-import { message } from 'antd'
 import { call } from 'redux-saga/effects'
+import { loadingManager } from '../utils/utils';
 
 const win = window
 
@@ -31,7 +31,9 @@ export class BaseManager {
                 method: 'GET'
             }
 
+            yield loadingManager.show()
             const res = yield this.call(fetch, this.domain + url, option)
+            yield loadingManager.hide()
 
             const buffer = yield res.arrayBuffer()
             console.log(res)

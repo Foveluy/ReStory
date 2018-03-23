@@ -1,7 +1,8 @@
 import MdConvertor from '../utils/utils'
-import { BaseManager } from '../Manager/base'
-import { SiderParser } from '../utils/url-check'
 import { MarkdownManager } from '../Manager/md-manager'
+
+
+
 
 export default {
     namespace: 'page',
@@ -9,9 +10,13 @@ export default {
         html: '',
         docList: [],
         sideHide: false,
-        cover: window.$trumpDoc.cover
+        cover: window.$trumpDoc.cover,
+        isLoading: false
     },
     reducer: {
+        loading(state, { payload }) {
+            return { ...state, isLoading: payload }
+        },
         toDocs(state) {
             return { ...state, cover: false }
         },

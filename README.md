@@ -7,42 +7,9 @@
 - 📄 code-block styles
  
 # Quick start
-```
-copy the code to a html file
 
-change the config to your repo
-```
+[快速开始](https://215566435.github.io/TrumpDoc/)
 
-```js
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0;" name="viewport" />
-    <meta name="theme-color" content="#000000">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <title>TrumpDoc(beta0.0.1)</title>
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.13.0/themes/prism-okaidia.css" rel="stylesheet">
-    <link href="//unpkg.com/trumpdoc@0.1.9/trumpdoc.css" rel="stylesheet">
-</head>
-<body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script type='text/javascript'>
-        window.$trumpDoc = {
-            user: '215566435',
-            repo: 'TrumpDoc',
-            cover: true,
-            repoUrl: 'https://github.com/215566435/TrumpDoc',
-            skin: 'dark'
-        }
-
-    </script>
-    <script src="//unpkg.com/trumpdoc@0.1.9/trumpdoc.js"></script>
-</body>
-</html>
-```
 
 open it in browser(>ie9)
 

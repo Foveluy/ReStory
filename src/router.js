@@ -8,13 +8,13 @@ import { connect } from 'react-redux'
 import SiderRenderer from './views/sider'
 import PageRenderer from './views/page'
 import Cover from './views/cover/index'
+import GlobalLoading from './views/global-spin'
 
 const { Header, Content, Footer, Sider } = Layout
 
 const skin = window.$trumpDoc.skin === 'dark' ? '#000c17' : 'white'
 document.body.style.backgroundColor = skin
 const trumpDoc = window.$trumpDoc
-
 
 class App extends React.Component {
     state = {
@@ -115,6 +115,7 @@ class App extends React.Component {
                             className="root-wapper"
                             style={{ backgroundColor: skin }}
                         >
+                            <GlobalLoading />
                             <Route path="/home" component={PageRenderer} />
                         </div>
                     </Content>

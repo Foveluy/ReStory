@@ -1,5 +1,21 @@
 import showdown from 'showdown'
 import { showdownHighlight } from './showdown-plugin'
+import { put } from 'redux-saga/effects'
+
+export const loadingManager = {
+    *show() {
+        yield put({
+            type: 'loading',
+            payload: true
+        })
+    },
+    *hide() {
+        yield put({
+            type: 'loading',
+            payload: false
+        })
+    }
+}
 
 function trim(str) {
     return str.replace(/(^\s*)|(\s*$)/, '')
@@ -93,7 +109,6 @@ export default class MdConvertor {
                 showdownHighlight()
             ]
         })
-
 
         this.convertor = new showdown.Converter({
             extensions: ['custom-header-id']
