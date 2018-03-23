@@ -41,8 +41,8 @@ class Cover extends React.Component {
                                   return (
                                       <p className="cover-li" key={index}>
                                           <span role="img" aria-label="smile">
-                                              😄
-                                          </span>{' '}
+                                              {i}
+                                          </span>
                                       </p>
                                   )
                               })
