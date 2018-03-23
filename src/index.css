@@ -8,12 +8,14 @@ body {
     height: 32px;
     background: rgba(255, 255, 255, .2);
     margin: 16px;
+    font-size: 20px;
+    color: #fafafa;
+    text-align: center;
 }
 
 @media screen and (min-width:800px) {
     .root-wapper {
         padding: 24px;
-        background: #fff;
         display: flex;
         justify-content: 'center'
     }
@@ -34,7 +36,6 @@ body {
 @media screen and (max-width:800px) {
     .root-wapper {
         padding: 24px;
-        background: #fff;
     }
     .trigger {
         font-size: 30px;

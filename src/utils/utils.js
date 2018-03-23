@@ -54,7 +54,7 @@ export default class MdConvertor {
                                     hLevel +
                                     ' id="' +
                                     hText +
-                                    '">' +
+                                    '" style="color: #fafafa; " >' +
                                     hText +
                                     '</h' +
                                     hLevel +

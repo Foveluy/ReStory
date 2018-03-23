@@ -11,6 +11,8 @@ import Cover from './views/cover/index'
 
 const { Header, Content, Footer, Sider } = Layout
 
+const skin = window.$trumpDoc.skin || 'white'
+
 class App extends React.Component {
     state = {
         siderCollapsed: false
@@ -80,7 +82,7 @@ class App extends React.Component {
                         })
                     }}
                 >
-                    <div className="logo" />
+                    <div className="logo">{window.$trumpDoc.repo}</div>
                     <SiderRenderer />
                 </Sider>
                 <Layout
@@ -89,7 +91,7 @@ class App extends React.Component {
                         marginLeft: this.state.siderCollapsed ? 0 : 200
                     }}
                 >
-                    <Header style={{ background: '#fff', padding: 0 }}>
+                    <Header style={{ background:'black', padding: 0 }}>
                         <Icon
                             className="trigger"
                             type={
@@ -102,15 +104,24 @@ class App extends React.Component {
                     </Header>
                     <Content
                         style={{
-                            margin: '24px 16px 0',
+                            // margin: '24px 16px 0',
                             overflow: 'initial'
                         }}
                     >
-                        <div className="root-wapper">
+                        <div
+                            className="root-wapper"
+                            style={{ backgroundColor: skin }}
+                        >
                             <Route path="/home" component={PageRenderer} />
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>
+                    <Footer
+                        style={{
+                            textAlign: 'center',
+                            backgroundColor: skin,
+                            color: 'white'
+                        }}
+                    >
                         ZhiHu@ZhengFang
                     </Footer>
                 </Layout>

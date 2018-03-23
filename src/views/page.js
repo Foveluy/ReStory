@@ -14,10 +14,13 @@ class PageContainer extends React.Component {
         const { html } = this.props
         console.log(html)
         return (
-            <div
-                className="content-wapper"
-                dangerouslySetInnerHTML={{ __html: html }}
-            />
+            <div style={{ display: 'flex', justifyContent: 'center' ,width:'100%'}}>
+                <div
+                    className="content-wapper"
+                    dangerouslySetInnerHTML={{ __html: html }}
+                    style={{ color: 'white' }}
+                />
+            </div>
         )
     }
 }
