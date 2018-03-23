@@ -6,6 +6,8 @@ import React from 'react'
  ** @licence: MIT licence
  */
 
+const win = window
+
 var Tween = {
     Expo: {
         easeIn: function(t, b, c, d) {
@@ -191,7 +193,11 @@ const getPoints = (imgData, width) => {
 export class Canvas extends React.Component {
     componentDidMount() {
         this.store = []
-        this.zi = [' T       D']
+        this.zi = [
+            win.$trumpDoc.cover.animation
+                ? win.$trumpDoc.cover.animation
+                : ' T       D'
+        ]
 
         this.ziIndex = -1
         this.firstCopy = []
@@ -276,7 +282,6 @@ export class Canvas extends React.Component {
                 ball.draw(context)
             })
         }
-
 
         const render = () => {
             if (this.isStop) return
