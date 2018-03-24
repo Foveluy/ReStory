@@ -21,7 +21,9 @@ export function showdownHighlight() {
                             right
                         )
                     } else {
-                        return left + Prism.highlight(match) + right
+                        console.log(lang)
+                        
+                        return left + Prism.highlight(match,languages['bash']) + right
                     }
                 }
 

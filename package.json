@@ -1,6 +1,6 @@
 {
     "name": "trumpdoc",
-    "version": "0.1.14",
+    "version": "0.1.15",
     "dependencies": {
         "@koa/cors": "^2.2.1",
         "antd": "^3.2.0",

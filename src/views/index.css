@@ -1,6 +1,7 @@
 @media screen and (max-width:960px) {
     .content-wapper>p>img {
         width: 80%;
+        max-width: 700px;
     }
 }
 
@@ -12,6 +13,9 @@
     }
     .content-wapper{
         width: 700px;
+    }
+    .content-wapper>p>img {
+        max-width: 700px;
     }
 }
 

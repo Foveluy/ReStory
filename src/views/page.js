@@ -19,7 +19,6 @@ class PageContainer extends React.Component {
 
     render() {
         const { html } = this.props
-        console.log(html)
         return (
             <div className="page-paper-wrapper">
                 <div

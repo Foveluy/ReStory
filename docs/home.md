@@ -22,9 +22,9 @@ change the config to your repo
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/favicon.ico">
-    <title>TrumpDoc(beta0.0.1)</title>
+    <title>TrumpDoc(beta)</title>
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.13.0/themes/prism-okaidia.css" rel="stylesheet">
-    <link href="//unpkg.com/trumpdoc@0.1.10/trumpdoc.css" rel="stylesheet">
+    <link href="//unpkg.com/trumpdoc@0.1.15/trumpdoc.css" rel="stylesheet">
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,7 +39,7 @@ change the config to your repo
         }
 
     </script>
-    <script src="//unpkg.com/trumpdoc@0.1.10/trumpdoc.js"></script>
+    <script src="//unpkg.com/trumpdoc@0.1.15/trumpdoc.js"></script>
 </body>
 </html>
 ```
