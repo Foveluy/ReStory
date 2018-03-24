@@ -10,6 +10,9 @@
         justify-content: center;
         width: 100%;
     }
+    .content-wapper{
+        width: 700px;
+    }
 }
 
 pre {

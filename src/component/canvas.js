@@ -167,7 +167,7 @@ class Ball {
  * @param {*} imgData
  */
 const getPoints = (imgData, width) => {
-    var gap = 13
+    var gap = 17
     var pos = []
     var x = 0,
         y = 0,
@@ -194,9 +194,9 @@ export class Canvas extends React.Component {
     componentDidMount() {
         this.store = []
         this.zi = [
-            win.$trumpDoc.cover.animation
-                ? win.$trumpDoc.cover.animation
-                : ' T       D'
+            win.$trumpDoc.coverDetail.animation
+                ? win.$trumpDoc.coverDetail.animation
+                : ' F      D'
         ]
 
         this.ziIndex = -1
@@ -275,6 +275,8 @@ export class Canvas extends React.Component {
                 }
             })
         }
+
+
 
         const draw = () => {
             store.forEach((ball, index) => {
