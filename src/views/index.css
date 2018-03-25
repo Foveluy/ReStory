@@ -22,4 +22,11 @@
 pre {
     background-color: #262626;
     padding: 12px;
+    border-radius: 5px;
+}
+
+code{
+    background-color: #262626;
+    padding: 5px;
+    border-radius: 5px;
 }

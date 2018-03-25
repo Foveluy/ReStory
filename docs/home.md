@@ -44,9 +44,9 @@ change the config to your repo
 </html>
 ```
 
-open it in browser(>ie9)
+`open it in browser(>ie9)`
 
- done!
+done!
 
 ## Contributing
 

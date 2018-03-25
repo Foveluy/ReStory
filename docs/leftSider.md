@@ -1,4 +1,4 @@
-* [Homepage](home.md)
-* [Deploy](deploy.md)
+*   [Homepage](home.md)
+*   [Deploy](deploy.md)
 
-* [Github](https://github.com/215566435/TrumpDoc)
+*   [Github](https://github.com/215566435/TrumpDoc)
