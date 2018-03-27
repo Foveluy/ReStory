@@ -39,7 +39,7 @@ change the config to your repo
         }
 
     </script>
-    <script src="//unpkg.com/trumpdoc@0.1.15/trumpdoc.js"></script>
+    <script src="//unpkg.com/trumpdoc@0.1.16/trumpdoc.js"></script>
 </body>
 </html>
 ```
