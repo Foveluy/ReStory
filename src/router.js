@@ -4,6 +4,8 @@ import './index.css'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 import Config from './reactstory.config'
+import { RSMenu, RSSubMenu } from './menu'
+
 const { Header, Content, Footer, Sider } = Layout
 
 const SubMenu = Menu.SubMenu
@@ -18,7 +20,7 @@ export default class App extends React.Component {
       <Layout>
         <Header
           style={{
-            background: '#fff',
+            background: '#20232a',
             width: '100%',
             top: 0,
             position: 'fixed',
@@ -29,7 +31,12 @@ export default class App extends React.Component {
           }}
         >
           <div className="logo" />
-          <Menu onClick={this.handleClick} selectedKeys={['0']} style={{ borderBottom: '0' }} mode="horizontal">
+          <Menu
+            onClick={this.handleClick}
+            selectedKeys={['0']}
+            style={{ borderBottom: '0', background: '#20232a', color: 'white' }}
+            mode="horizontal"
+          >
             {Config.navigation.map((navi, index) => {
               if (navi.dropDown) {
                 return (
@@ -53,19 +60,19 @@ export default class App extends React.Component {
           }}
           width={SiderWidth}
         >
-          <Menu theme="light" mode="inline" style={{ width: SiderWidth }} defaultSelectedKeys={['4']}>
+          <RSMenu title="指南">
             {Config.sider.map((item, index) => {
               const type = item.type
               if (type === 'md') {
                 return (
-                  <SubMenu key={index} title={<span>{item.name}</span>}>
-                    {item.title.map((t, idx) => <Menu.Item key={index + '' + idx}>{t}</Menu.Item>)}
-                  </SubMenu>
+                  <RSMenu.SubMenu key={index} title={<span>{item.name}</span>}>
+                    {item.title.map((t, idx) => <RSMenu.Item key={index + '' + idx}>{t}</RSMenu.Item>)}
+                  </RSMenu.SubMenu>
                 )
               } else if (type === 'dir') {
               }
             })}
-          </Menu>
+          </RSMenu>
         </Sider>
         <Layout style={{ marginLeft: 320, marginTop: 64 }}>
           <Content style={{ overflow: 'initial' }}>

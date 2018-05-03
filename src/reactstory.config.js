@@ -19,7 +19,7 @@ export default {
     }
   ],
   sider: [
-    { type: 'md', name: 'README', title: ['为什么有这个？', '这个优势是什么？'] },
-    { type: 'md', name: 'README', title: ['这是干嘛的？', '快速上手'] }
+    { type: 'md', name: '介绍', title: ['为什么有这个？', '这个优势是什么？'] },
+    { type: 'md', name: '快速上手', title: ['这是干嘛的？', '快速上手'] }
   ]
 }
