@@ -1,15 +1,8 @@
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { message } from 'antd'
 import registerServiceWorker from './registerServiceWorker'
-import { Rluy } from './rluyconfig'
+import App from './router'
 
-Rluy.router(require('./router'))
-
-Rluy.onError(e => {
-    console.log('发生错误', e)
-    message.error('客户端功能未实现或者发生错误')
-})
-
-Rluy.run(document.getElementById('root'))
-
+ReactDOM.render(<App />, document.getElementById('root'))
 registerServiceWorker()

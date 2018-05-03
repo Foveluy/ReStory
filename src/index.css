@@ -6,12 +6,14 @@ body {
 
 .logo {
     height: 32px;
-    background: rgba(255, 255, 255, .2);
+    background: rgba(34, 34, 34, 0.2);
     margin: 16px;
     font-size: 20px;
     color: #fafafa;
+    width: 100px;
     text-align: center;
 }
+
 
 @media screen and (min-width:800px) {
     .root-wapper {
