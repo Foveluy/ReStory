@@ -5,15 +5,7 @@ body {
 }
 
 .logo {
-    height: 32px;
-    background: rgba(34, 34, 34, 0.2);
-    margin: 16px;
     font-size: 20px;
-    color: #fafafa;
-    width: 100px;
-    text-align: center;
-}
-
-.rs-body-markdown-body>pre {
-    background-color: black;
+    color: rgb(40, 44, 52);
+    font-weight: 900;
 }

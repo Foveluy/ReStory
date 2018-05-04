@@ -31,10 +31,11 @@ export default class App extends React.Component {
             borderBottom: Border,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            zIndex: 3
           }}
         >
-          <div className="logo" />
+          <div className="logo">ReactStory</div>
           <RSDropdown onClick={this.handleClick} currentSelectKey="0" mode="horizontal">
             {Config.navigation.map((navi, index) => {
               return <RSDropdown.Item key={index}>{navi.title}</RSDropdown.Item>
