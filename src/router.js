@@ -4,7 +4,11 @@ import './index.css'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 import Config from './reactstory.config'
-import { RSMenu, RSSubMenu } from './menu'
+import { RSMenu } from './menu'
+import { RSDropdown } from './rscomponent/dropdown'
+import TestHello from './test.md'
+import { CodeBlock } from './rscomponent/codeblock'
+import markdown from './rscomponent/markdown'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -20,7 +24,7 @@ export default class App extends React.Component {
       <Layout>
         <Header
           style={{
-            background: '#20232a',
+            background: '#fff',
             width: '100%',
             top: 0,
             position: 'fixed',
@@ -31,23 +35,11 @@ export default class App extends React.Component {
           }}
         >
           <div className="logo" />
-          <Menu
-            onClick={this.handleClick}
-            selectedKeys={['0']}
-            style={{ borderBottom: '0', background: '#20232a', color: 'white' }}
-            mode="horizontal"
-          >
+          <RSDropdown onClick={this.handleClick} currentSelectKey="0" mode="horizontal">
             {Config.navigation.map((navi, index) => {
-              if (navi.dropDown) {
-                return (
-                  <SubMenu key={index} title={<span>{navi.title}</span>}>
-                    {navi.dropDown.map(drop => <Menu.Item key={drop.title}>{drop.title}</Menu.Item>)}
-                  </SubMenu>
-                )
-              }
-              return <Menu.Item key={index}>{navi.title}</Menu.Item>
+              return <RSDropdown.Item key={index}>{navi.title}</RSDropdown.Item>
             })}
-          </Menu>
+          </RSDropdown>
         </Header>
         <Sider
           style={{
@@ -75,21 +67,24 @@ export default class App extends React.Component {
           </RSMenu>
         </Sider>
         <Layout style={{ marginLeft: 320, marginTop: 64 }}>
-          <Content style={{ overflow: 'initial' }}>
-            <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-              ...
-              <br />
-              Really
-              <br />...<br />...<br />...<br />
-              long
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />
-              content
+          <Content
+            style={{
+              overflow: 'initial',
+              display: 'flex',
+              justifyContent: 'center',
+              background: '#fff'
+            }}
+          >
+            <div
+              className="rs-body-markdown-body"
+              style={{
+                padding: 24,
+                background: '#fff',
+                width: '100%',
+                maxWidth: 740
+              }}
+            >
+              <TestHello components={markdown} />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center', background: '#fff' }}>Ant Design ©2016 Created by Ant UED</Footer>

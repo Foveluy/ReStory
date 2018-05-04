@@ -1,10 +1,11 @@
 // @flow
-import React, { ReactElement, cloneElement } from 'react'
+
+import React, { cloneElement } from 'react'
 import './menu.less'
 
 const Menu = ({ children, title }) => {
   return (
-    <ul className="rs-menu">
+    <ul className={`rs-menu`}>
       <p
         style={{
           fontSize: '1.25em',
@@ -29,13 +30,14 @@ Menu.Item = ({ children, style, onClick, className = 'rs-menu rs-menu-item' }) =
   )
 }
 
-class SubMenu extends React.Component<{ title: string | ReactElement }> {
+class SubMenu extends React.Component {
   state = {
     collapse: true,
     currentSelectKey: ''
   }
 
   onClick = (e, key, from) => {
+    e.stopPropagation()
     if (from !== 'from-self') {
       this.setState({
         collapse: !this.state.collapse,

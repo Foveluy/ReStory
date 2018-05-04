@@ -14,39 +14,6 @@ body {
     text-align: center;
 }
 
-
-
-@media screen and (min-width:800px) {
-    .root-wapper {
-        padding: 24px;
-        display: flex;
-        justify-content: 'center'
-    }
-    .trump-layout {
-        margin-left: 200px;
-    }
-    .trigger {
-        font-size: 18px;
-        line-height: 64px;
-        padding: 0 24px;
-        cursor: pointer;
-        transition: color .3s;
-        position: fixed;
-        color: #1890ff;
-    }
-}
-
-@media screen and (max-width:800px) {
-    .root-wapper {
-        padding: 24px;
-    }
-    .trigger {
-        font-size: 30px;
-        line-height: 64px;
-        padding: 0 24px;
-        cursor: pointer;
-        transition: color .3s;
-        position: fixed;
-        color: #1890ff;
-    }
+.rs-body-markdown-body>pre {
+    background-color: black;
 }
