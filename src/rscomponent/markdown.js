@@ -1,7 +1,7 @@
 import React from 'react'
 import { CodeBlock } from './codeblock'
 
-const ListStyle = { marginTop: 30, fontSize: 15, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
+const ListStyle = { marginTop: 30, fontSize: 16, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
 
 export default {
   h1: ({ children }) => {
