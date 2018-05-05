@@ -3,9 +3,18 @@ import { CodeBlock } from './codeblock'
 const ListStyle = { marginTop: 30, fontSize: 16, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
 
 export default PageStatistic => {
+  let currentH1 = ''
+  let h1Idx = 0
+  let h2Idx = 0
+
   return {
     h1: ({ children }) => {
-      PageStatistic[children] = 1
+      currentH1 = children
+      if (!PageStatistic[children]) {
+        PageStatistic[children] = { $rsIndex: h1Idx }
+      }
+      h2Idx = 0
+      h1Idx++
       return (
         <h1
           id={`${children}`}
@@ -16,6 +25,8 @@ export default PageStatistic => {
       )
     },
     h2: ({ children }) => {
+      PageStatistic[currentH1][children] = h2Idx
+      h2Idx++
       return <h2 style={{ borderBottom: '1px solid #eaecef', marginTop: 45, fontSize: '1.65rem' }}>{children}</h2>
     },
     p: ({ children }) => {

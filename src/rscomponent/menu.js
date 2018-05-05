@@ -32,7 +32,7 @@ Menu.Item = ({ children, style, onClick, className = 'rs-menu rs-menu-item' }) =
 
 class SubMenu extends React.Component {
   state = {
-    collapse: true,
+    collapse: false,
     currentSelectKey: ''
   }
 
@@ -63,14 +63,18 @@ class SubMenu extends React.Component {
           <li onClick={this.onClick} className={this.state.collapse ? 'title close' : 'title open'}>
             {title}
           </li>
-          {React.Children.map(children, one =>
-            cloneElement(one, {
-              className:
-                one.key === this.state.currentSelectKey ? 'rs-menu rs-menu-item selected' : 'rs-menu rs-menu-item',
-              style: show,
-              onClick: e => this.onClick(e, one.key, 'from-self')
-            })
-          )}
+          {React.Children.map(children, one => {
+            if (one) {
+              return cloneElement(one, {
+                className:
+                  one.key === this.state.currentSelectKey ? 'rs-menu rs-menu-item selected' : 'rs-menu rs-menu-item',
+                style: show,
+                onClick: e => this.onClick(e, one.key, 'from-self')
+              })
+            } else {
+              return null
+            }
+          })}
         </ul>
       </Menu.Item>
     )

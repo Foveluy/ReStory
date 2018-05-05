@@ -13,6 +13,7 @@ const SiderWidth = 320
 const HeaderHeight = 58
 const Config = window.Config
 const MdxComponent = window.component
+const Level = window.level
 
 export default class App extends React.Component {
   render() {
@@ -46,7 +47,7 @@ export default class App extends React.Component {
             }}
             width={SiderWidth}
           >
-            <SiderBody />
+            <SiderBody level={Level} />
           </Sider>
           <Layout style={{ marginLeft: SiderWidth, marginTop: HeaderHeight }}>
             <Content

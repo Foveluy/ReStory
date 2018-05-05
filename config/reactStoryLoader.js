@@ -28,7 +28,7 @@ module.exports = function(source, map, meta) {
   const originCode = FormatCodeToString({
     navi: selector.map(f => f.navi)
   })
-  let imString = ''
+  let imString = 'window.level = 2;'
   selector.forEach(i => {
     imString += `import ${i.navi} from '${resolve(navi, i.filename)}';\n`
   })

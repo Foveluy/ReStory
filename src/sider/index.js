@@ -6,15 +6,24 @@ import { Listener } from '../react-rectx'
 @Listener({ r: RoutingController })
 export default class S extends React.Component {
   render() {
-    const { r } = this.props
+    const { r, level } = this.props
     const { n } = r.state
     return (
       <RSMenu title="指南">
-        <RSMenu.SubMenu title="思辨">
-          {Object.keys(n).map(key => {
-            return <RSMenu.Item key={key}>{key}</RSMenu.Item>
-          })}
-        </RSMenu.SubMenu>
+        {n.map(h => {
+          const h1 = h[0]
+          const h2 = h[1] //array
+          return (
+            <RSMenu.SubMenu key={h1} title={h1}>
+              {h2 === 'none'
+                ? null
+                : h2.map(key => {
+                    if (key) return <RSMenu.Item key={key}>{key}</RSMenu.Item>
+                    return null
+                  })}
+            </RSMenu.SubMenu>
+          )
+        })}
       </RSMenu>
     )
   }
