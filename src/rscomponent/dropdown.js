@@ -31,8 +31,15 @@ class Dropdown extends Component {
 }
 
 Dropdown.Item = ({ children, className, onClick }) => {
+  const clsName = `rs-dropdown-item ${className}`
   const child =
-    typeof children === 'string' ? <span className={`rs-dropdown-item ${className}`}>{children}</span> : children
+    typeof children === 'string' ? (
+      <span className={clsName}>{children}</span>
+    ) : (
+      <div>
+        <span className={clsName}>{children}</span>
+      </div>
+    )
 
   return <div onClick={onClick}>{child}</div>
 }

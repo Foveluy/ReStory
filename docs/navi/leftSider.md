@@ -2,12 +2,37 @@
 
 ## 这里是一块代码
 
-The next few sections will gradually introduce you to using React. We will examine the building blocks of React apps: elements and components. Once you master them, you can create complex apps from small reusable pieces.
-
-The next few sections will gradually introduce you to using React. We will examine the building blocks of React apps: elements and components. Once you master them, you can create complex apps from small reusable pieces.
+```js
+/**
+ * 用户输入地址 ---> 解析地址下的md文件
+ *                       |
+ *                       |
+ *                       v
+ *                  生成顶部导航栏
+ *                       |
+ *                       |
+ *                  是否渲染首页
+ *                       |
+ *        yes            |
+ * render index page  <--|
+ *                       |no
+ *                       v
+ *                  渲染导航栏第一个
+ *                       |
+ *                       |     导航栏按钮是个文件夹
+ *                    生成Sider -------> 依照 .md 名字渲染 SubMenu
+ *                       |
+ *                       |
+ *                       v
+ *     根据用户设定 level 提取 .md 中的 header，渲染到sider
+ *
+ */
+```
 
 ```js
-const i = 123
+export default {
+  navi: ['2', '3', '4', '5']
+}
 ```
 
 ## Why JSX?
@@ -47,3 +72,6 @@ With that out of the way, let’s get started!
 
 Under@MIT
 
+# 协议
+
+# 着是什么

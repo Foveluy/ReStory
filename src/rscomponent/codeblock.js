@@ -10,18 +10,7 @@ export const CodeBlock = ({ children, className }) => {
 
   return (
     <div className="rs-code-block">
-      <div
-        style={{
-          position: 'absolute',
-          right: 5,
-          top: 5,
-          fontSize: '0.15em',
-          color: 'hsla(0,0%,100%,.4)',
-          userSelect: 'none'
-        }}
-      >
-        {i.replace('language-', '')}
-      </div>
+      <div className="lang">{i.replace('language-', '')}</div>
       <code className={i}>{children}</code>
     </div>
   )

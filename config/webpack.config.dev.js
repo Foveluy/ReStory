@@ -91,7 +91,7 @@ module.exports = {
       // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+      // new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
     ]
   },
   module: {
@@ -100,9 +100,12 @@ module.exports = {
       // TODO: Disable require.ensure as it's not a standard language feature.
       // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
       // { parser: { requireEnsure: false } },
-
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
+      {
+        test: /router.js/,
+        use: ['babel-loader', path.resolve('./config/reactStoryLoader.js')]
+      },
       {
         test: /\.(js|jsx|mjs)$/,
         enforce: 'pre',
@@ -144,6 +147,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               plugins: [
+                'transform-decorators-legacy',
                 [
                   'import',
                   {
