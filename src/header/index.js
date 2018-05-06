@@ -28,6 +28,9 @@ export default class Header extends React.Component {
       <React.Fragment>
         <div className="logo">ReactStory</div>
         <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" style={{ borderBottomWidth: 0 }}>
+          <Menu.Item>
+            <Link to={'/'}>README</Link>
+          </Menu.Item>
           {navi.map((nav, index) => {
             return (
               <Menu.Item key={nav} value={nav}>

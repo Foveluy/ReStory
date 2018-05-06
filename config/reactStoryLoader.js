@@ -8,6 +8,9 @@ const FormatCodeToString = obj => {
 
 module.exports = function(source, map, meta) {
   const docsPath = resolve(process.argv[2])
+
+  this.addContextDependency(docsPath)
+
   const navi = join(docsPath, 'navi')
 
   const md = fs.readdirSync(navi)
@@ -25,19 +28,26 @@ module.exports = function(source, map, meta) {
       }
     })
 
+  //
   const originCode = FormatCodeToString({
     navi: selector.map(f => f.navi)
   })
+
   let imString = 'window.level = 2;\n'
+
+  // first step is getting the README.md
+  imString += `import README from '${join(docsPath, 'README.md')}';\n`
+
   selector.forEach(i => {
     imString += `import ${i.navi} from '${resolve(navi, i.filename)}';\n`
   })
 
   imString += 'window.component ={};\n'
+  // setup README
+  imString += `window.README = README;\n`
   selector.forEach(i => {
     imString += `window.component["${i.navi}"]=${i.navi};\n`
   })
-
 
   this.callback(null, originCode + ';\n' + imString + source, map, meta)
   return // always return undefined when calling callback()

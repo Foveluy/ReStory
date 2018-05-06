@@ -13,10 +13,10 @@ const SiderWidth = 320
 const HeaderHeight = 58
 const Config = window.Config
 const MdxComponent = window.component
+const READMEMDX = window.README
 const Level = window.level
 
 const HeaderWithRouter = withRouter(HeaderBody)
-
 
 export default class App extends React.Component {
   render() {
@@ -61,7 +61,7 @@ export default class App extends React.Component {
                 background: '#fff'
               }}
             >
-              <ContentBody component={MdxComponent} />
+              <ContentBody component={MdxComponent} readme={READMEMDX} />
             </Content>
             <Footer style={{ textAlign: 'center', background: '#fff' }}>ReactStory ©2018 Created by ZhengFang</Footer>
           </Layout>

@@ -19,7 +19,7 @@ class MDXLoader extends React.Component {
   }
 }
 
-export default ({ component }) => {
+export default ({ component, readme }) => {
   return (
     <div
       className="rs-body-markdown-body"
@@ -30,6 +30,7 @@ export default ({ component }) => {
         maxWidth: 740
       }}
     >
+      <Route exact path={'/'} component={() => <MDXLoader MDXComponent={readme} />} />
       {Object.keys(component).map((key, idx) => {
         return <Route key={key} path={'/' + key} component={() => <MDXLoader MDXComponent={component[key]} />} />
       })}
