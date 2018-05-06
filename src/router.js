@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from 'antd'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
@@ -14,6 +14,8 @@ const HeaderHeight = 58
 const Config = window.Config
 const MdxComponent = window.component
 const Level = window.level
+
+const HeaderWithRouter = withRouter(HeaderBody)
 
 export default class App extends React.Component {
   render() {
@@ -34,7 +36,7 @@ export default class App extends React.Component {
               height: HeaderHeight
             }}
           >
-            <HeaderBody navi={Config.navi} />
+            <HeaderWithRouter navi={Config.navi} />
           </Header>
           <Sider
             style={{
@@ -49,7 +51,7 @@ export default class App extends React.Component {
           >
             <SiderBody level={Level} />
           </Sider>
-          <Layout style={{ marginLeft: SiderWidth}}>
+          <Layout style={{ marginLeft: SiderWidth }}>
             <Content
               style={{
                 overflow: 'initial',

@@ -7,6 +7,11 @@ class Dropdown extends Component {
   state = {
     currentSelectKey: ''
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      currentSelectKey: nextProps.currentSelectKey
+    })
+  }
 
   onClick = (e, key, value) => {
     this.props.onClick && this.props.onClick({ event: e, key, value })
