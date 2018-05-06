@@ -22,10 +22,10 @@
  *                       |     导航栏按钮是个文件夹
  *                    生成Sider -------> 依照 .md 名字渲染 SubMenu
  *                       |
- *                       |
+ *                       |不是文件夹
  *                       v
- *     根据用户设定 level 提取 .md 中的 header，渲染到sider
- *
+ *     根据用户设定 level 提取 .md 中的 header，渲染到sider---->header 自动展开
+ * 
  */
 ```
 

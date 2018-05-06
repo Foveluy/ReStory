@@ -2,11 +2,16 @@ import { Controller } from 'rectx'
 
 export class RoutingController extends Controller {
   state = {
-    n: []
+    n: [],
+    currentSiderHead: ''
+  }
+  switchNavigation(siderHead) {
+    this.setState(draft => {
+      draft.currentSiderHead = siderHead
+    })
   }
 
   load(header) {
-
     // what we do here is to conver {} -> []
     // to make sure every title in order
     // we have to sort them by order-number

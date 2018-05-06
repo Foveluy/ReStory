@@ -8,8 +8,8 @@ class Dropdown extends Component {
     currentSelectKey: ''
   }
 
-  onClick = (e, key) => {
-    console.log(key)
+  onClick = (e, key, value) => {
+    this.props.onClick && this.props.onClick({ event: e, key, value })
     this.setState({
       currentSelectKey: key + ''
     })
@@ -22,7 +22,7 @@ class Dropdown extends Component {
         {React.Children.map(children, one =>
           cloneElement(one, {
             className: one.key === this.state.currentSelectKey ? 'selected' : '',
-            onClick: e => this.onClick(e, one.key)
+            onClick: e => this.onClick(e, one.key, one.props.value)
           })
         )}
       </div>

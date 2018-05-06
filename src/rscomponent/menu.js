@@ -37,9 +37,12 @@ class SubMenu extends React.Component {
 
   onClick = (e, key, from) => {
     e.stopPropagation()
-    if (from !== 'from-self') {
+    this.props.onClick && this.props.onClick(e, key, from)
+    // from-SubMenu means mene-item is wrapping
+    // in a submeue
+    if (from !== 'from-SubMenu') {
       this.setState({
-        collapse: !this.state.collapse,
+        // collapse: !this.state.collapse,
         currentSelectKey: ''
       })
     } else {
@@ -68,7 +71,7 @@ class SubMenu extends React.Component {
                 className:
                   one.key === this.state.currentSelectKey ? 'rs-menu rs-menu-item selected' : 'rs-menu rs-menu-item',
                 style: show,
-                onClick: e => this.onClick(e, one.key, 'from-self')
+                onClick: e => this.onClick(e, one.key, 'from-SubMenu')
               })
             } else {
               return null

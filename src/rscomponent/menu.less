@@ -8,10 +8,13 @@
     font-weight: 400;
     padding: .35rem 0rem .35rem 1.35rem;
     font-size: 15px;
-  
 }
 
 .rs-menu.rs-menu-item {
+    &:hover>* {
+        color: @color;
+        cursor: pointer;
+    }
     padding: .35rem 0rem .35rem 1.35rem;
 }
 
@@ -23,21 +26,16 @@
     color: rgb(26, 26, 26);
     font-weight: 400;
     padding: 0;
-    :hover {
-        color: @color;
-        cursor: pointer;
-    }
     .title {
         transition: all 0.3s;
         font-size: 15px;
     }
-    .title.open {
-        border-right: .25rem solid @color;
-        color: @color;
-        font-weight: 600;
-    }
-
-    .rs-menu.rs-menu-item.selected {
+    // .title.open {
+    //     border-right: .25rem solid @color;
+    //     color: @color;
+    //     font-weight: 600;
+    // }
+    .rs-menu.rs-menu-item.selected>* {
         color: @color;
     }
 }
