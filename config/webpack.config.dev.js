@@ -147,6 +147,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               plugins: [
+                'react-hot-loader/babel',
                 'transform-decorators-legacy',
                 [
                   'import',

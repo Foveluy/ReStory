@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom'
 import registerServiceWorker from './registerServiceWorker'
 import App from './router'
 import { Provider } from 'rectx'
+import { hot } from 'react-hot-loader'
 
-ReactDOM.render(
+const A = () => (
   <Provider>
     <App />
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 )
-registerServiceWorker()
 
+const H = hot(module)(A)
+
+ReactDOM.render(<H />, document.getElementById('root'))
+registerServiceWorker()
