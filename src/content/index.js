@@ -3,6 +3,9 @@ import { Route } from 'react-router-dom'
 import markdown from '../rscomponent/markdown'
 import { RoutingController } from '../controller/state'
 import { Listener } from '../react-rectx'
+import P from './p.md'
+
+let i;
 
 @Listener({ r: RoutingController })
 class MDXLoader extends React.Component {
@@ -11,6 +14,7 @@ class MDXLoader extends React.Component {
   componentDidMount() {
     const { r } = this.props
     r.load(this.sider)
+    i = r
   }
 
   render() {
@@ -30,10 +34,20 @@ export default ({ component, readme }) => {
         maxWidth: 740
       }}
     >
-      <Route exact path={'/'} component={() => <MDXLoader MDXComponent={readme} />} />
+      <Route exact path={'/'} component={() => <MDXLoader MDXComponent={P} />} />
       {Object.keys(component).map((key, idx) => {
         return <Route key={key} path={'/' + key} component={() => <MDXLoader MDXComponent={component[key]} />} />
       })}
     </div>
   )
+}
+
+if (module.hot) {
+  console.log('hot')
+  module.hot.accept('./p.md', function() {
+    // Do something with the updated library module...
+    i.load()
+    
+    console.log(i.setState)
+  })
 }
