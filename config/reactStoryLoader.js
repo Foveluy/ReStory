@@ -18,17 +18,35 @@ module.exports = function(source, map, meta) {
 
   let selector = md
     .filter(f => {
+      if (fs.statSync(resolve(navi, f)).isDirectory()) {
+        // if is a dir
+        return f
+      }
+
       if (/\.md$/.test(f)) {
+        //if is a .md file
         return f
       }
     })
     .map(f => {
-      return {
-        filename: f,
-        navi: f.replace('.md', '')
+      if (fs.statSync(resolve(navi, f)).isDirectory()) {
+        const mdInside = fs.readdirSync(resolve(navi, f))
+        console.log('mdInside-->', mdInside)
+        return mdInside.map(f => {
+          if (/\.md$/.test(f)) {
+            //if is a .md file
+            return f
+          }
+        })
+      } else {
+        return {
+          filename: f,
+          navi: f.replace('.md', '')
+        }
       }
     })
 
+  console.log(selector)
   //
   const originCode = FormatCodeToString({
     navi: selector.map(f => f.navi)
