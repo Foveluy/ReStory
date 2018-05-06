@@ -10,17 +10,18 @@ export default class S extends React.Component {
     const { n } = r.state
     return (
       <RSMenu title="指南">
-        {n.map(h => {
+        {n.map((h, index) => {
           const h1 = h[0]
           const h2 = h[1] //array
+          if (h2 === 'none') {
+            return <RSMenu.Item key={index}>{h1}</RSMenu.Item>
+          }
           return (
             <RSMenu.SubMenu key={h1} title={h1}>
-              {h2 === 'none'
-                ? null
-                : h2.map(key => {
-                    if (key) return <RSMenu.Item key={key}>{key}</RSMenu.Item>
-                    return null
-                  })}
+              {h2.map(key => {
+                if (key) return <RSMenu.Item key={key}>{key}</RSMenu.Item>
+                return null
+              })}
             </RSMenu.SubMenu>
           )
         })}

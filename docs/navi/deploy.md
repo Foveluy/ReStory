@@ -6,11 +6,11 @@ Dragact 是一款 React 组件，他能够使你简单、快速的构建出一�
 
 ![](https://github.com/215566435/Dragact/blob/master/static/image/dashboard.gif?raw=true)
 
-# Demo 地址 ✌️
+## Demo 地址 ✌️
 
 [Live Demo(预览地址)](http://htmlpreview.github.io/?https://github.com/215566435/React-dragger-layout/blob/master/build/index.html)
 
-# 特点
+## 特点
 
 * [x] 自动布局的网格系统
 * [x] 手机上也可以操作
@@ -22,18 +22,18 @@ Dragact 是一款 React 组件，他能够使你简单、快速的构建出一�
 * [x] 自定义缩放把手
 * [x] 响应式布局
 
-# 快速开始
+## 快速开始
 
 ```bash
 npm install --save dragact
 ```
 
-### 最简单的例子 🌰
+## 最简单的例子 🌰
 
 ```javascript
 ```
 
-# 组件设计哲学
+## 组件设计哲学
 
 ### 1.依赖注入式的挂件(widget)
 
@@ -137,7 +137,7 @@ npm install --save dragact
 
 可以看到组件插入速度的明显的变化。
 
-# Dragact 提供的属性
+## Dragact 提供的属性
 
 ### 数据属性
 
@@ -226,7 +226,7 @@ export interface DragactProps {
 }
 ```
 
-# Ref Api
+## Ref Api
 
 获取到组件的 ref，就可以使用其 api
 
@@ -237,7 +237,7 @@ export interface DragactProps {
 getLayout():DragactLayout;
 ```
 
-# 测试
+## 测试
 
 ```bash
 git clone https://github.com/215566435/Dragact.git
@@ -246,7 +246,7 @@ npm install
 npm run test
 ```
 
-# 贡献
+## 贡献
 
 ### 想要一个新的特色、功能？
 
@@ -257,6 +257,6 @@ npm run test
 
 如果你发现了本项目的 Bug，请务必马上告诉我。添加一个 issue，并且帮忙给出最最简单重现的例子，这能让我快速定位到 Bug 帮你解决，谢谢！
 
-# LICENSE
+## LICENSE
 
 MIT

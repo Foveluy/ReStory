@@ -10,7 +10,6 @@ const Menu = ({ children, title }) => {
         style={{
           fontSize: '1.25em',
           fontWeight: 'bold',
-          paddingLeft: '1.5rem',
           marginTop: '.5rem',
           marginBottom: '.5rem'
         }}

@@ -49,7 +49,7 @@ export default class App extends React.Component {
           >
             <SiderBody level={Level} />
           </Sider>
-          <Layout style={{ marginLeft: SiderWidth, marginTop: HeaderHeight }}>
+          <Layout style={{ marginLeft: SiderWidth}}>
             <Content
               style={{
                 overflow: 'initial',
@@ -67,21 +67,3 @@ export default class App extends React.Component {
     )
   }
 }
-
-/**
- * 用户输入地址 ---> 解析地址下的md文件
- *                       |
- *                       |
- *                       v
- *                  生成顶部导航栏
- *                       |
- *                       |
- *                  是否渲染首页
- *                       |
- *        yes            |
- *   render index page<--|
- *                       |no
- *                       v
- *                  渲染导航栏第一个---->生成Sider
- *
- */

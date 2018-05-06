@@ -1,6 +1,14 @@
 import React from 'react'
 import { CodeBlock } from './codeblock'
+import './markdown.less'
+
 const ListStyle = { marginTop: 30, fontSize: 16, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
+
+const Hash = ({ url }) => (
+  <a href={`#${url}`} style={{ marginLeft: '-.87em', float: 'left', fontSize: '.85em', marginTop: '.1em' }}>
+    #
+  </a>
+)
 
 export default PageStatistic => {
   let currentH1 = ''
@@ -18,8 +26,9 @@ export default PageStatistic => {
       return (
         <h1
           id={`${children}`}
-          style={{ color: 'rgb(40, 44, 52)', lineHeight: '65px', fontWeight: '700', fontSize: 45 }}
+          style={{ color: 'rgb(40, 44, 52)', lineHeight: '65px', fontWeight: '700', fontSize: 45, paddingTop: 58 }}
         >
+          <Hash url={children} />
           {children}
         </h1>
       )
@@ -27,7 +36,23 @@ export default PageStatistic => {
     h2: ({ children }) => {
       PageStatistic[currentH1][children] = h2Idx
       h2Idx++
-      return <h2 style={{ borderBottom: '1px solid #eaecef', marginTop: 45, fontSize: '1.65rem' }}>{children}</h2>
+      return (
+        <h2
+          id={`${children}`}
+          style={{ borderBottom: '1px solid #eaecef', paddingTop: 58, marginTop: '-3.1rem', fontSize: '1.65rem' }}
+        >
+          <Hash url={children} />
+          {children}
+        </h2>
+      )
+    },
+    h3: ({ children }) => {
+      return (
+        <h3 id={`${children}`} style={{ paddingTop: '4.6rem', marginTop: '-3.1rem' }}>
+          <Hash url={children} />
+          {children}
+        </h3>
+      )
     },
     p: ({ children }) => {
       return <p style={ListStyle}>{children}</p>

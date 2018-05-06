@@ -7,7 +7,7 @@ export class RoutingController extends Controller {
 
   load(header) {
 
-    // what we do here is to conver {} => []
+    // what we do here is to conver {} -> []
     // to make sure every title in order
     // we have to sort them by order-number
     const keys = Object.keys(header)
