@@ -75,9 +75,6 @@ export default PageStatistic => {
         className.forEach((n, index) => {
           i += n
         })
-
-      console.log(i)
-
       return (
         <div className="rs-code-block">
           <div className="lang">{i.replace('language-', '')}</div>
