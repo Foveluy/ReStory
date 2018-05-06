@@ -28,7 +28,7 @@ module.exports = function(source, map, meta) {
   const originCode = FormatCodeToString({
     navi: selector.map(f => f.navi)
   })
-  let imString = 'window.level = 2;'
+  let imString = 'window.level = 2;\n'
   selector.forEach(i => {
     imString += `import ${i.navi} from '${resolve(navi, i.filename)}';\n`
   })
@@ -37,6 +37,7 @@ module.exports = function(source, map, meta) {
   selector.forEach(i => {
     imString += `window.component["${i.navi}"]=${i.navi};\n`
   })
+
 
   this.callback(null, originCode + ';\n' + imString + source, map, meta)
   return // always return undefined when calling callback()

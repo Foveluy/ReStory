@@ -1,5 +1,5 @@
 import React from 'react'
-import { RSDropdown } from '../rscomponent/dropdown'
+import { Menu } from 'antd'
 import { Link } from 'react-router-dom'
 import { Listener } from '../react-rectx'
 import { RoutingController } from '../controller/state'
@@ -27,15 +27,15 @@ export default class Header extends React.Component {
     return (
       <React.Fragment>
         <div className="logo">ReactStory</div>
-        <RSDropdown onClick={this.handleClick} currentSelectKey={current} mode="horizontal">
+        <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" style={{ borderBottomWidth: 0 }}>
           {navi.map((nav, index) => {
             return (
-              <RSDropdown.Item key={nav} value={nav}>
+              <Menu.Item key={nav} value={nav}>
                 <Link to={nav}>{nav}</Link>
-              </RSDropdown.Item>
+              </Menu.Item>
             )
           })}
-        </RSDropdown>
+        </Menu>
       </React.Fragment>
     )
   }

@@ -1,13 +1,13 @@
 import React from 'react'
-import { RSMenu } from '../rscomponent/menu'
+import { Menu } from 'antd'
 import { RoutingController } from '../controller/state'
 import { Listener } from '../react-rectx'
 
 import './index.less'
 
-const MenuLink = ({ children }) => {
+const MenuLink = ({ children, className = '' }) => {
   return (
-    <a className="rs-link" href={`#${children}`}>
+    <a className={`rs-link ${className}`} href={`#${children}`}>
       {children}
     </a>
   )
@@ -18,33 +18,48 @@ export default class S extends React.Component {
   render() {
     const { r, level } = this.props
     const { n, currentSiderHead } = r.state
+    const open = n.map(h => h[0])
+    if (open.length === 0) return null
     return (
-      <RSMenu title={currentSiderHead}>
+      <Menu title={currentSiderHead} mode="inline" openKeys={open} inlineCollapsed={true}>
         {n.map((h, index) => {
           const h1 = h[0]
           const h2 = h[1] //array
-          if (h2 === 'none') {
+
+          if (h2 === 'none' || level === 1) {
+            // `h2 === none` means under the h1, there is no any h2
             return (
-              <RSMenu.Item key={index}>
+              <Menu.Item key={index}>
                 <MenuLink>{h1}</MenuLink>
-              </RSMenu.Item>
+              </Menu.Item>
             )
           }
+          if (h1 === 'no-h1') {
+            return h2.map(key => {
+              if (key)
+                return (
+                  <Menu.Item key={key}>
+                    <MenuLink className="rs-item">{key}</MenuLink>
+                  </Menu.Item>
+                )
+              return null
+            })
+          }
           return (
-            <RSMenu.SubMenu onClick={this.onMenuClick} key={h1} title={<MenuLink>{h1}</MenuLink>}>
+            <Menu.SubMenu key={h1} title={<MenuLink>{h1}</MenuLink>}>
               {h2.map(key => {
                 if (key)
                   return (
-                    <RSMenu.Item key={key}>
-                      <MenuLink>{key}</MenuLink>
-                    </RSMenu.Item>
+                    <Menu.Item key={key}>
+                      <MenuLink className="rs-item">{key}</MenuLink>
+                    </Menu.Item>
                   )
                 return null
               })}
-            </RSMenu.SubMenu>
+            </Menu.SubMenu>
           )
         })}
-      </RSMenu>
+      </Menu>
     )
   }
 }

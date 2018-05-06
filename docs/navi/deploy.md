@@ -1,4 +1,4 @@
-# Dragact 👋
+## Dragact 👋
 
 [![npm version](https://img.shields.io/npm/v/dragact.svg)](https://www.npmjs.com/package/dragact) [![npm downloads](https://img.shields.io/npm/dm/dragact.svg)](https://www.npmjs.com/package/dragact)
 
