@@ -68,6 +68,25 @@ export default PageStatistic => {
     ol: ({ children }) => {
       return <ol style={ListStyle}>{children}</ol>
     },
+    pre: ({ children }) => {
+      const className = children.props.props.className
+      let i = ''
+      className &&
+        className.forEach((n, index) => {
+          i += n
+        })
+
+      console.log(i)
+
+      return (
+        <div className="rs-code-block">
+          <div className="lang">{i.replace('language-', '')}</div>
+          <pre className={i} style={{ background: 'rgba(0,0,0,0)' }}>
+            {children}
+          </pre>
+        </div>
+      )
+    },
     inlineCode: ({ children }) => {
       return (
         <code

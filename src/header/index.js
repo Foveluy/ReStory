@@ -12,6 +12,10 @@ export default class Header extends React.Component {
     this.props.r.switchNavigation(e.value)
   }
 
+  shouldComponentUpdate(next) {
+    return next.location.pathname !== this.props.location.pathname
+  }
+
   componentDidMount() {
     // when this component got mouted,
     // we change our title of sider bar
@@ -23,12 +27,16 @@ export default class Header extends React.Component {
   render() {
     const { navi } = this.props
     const current = navi.find(n => '/' + n === this.props.location.pathname)
-
     return (
       <React.Fragment>
         <div className="logo">ReactStory</div>
-        <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" style={{ borderBottomWidth: 0 }}>
-          <Menu.Item>
+        <Menu
+          onClick={this.handleClick}
+          selectedKeys={[current ? current : 'readme']}
+          mode="horizontal"
+          style={{ borderBottomWidth: 0 }}
+        >
+          <Menu.Item key={'readme'}>
             <Link to={'/'}>README</Link>
           </Menu.Item>
           {navi.map((nav, index) => {

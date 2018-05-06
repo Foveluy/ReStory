@@ -1,5 +1,6 @@
 const { resolve, join } = require('path')
 const fs = require('fs-extra')
+const chalk = require('chalk').default
 
 const FormatCodeToString = obj => {
   const st = JSON.stringify(obj)
