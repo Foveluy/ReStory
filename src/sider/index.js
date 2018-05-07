@@ -19,13 +19,9 @@ export default class S extends React.Component {
     const { r, level } = this.props
     const { n, currentSiderHead } = r.state
     const open = n.map(h => h[0])
-    const location = this.props.location.pathname.substring(1);
-    // console.log(this.props.location.pathname.substring(1),window.component)
-
     if (open.length === 0) {
       return null
     }
-
     return (
       <Menu title={currentSiderHead} mode="inline" openKeys={open} inlineCollapsed={true}>
         {n.map((h, index) => {

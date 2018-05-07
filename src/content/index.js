@@ -11,7 +11,8 @@ class MDXLoader extends React.Component {
   componentDidMount() {
     const { r } = this.props
     r.load(this.sider)
-    // console.log(this.props)
+    // console.log('装在')
+    // console.log(window.Config)
   }
 
   render() {
@@ -20,7 +21,13 @@ class MDXLoader extends React.Component {
   }
 }
 
-export default ({ component, readme }) => {
+export default ({ component, readme, location }) => {
+  const path = location.pathname.substring(1)
+
+  const c = window.Config.navi.find(i => i.name === path)
+
+  console.log('--', c)
+
   return (
     <div
       className="rs-body-markdown-body"
@@ -33,7 +40,13 @@ export default ({ component, readme }) => {
     >
       <Route exact path={'/'} component={() => <MDXLoader MDXComponent={readme} />} />
       {Object.keys(component).map((key, idx) => {
-        return <Route key={key} path={'/' + key} component={() => <MDXLoader MDXComponent={component[key]} />} />
+        return (
+          <Route
+            key={key}
+            path={'/' + key.replace('_', '/')}
+            component={() => <MDXLoader MDXComponent={component[key]} />}
+          />
+        )
       })}
     </div>
   )

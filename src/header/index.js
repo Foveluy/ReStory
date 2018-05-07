@@ -26,14 +26,15 @@ export default class Header extends React.Component {
 
   render() {
     const { navi } = this.props
-    const current = navi.find(n => '/' + n.path === this.props.location.pathname)
-    console.log(navi)
+    const current = navi.find(n => '/' + n.route === this.props.location.pathname)
+    // todo nested path
+    console.log(this.props.location.pathname)
     return (
       <React.Fragment>
         <div className="logo">ReactStory</div>
         <Menu
           onClick={this.handleClick}
-          selectedKeys={[current ? current.path : 'readme']}
+          selectedKeys={[current ? current.route : 'readme']}
           mode="horizontal"
           style={{ borderBottomWidth: 0 }}
         >
@@ -41,13 +42,14 @@ export default class Header extends React.Component {
             <Link to={'/'}>README</Link>
           </Menu.Item>
           {navi.map((nav, index) => {
-            if (nav.type === 'file') {
-              return (
-                <Menu.Item key={nav.name}>
-                  <Link to={nav.route}>{nav.name}</Link>
-                </Menu.Item>
-              )
-            }
+            // if (nav.type === 'file') {
+
+            // }
+            return (
+              <Menu.Item key={nav.route}>
+                <Link to={nav.route}>{nav.name}</Link>
+              </Menu.Item>
+            )
           })}
         </Menu>
       </React.Fragment>

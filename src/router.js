@@ -18,6 +18,7 @@ const Level = window.level
 
 const HeaderWithRouter = withRouter(HeaderBody)
 const SiderWithRouter = withRouter(SiderBody)
+const ContentWithRouter = withRouter(ContentBody)
 
 export default class App extends React.Component {
   render() {
@@ -62,7 +63,7 @@ export default class App extends React.Component {
                 background: '#fff'
               }}
             >
-              <ContentBody component={MdxComponent} readme={READMEMDX} />
+              <ContentWithRouter component={MdxComponent} readme={READMEMDX} />
             </Content>
             <Footer style={{ textAlign: 'center', background: '#fff' }}>ReactStory ©2018 Created by ZhengFang</Footer>
           </Layout>
