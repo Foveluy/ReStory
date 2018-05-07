@@ -4,7 +4,6 @@ import markdown from '../rscomponent/markdown'
 import { RoutingController } from '../controller/state'
 import { Listener } from '../react-rectx'
 
-
 @Listener({ r: RoutingController })
 class MDXLoader extends React.Component {
   sider = {}
@@ -21,6 +20,7 @@ class MDXLoader extends React.Component {
 }
 
 export default ({ component, readme }) => {
+  
   return (
     <div
       className="rs-body-markdown-body"

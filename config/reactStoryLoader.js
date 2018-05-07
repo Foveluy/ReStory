@@ -1,3 +1,4 @@
+const { getMarkdown } = require('./r')
 const { resolve, join } = require('path')
 const fs = require('fs-extra')
 const chalk = require('chalk').default
@@ -14,59 +15,48 @@ module.exports = function(source, map, meta) {
 
   const navi = join(docsPath, 'navi')
 
-  const md = fs.readdirSync(navi)
+  let selector = getMarkdown(navi)
 
-  let selector = md
-    .filter(f => {
-      if (fs.statSync(resolve(navi, f)).isDirectory()) {
-        // if is a dir
-        return f
-      }
-
-      if (/\.md$/.test(f)) {
-        //if is a .md file
-        return f
-      }
-    })
-    .map(f => {
-      if (fs.statSync(resolve(navi, f)).isDirectory()) {
-        const mdInside = fs.readdirSync(resolve(navi, f))
-        console.log('mdInside-->', mdInside)
-        return mdInside.map(f => {
-          if (/\.md$/.test(f)) {
-            //if is a .md file
-            return f
-          }
-        })
-      } else {
+  const originCode = FormatCodeToString({
+    navi: selector.map(f => {
+      if (f.filename instanceof Array) {
+        // { filename: [ 'check.md' ], navi: 'guide' }
+        // we convert this to
+        // ['guide',[ 'check.md' ]]
         return {
-          filename: f,
-          navi: f.replace('.md', '')
+          showName: [f.navi, f.filename],
+          path: f.naviPath
         }
       }
+      return {
+        showName: f.navi,
+        path: f.naviPath
+      }
     })
-
-  console.log(selector)
-  //
-  const originCode = FormatCodeToString({
-    navi: selector.map(f => f.navi)
   })
 
-  let imString = 'window.level = 2;\n'
-
-  // first step is getting the README.md
-  imString += `import README from '${join(docsPath, 'README.md')}';\n`
+  let imString = [
+    'window.component = {};',
+    `window.README = README;`,
+    'window.level = 2;',
+    ' // first step is getting the README.md',
+    `import README from '${join(docsPath, 'README.md')}';\n`
+  ].join('\n')
 
   selector.forEach(i => {
-    imString += `import ${i.navi} from '${resolve(navi, i.filename)}';\n`
+    if (i.filename instanceof Array) {
+      i.filename.forEach(f => {
+        imString += `import ${f} from '${resolve(navi + '/' + i.navi, `${f}.md`)}';\n`
+        imString += `window.component["${i.naviPath + '/' + f}"] = ${f};\n`
+      })
+    } else {
+      imString += `import ${i.navi} from '${resolve(navi, i.filename)}';\n`
+      imString += `window.component["${i.naviPath}"] = ${i.navi};\n`
+    }
   })
 
-  imString += 'window.component ={};\n'
-  // setup README
-  imString += `window.README = README;\n`
-  selector.forEach(i => {
-    imString += `window.component["${i.navi}"]=${i.navi};\n`
-  })
+  console.log(imString)
+  console.log(originCode)
 
   this.callback(null, originCode + ';\n' + imString + source, map, meta)
   return // always return undefined when calling callback()

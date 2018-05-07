@@ -11,7 +11,7 @@ const A = () => (
   </Provider>
 )
 
-const H = hot(module)(A)
+// const H = hot(module)(A)
 
-ReactDOM.render(<H />, document.getElementById('root'))
+ReactDOM.render(<A />, document.getElementById('root'))
 registerServiceWorker()
