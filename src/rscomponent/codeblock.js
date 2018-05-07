@@ -19,11 +19,4 @@ export const CodeBlock = ({ children, className }) => {
   }
 
   return <code className={i} dangerouslySetInnerHTML={{ __html: styled }} />
-
-  // return (
-  //   <div className="rs-code-block">
-  //     <div className="lang">{i.replace('language-', '')}</div>
-  //     <code className={i} dangerouslySetInnerHTML={{ __html: styled }} />
-  //   </div>
-  // )
 }

@@ -26,8 +26,6 @@ export default ({ component, readme, location }) => {
 
   const c = window.Config.navi.find(i => i.name === path)
 
-  console.log('--', c)
-
   return (
     <div
       className="rs-body-markdown-body"
@@ -38,7 +36,7 @@ export default ({ component, readme, location }) => {
         maxWidth: 740
       }}
     >
-      <Route exact path={'/'} component={() => <MDXLoader MDXComponent={readme} />} />
+      <Route exact path={'/README'} component={() => <MDXLoader MDXComponent={readme.component} />} />
       {Object.keys(component).map((key, idx) => {
         return (
           <Route

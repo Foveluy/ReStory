@@ -11,18 +11,8 @@ const Hash = ({ url }) => (
 )
 
 export default PageStatistic => {
-  let currentH1 = 'no-h1'
-  let h1Idx = 0
-  let h2Idx = 0
-
   return {
     h1: ({ children }) => {
-      currentH1 = children
-      if (!PageStatistic[children]) {
-        PageStatistic[children] = { $rsIndex: h1Idx }
-      }
-      h2Idx = 0
-      h1Idx++
       return (
         <h1
           id={`${children}`}
@@ -34,12 +24,6 @@ export default PageStatistic => {
       )
     },
     h2: ({ children }) => {
-      if (!PageStatistic[currentH1]) {
-        // if there is no h1
-        PageStatistic[currentH1] = { $rsIndex: 0 }
-      }
-      PageStatistic[currentH1][children] = h2Idx
-      h2Idx++
       return (
         <h2
           id={`${children}`}

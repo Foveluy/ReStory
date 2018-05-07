@@ -4,7 +4,36 @@ const { resolve, join } = require('path')
 const fs = require('fs-extra')
 
 const isMarkdown = f => /\.md$/.test(f)
-const naviObject = () => {}
+
+function extractHeader(src) {
+  var i = fs.readFileSync(src, 'utf-8')
+
+  let extract = {}
+  let currentH1 = ''
+
+  while (1) {
+    let out = i.match(/^(\#{1,6})([^\#\n]+)$/m)
+
+    if (out === null) break
+    const level = out[1].length
+    if (level === 1) {
+      currentH1 = out[2].substring(1)
+      extract[currentH1] = []
+    } else if (level === 2) {
+      if (!extract[currentH1]) {
+        extract['no-h1'] = []
+        currentH1 = 'no-h1'
+      }
+      extract[currentH1].push(out[2].substring(1))
+    }
+
+    // console.log(out[2])
+    // console.log(out[0])
+
+    i = out.input.replace(out[0], '<shit>')
+  }
+  return extract
+}
 
 const modulesMaker = (path, files) => {
   let i = files
@@ -23,7 +52,8 @@ const modulesMaker = (path, files) => {
           name: f,
           path: join(path, f),
           children: inside,
-          type: 'dir'
+          type: 'dir',
+          header: dirfiles
         }
       }
 
@@ -32,7 +62,8 @@ const modulesMaker = (path, files) => {
         name: f.replace('.md', ''),
         path: resolve(join(path, f)),
         children: void 666,
-        type: 'file'
+        type: 'file',
+        header: extractHeader(resolve(join(path, f)))
       }
     })
   return i
@@ -53,3 +84,4 @@ const scan = src => {
 }
 
 exports.getMarkdown = scan
+exports.extractHeader = extractHeader

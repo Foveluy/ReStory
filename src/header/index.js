@@ -39,7 +39,7 @@ export default class Header extends React.Component {
           style={{ borderBottomWidth: 0 }}
         >
           <Menu.Item key={'readme'}>
-            <Link to={'/'}>README</Link>
+            <Link to={'/README'}>README</Link>
           </Menu.Item>
           {navi.map((nav, index) => {
             // if (nav.type === 'file') {

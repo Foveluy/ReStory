@@ -7,61 +7,69 @@ import './index.less'
 
 const MenuLink = ({ children, className = '' }) => {
   return (
-    <a className={`rs-link ${className}`} href={`#${children}`}>
+    <a className={`rs-link`} href={`#${children}`}>
       {children}
     </a>
   )
 }
 
-@Listener({ r: RoutingController })
 export default class S extends React.Component {
-  render() {
-    const { r, level } = this.props
-    const { n, currentSiderHead } = r.state
-    const open = n.map(h => h[0])
-    if (open.length === 0) {
-      return null
-    }
-    return (
-      <Menu title={currentSiderHead} mode="inline" openKeys={open} inlineCollapsed={true}>
-        {n.map((h, index) => {
-          const h1 = h[0]
-          const h2 = h[1] //array
+  shouldComponentUpdate(next) {
+    return true
+  }
 
-          if (h2 === 'none' || level === 1) {
-            // `h2 === none` means under the h1, there is no any h2
+  renderMenue = header => {
+    return (
+      <Menu mode="inline">
+        {Object.keys(header).map(h => {
+          if (h !== 'no-h1') {
+            if (header[h].length === 0)
+              return (
+                <Menu.Item key={h}>
+                  <MenuLink>{h}</MenuLink>
+                </Menu.Item>
+              )
+
             return (
-              <Menu.Item key={index}>
-                <MenuLink>{h1}</MenuLink>
-              </Menu.Item>
+              <Menu.SubMenu title={h} key={h}>
+                {header[h].map((child, index) => (
+                  <Menu.Item key={child}>
+                    <MenuLink>{child}</MenuLink>
+                  </Menu.Item>
+                ))}
+              </Menu.SubMenu>
             )
           }
-          if (h1 === 'no-h1') {
-            return h2.map(key => {
-              if (key)
-                return (
-                  <Menu.Item key={key}>
-                    <MenuLink className="rs-item">{key}</MenuLink>
-                  </Menu.Item>
-                )
-              return null
-            })
-          }
-          return (
-            <Menu.SubMenu key={h1} title={<MenuLink>{h1}</MenuLink>}>
-              {h2.map(key => {
-                if (key)
-                  return (
-                    <Menu.Item key={key}>
-                      <MenuLink className="rs-item">{key}</MenuLink>
-                    </Menu.Item>
-                  )
-                return null
-              })}
-            </Menu.SubMenu>
-          )
+
+          const map = header[h].map((i, index) => (
+            <Menu.Item key={index}>
+              <MenuLink>{i}</MenuLink>
+            </Menu.Item>
+          ))
+          return map
         })}
       </Menu>
     )
+  }
+
+  render() {
+    const path = this.props.location.pathname.substring(1)
+
+    const c = window.Config.navi.find(i => i.route === path)
+
+    console.log('--', c)
+    //判断是否是dir
+    //是dir的话sider渲染以md名字开头的dir
+    //
+
+    if (c.type === 'dir') {
+      return null
+    }
+
+    if (path === 'README') {
+      console.log(window.README)
+      return this.renderMenue(window.README.header)
+    }
+    return this.renderMenue(c.header)
   }
 }

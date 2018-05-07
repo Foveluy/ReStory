@@ -20,6 +20,8 @@ const HeaderWithRouter = withRouter(HeaderBody)
 const SiderWithRouter = withRouter(SiderBody)
 const ContentWithRouter = withRouter(ContentBody)
 
+console.log(Config)
+
 export default class App extends React.Component {
   render() {
     return (
