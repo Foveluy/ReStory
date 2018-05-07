@@ -1,4 +1,4 @@
-const { chinese2pinyin } = require('./chinesepinyin')
+const { chinese2pinyin } = require('./config/chinesepinyin')
 
 const { resolve, join } = require('path')
 const fs = require('fs-extra')
@@ -49,7 +49,7 @@ const scan = src => {
   // * 3.chilren:[]|void 666
   // * 4.type:file|dir
 
-  return i
+  console.log(i)
 }
 
-exports.getMarkdown = scan
+scan('./docs')

@@ -17,6 +17,7 @@ const READMEMDX = window.README
 const Level = window.level
 
 const HeaderWithRouter = withRouter(HeaderBody)
+const SiderWithRouter = withRouter(SiderBody)
 
 export default class App extends React.Component {
   render() {
@@ -50,7 +51,7 @@ export default class App extends React.Component {
             }}
             width={SiderWidth}
           >
-            <SiderBody level={Level} />
+            <SiderWithRouter level={Level} />
           </Sider>
           <Layout style={{ marginLeft: SiderWidth }}>
             <Content

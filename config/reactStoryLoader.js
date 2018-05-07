@@ -8,6 +8,13 @@ const FormatCodeToString = obj => {
   return `window.Config = JSON.parse('${st}')`
 }
 
+const ImportMarkdown = (route, path) => {
+  return [
+    `\nimport ${route} from '${path}';`,
+    `window.component["${route}"] = ${route};`
+  ].join('\n')
+}
+
 module.exports = function(source, map, meta) {
   const docsPath = resolve(process.argv[2])
 
@@ -15,24 +22,10 @@ module.exports = function(source, map, meta) {
 
   const navi = join(docsPath, 'navi')
 
-  let selector = getMarkdown(navi)
+  let selector = getMarkdown(docsPath)
 
   const originCode = FormatCodeToString({
-    navi: selector.map(f => {
-      if (f.filename instanceof Array) {
-        // { filename: [ 'check.md' ], navi: 'guide' }
-        // we convert this to
-        // ['guide',[ 'check.md' ]]
-        return {
-          showName: [f.navi, f.filename],
-          path: f.naviPath
-        }
-      }
-      return {
-        showName: f.navi,
-        path: f.naviPath
-      }
-    })
+    navi: selector
   })
 
   let imString = [
@@ -43,15 +36,21 @@ module.exports = function(source, map, meta) {
     `import README from '${join(docsPath, 'README.md')}';\n`
   ].join('\n')
 
+  // * 1.文件(夹)名
+  // * 2.文件路径
+  // * 3.chilren:[]|void 666
+  // * 4.type:file|dir
+
   selector.forEach(i => {
-    if (i.filename instanceof Array) {
-      i.filename.forEach(f => {
-        imString += `import ${f} from '${resolve(navi + '/' + i.navi, `${f}.md`)}';\n`
-        imString += `window.component["${i.naviPath + '/' + f}"] = ${f};\n`
+    if (i.type === 'file') {
+      imString += ImportMarkdown(i.route, i.path)
+    }
+    if (i.type === 'dir') {
+
+      i.children.forEach(child => {
+        if (child.type === 'file') imString += ImportMarkdown(i.route + '_' + child.route, child.path)
+        // todo: more nested
       })
-    } else {
-      imString += `import ${i.navi} from '${resolve(navi, i.filename)}';\n`
-      imString += `window.component["${i.naviPath}"] = ${i.navi};\n`
     }
   })
 

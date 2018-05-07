@@ -27,7 +27,7 @@ export default class Header extends React.Component {
   render() {
     const { navi } = this.props
     const current = navi.find(n => '/' + n.path === this.props.location.pathname)
-
+    console.log(navi)
     return (
       <React.Fragment>
         <div className="logo">ReactStory</div>
@@ -41,23 +41,13 @@ export default class Header extends React.Component {
             <Link to={'/'}>README</Link>
           </Menu.Item>
           {navi.map((nav, index) => {
-            if (nav.showName instanceof Array) {
-              // console.log(nav)
-              //when navi is a sublink
-              const title = nav.showName[0] //must be this
-              // const file = nav.showName[1]
+            if (nav.type === 'file') {
               return (
-                <Menu.Item key={title}>
-                  <Link to={title}>{title}</Link>
+                <Menu.Item key={nav.name}>
+                  <Link to={nav.route}>{nav.name}</Link>
                 </Menu.Item>
               )
             }
-
-            return (
-              <Menu.Item key={nav.path}>
-                <Link to={nav.path}>{nav.showName}</Link>
-              </Menu.Item>
-            )
           })}
         </Menu>
       </React.Fragment>

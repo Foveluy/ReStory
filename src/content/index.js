@@ -11,6 +11,7 @@ class MDXLoader extends React.Component {
   componentDidMount() {
     const { r } = this.props
     r.load(this.sider)
+    // console.log(this.props)
   }
 
   render() {
@@ -20,7 +21,6 @@ class MDXLoader extends React.Component {
 }
 
 export default ({ component, readme }) => {
-  
   return (
     <div
       className="rs-body-markdown-body"
