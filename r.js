@@ -57,8 +57,8 @@ const fs = require('fs-extra')
 function extractHeader(src) {
   var i = fs.readFileSync(src, 'utf-8')
 
-  let extract = {}
-  let currentH1 = ''
+  let extract = []
+  let currentH1 = 0
 
   while (1) {
     let out = i.match(/^(\#{1,6})([^\#\n]+)$/m)
@@ -66,14 +66,15 @@ function extractHeader(src) {
     if (out === null) break
     const level = out[1].length
     if (level === 1) {
-      currentH1 = out[2].substring(1)
-      extract[currentH1] = []
+      extract.push(out[2].substring(1))
+      currentH1 = extract.length - 1
+      extract[currentH1] = [extract[currentH1], []]
     } else if (level === 2) {
       if (!extract[currentH1]) {
-        extract['no-h1'] = []
-        currentH1 = 'no-h1'
+        extract[currentH1] = ['no-h1', []]
+        currentH1 = extract.length - 1
       }
-      extract[currentH1].push(out[2].substring(1))
+      extract[currentH1][1].push(out[2].substring(1))
     }
 
     // console.log(out[2])

@@ -26,9 +26,23 @@ export default class Header extends React.Component {
 
   render() {
     const { navi } = this.props
-    const current = navi.find(n => '/' + n.route === this.props.location.pathname)
+    let current = navi.find(n => '/' + n.route === this.props.location.pathname)
     // todo nested path
-    console.log(this.props.location.pathname)
+    if (!current) {
+      const split = this.props.location.pathname.substring(1).split('/')
+      const father = split[0]
+      // console.log('fater', father)
+      for (let idx in navi) {
+        const files = navi[idx]
+        if (files.type === 'dir') {
+          if (files.route === father) {
+            current = files
+            break
+          }
+        }
+      }
+    }
+
     return (
       <React.Fragment>
         <div className="logo">ReactStory</div>
@@ -47,7 +61,7 @@ export default class Header extends React.Component {
             // }
             return (
               <Menu.Item key={nav.route}>
-                <Link to={nav.route}>{nav.name}</Link>
+                <Link to={'/' + nav.route}>{nav.name}</Link>
               </Menu.Item>
             )
           })}

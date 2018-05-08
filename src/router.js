@@ -20,8 +20,6 @@ const HeaderWithRouter = withRouter(HeaderBody)
 const SiderWithRouter = withRouter(SiderBody)
 const ContentWithRouter = withRouter(ContentBody)
 
-console.log(Config)
-
 export default class App extends React.Component {
   render() {
     return (
@@ -50,7 +48,8 @@ export default class App extends React.Component {
               left: 0,
               background: 'white',
               borderRight: Border,
-              marginTop: HeaderHeight
+              marginTop: HeaderHeight,
+              overflow: 'auto'
             }}
             width={SiderWidth}
           >
