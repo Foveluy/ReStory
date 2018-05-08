@@ -71,7 +71,6 @@ export default PageStatistic => {
     inlineCode: ({ children }) => {
       return (
         <code
-        data-line="2"
           style={{ background: 'rgba(187,239,253,0.3)', color: '#476582', fontSize: '.85em', padding: '.25rem .5rem' }}
         >
           {children}

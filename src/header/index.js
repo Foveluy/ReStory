@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu } from 'antd'
 import { Link } from 'react-router-dom'
 import { RoutingController } from '../controller/state'
+import { make } from '../rscomponent/codeblock';
 
 export default class Header extends React.Component {
   handleClick = e => {
@@ -9,6 +10,7 @@ export default class Header extends React.Component {
     // we change our title of sider bar
     // this.props.r.switchNavigation(e.value)
     window.scrollTo(0, 0)
+    
   }
 
   shouldComponentUpdate(next) {
