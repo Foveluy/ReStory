@@ -3,17 +3,20 @@ import './codeblock.less'
 import Prism from 'prismjs'
 
 import languages from 'prism-languages'
+import { getRidOf } from './util'
 
 window.self.Prism = Prism
 
 export const CodeBlock = ({ children, className }) => {
+  console.log(className)
   let i = ''
   className &&
     className.forEach((n, index) => {
       i += n
     })
+  const l = getRidOf(i)
 
-  const lng = languages[i.replace('language-', '')]
+  const lng = languages[l ? l.string.replace('language-', '') : i.replace('language-', '')]
   let styled = ''
 
   if (lng) {
@@ -22,10 +25,10 @@ export const CodeBlock = ({ children, className }) => {
     styled = Prism.highlight(children)
   }
 
-  return <code className={i} dangerouslySetInnerHTML={{ __html: styled }} />
+  
+  return <code className={l ? l.string : i} dangerouslySetInnerHTML={{ __html: styled }} />
 }
 
-make()
 export function make(pushstate) {
   if (typeof window.self === 'undefined' || !window.self.Prism || !window.document || !document.querySelector) {
     return

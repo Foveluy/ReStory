@@ -5,6 +5,7 @@ import { make } from '../rscomponent/codeblock'
 
 class MDXLoader extends React.Component {
   componentDidMount() {
+    // this is a hack for prismjs
     make(true)
   }
   render() {

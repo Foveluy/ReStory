@@ -1,6 +1,7 @@
 import React from 'react'
 import { CodeBlock } from './codeblock'
 import './markdown.less'
+import { getRidOf } from './util'
 
 const ListStyle = { marginTop: 30, fontSize: 16, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
 
@@ -59,10 +60,15 @@ export default PageStatistic => {
         className.forEach((n, index) => {
           i += n
         })
+
+      const langnumber = getRidOf(i)
+      const obj = langnumber ? { className: langnumber.string, 'data-line': langnumber.number } : { className: i }
       return (
         <div className="rs-code-block">
-          <div className="langs">{i.replace('language-', '')}</div>
-          <pre className={i} data-line="2" style={{ background: 'rgba(0,0,0,0)' }}>
+          <div className="langs">
+            {langnumber ? langnumber.string.replace('language-', '') : i.replace('language-', '')}
+          </div>
+          <pre {...obj} style={{ background: 'rgba(0,0,0,0)' }}>
             {children}
           </pre>
         </div>
