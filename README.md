@@ -15,6 +15,8 @@ ReactStory 是一个由 React、React Router、Webpack、Node.js 驱动的单页
 * 多语言支持
 * 自动生成 Service Worker
 * Google Analytics 集成
+* more
+   * image support
 
 ## License
 
