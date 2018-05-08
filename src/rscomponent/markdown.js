@@ -61,8 +61,8 @@ export default PageStatistic => {
         })
       return (
         <div className="rs-code-block">
-          <div className="lang">{i.replace('language-', '')}</div>
-          <pre className={i} style={{ background: 'rgba(0,0,0,0)' }}>
+          <div className="langs">{i.replace('language-', '')}</div>
+          <pre className={i} data-line="2" style={{ background: 'rgba(0,0,0,0)' }}>
             {children}
           </pre>
         </div>
@@ -71,6 +71,7 @@ export default PageStatistic => {
     inlineCode: ({ children }) => {
       return (
         <code
+        data-line="2"
           style={{ background: 'rgba(187,239,253,0.3)', color: '#476582', fontSize: '.85em', padding: '.25rem .5rem' }}
         >
           {children}

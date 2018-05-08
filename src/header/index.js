@@ -67,8 +67,9 @@ export default class Header extends React.Component {
             })}
           </Menu>
           <iframe
+            title="github-start"
             src="https://ghbtns.com/github-btn.html?user=Foveluy&repo=ReactStory&type=star&count=true"
-            frameborder="0"
+            frameBorder="0"
             scrolling="0"
             width="150px"
             height="20px"
