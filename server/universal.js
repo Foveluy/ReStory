@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 import { Route } from 'react-router-dom'
 // import createServerStore from './store'
 
-import App from '../src/router'
+// import App from '../src/router'
 
 // A simple helper function to prepare the HTML markup
 const prepHTML = (data, { html, head, body }) => {
@@ -34,15 +34,18 @@ const universalLoader = (req, res) => {
     }
 
     // Create a store and sense of history based on the current path
-    const { store, history } = createServerStore(req.path)
+    // const { store, history } = createServerStore(req.path)
 
     // Render App in React
-    const routeMarkup = renderToString(
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <Route component={App} />
-        </ConnectedRouter>
-      </Provider>
+    // const routeMarkup = renderToString(
+    //   <Provider store={store}>
+    //     <ConnectedRouter history={history}>
+    //       <Route component={App} />
+    //     </ConnectedRouter>
+    //   </Provider>
+    // )
+     const routeMarkup = renderToString(
+      <div>123123嘿，我是ssr</div>
     )
 
     // // Let Helmet know to insert the right tags
