@@ -3,14 +3,14 @@ import fs from 'fs'
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import Helmet from 'react-helmet'
+// import Helmet from 'react-helmet'
 
 import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux'
+// import { ConnectedRouter } from 'react-router-redux'
 import { Route } from 'react-router-dom'
-import createServerStore from './store'
+// import createServerStore from './store'
 
-import App from '../src/containers/app'
+import App from '../src/router'
 
 // A simple helper function to prepare the HTML markup
 const prepHTML = (data, { html, head, body }) => {
@@ -45,18 +45,18 @@ const universalLoader = (req, res) => {
       </Provider>
     )
 
-    // Let Helmet know to insert the right tags
-    const helmet = Helmet.renderStatic()
+    // // Let Helmet know to insert the right tags
+    // const helmet = Helmet.renderStatic()
 
-    // Form the final HTML response
-    const html = prepHTML(htmlData, {
-      html: helmet.htmlAttributes.toString(),
-      head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
-      body: routeMarkup
-    })
+    // // Form the final HTML response
+    // const html = prepHTML(htmlData, {
+    //   html: helmet.htmlAttributes.toString(),
+    //   head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
+    //   body: routeMarkup
+    // })
 
     // Up, up, and away...
-    res.send(html)
+    res.send(routeMarkup)
   })
 }
 
