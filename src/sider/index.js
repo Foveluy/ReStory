@@ -23,16 +23,20 @@ const collectOpenkeys = header => {
 }
 
 export default class S extends React.Component {
-  shouldComponentUpdate(next) {
-    return true
+  state = {
+    selectedKeys: []
   }
 
   onSelect = ({ item, key, selectedKeys }) => {
-    console.log({ item, key, selectedKeys })
+    this.setState({
+      selectedKeys: selectedKeys
+    })
   }
 
-  onOpenChange = (openKeys)=>{
-    console.log(openKeys)
+  onOpenChange = openKeys => {
+    this.setState({
+      selectedKeys: []
+    })
   }
 
   renderMenue = header => {
@@ -101,7 +105,13 @@ export default class S extends React.Component {
     })
     const path = this.props.location.pathname
     return (
-      <Menu mode="inline" openKeys={[path, ...openKeys]}>
+      <Menu
+        mode="inline"
+        openKeys={[path, ...openKeys]}
+        selectedKeys={this.state.selectedKeys}
+        onSelect={this.onSelect}
+        onOpenChange={this.onOpenChange}
+      >
         {menumaping}
       </Menu>
     )
@@ -111,6 +121,20 @@ export default class S extends React.Component {
     const path = this.props.location.pathname.substring(1)
 
     const c = window.Config.navi.find(i => i.route === path)
+
+    const createMenu = (openKeys, header) => {
+      return (
+        <Menu
+          mode="inline"
+          openKeys={openKeys}
+          selectedKeys={this.state.selectedKeys}
+          onSelect={this.onSelect}
+          onOpenChange={this.onOpenChange}
+        >
+          {this.renderMenue(header)}
+        </Menu>
+      )
+    }
 
     //判断是否是dir
     //是dir的话sider渲染以md名字开头的dir
@@ -124,11 +148,7 @@ export default class S extends React.Component {
     if (path === 'README') {
       const openKeys = collectOpenkeys(window.README.header)
 
-      return (
-        <Menu mode="inline" openKeys={openKeys}>
-          {this.renderMenue(window.README.header)}
-        </Menu>
-      )
+      return createMenu(openKeys, window.README.header)
     }
 
     if (!c) {
@@ -141,10 +161,6 @@ export default class S extends React.Component {
     }
 
     const openKeys = collectOpenkeys(c.header)
-    return (
-      <Menu mode="inline" openKeys={openKeys} onSelect={this.onSelect}  onOpenChange={this.onOpenChange}>
-        {this.renderMenue(c.header)}
-      </Menu>
-    )
+    return createMenu(openKeys, c.header)
   }
 }

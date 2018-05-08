@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Listener } from '../react-rectx'
 import { RoutingController } from '../controller/state'
 
-@Listener({ r: RoutingController })
+// @Listener({ r: RoutingController })
 export default class Header extends React.Component {
   handleClick = e => {
     // when we click header
@@ -22,7 +22,7 @@ export default class Header extends React.Component {
     // we change our title of sider bar
     const { navi } = this.props
     const current = navi.find(n => '/' + n === this.props.location.pathname)
-    this.props.r.switchNavigation(current)
+    // this.props.r.switchNavigation(current)
   }
 
   render() {

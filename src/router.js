@@ -5,6 +5,9 @@ import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
 import './index.css'
+import { hot } from 'react-hot-loader'
+
+// const H = hot(module)(A)
 
 const { Content, Footer, Header, Sider } = Layout
 
@@ -20,6 +23,7 @@ const HeaderWithRouter = withRouter(HeaderBody)
 const SiderWithRouter = withRouter(SiderBody)
 const ContentWithRouter = withRouter(ContentBody)
 
+@hot(module)
 export default class App extends React.Component {
   render() {
     return (
