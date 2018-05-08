@@ -1,10 +1,8 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { Link } from 'react-router-dom'
-import { Listener } from '../react-rectx'
 import { RoutingController } from '../controller/state'
 
-// @Listener({ r: RoutingController })
 export default class Header extends React.Component {
   handleClick = e => {
     // when we click header
@@ -47,26 +45,35 @@ export default class Header extends React.Component {
     return (
       <React.Fragment>
         <div className="logo">ReactStory</div>
-        <Menu
-          onClick={this.handleClick}
-          selectedKeys={[current ? current.route : 'readme']}
-          mode="horizontal"
-          style={{ borderBottomWidth: 0 }}
-        >
-          <Menu.Item key={'readme'}>
-            <Link to={'/README'}>README</Link>
-          </Menu.Item>
-          {navi.map((nav, index) => {
-            // if (nav.type === 'file') {
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Menu
+            onClick={this.handleClick}
+            selectedKeys={[current ? current.route : 'readme']}
+            mode="horizontal"
+            style={{ borderBottomWidth: 0, marginRight: '1rem' }}
+          >
+            <Menu.Item key={'readme'}>
+              <Link to={'/README'}>README</Link>
+            </Menu.Item>
+            {navi.map((nav, index) => {
+              // if (nav.type === 'file') {
 
-            // }
-            return (
-              <Menu.Item key={nav.route}>
-                <Link to={'/' + nav.route}>{nav.name}</Link>
-              </Menu.Item>
-            )
-          })}
-        </Menu>
+              // }
+              return (
+                <Menu.Item key={nav.route}>
+                  <Link to={'/' + nav.route}>{nav.name}</Link>
+                </Menu.Item>
+              )
+            })}
+          </Menu>
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=Foveluy&repo=ReactStory&type=star&count=true"
+            frameborder="0"
+            scrolling="0"
+            width="150px"
+            height="20px"
+          />
+        </div>
       </React.Fragment>
     )
   }

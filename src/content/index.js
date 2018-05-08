@@ -2,14 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import markdown from '../rscomponent/markdown'
 
-import { Listener } from '../react-rectx'
-
 class MDXLoader extends React.Component {
-  componentDidMount() {
-    // console.log('装在')
-    // console.log(window.Config)
-  }
-
   render() {
     const { MDXComponent } = this.props
     return <MDXComponent components={markdown()} />
@@ -17,10 +10,6 @@ class MDXLoader extends React.Component {
 }
 
 export default ({ component, readme, location }) => {
-  // const path = location.pathname.substring(1)
-
-  // const c = window.Config.navi.find(i => i.name === path)
-  
   return (
     <div
       className="rs-body-markdown-body"
