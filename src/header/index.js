@@ -9,7 +9,8 @@ export default class Header extends React.Component {
   handleClick = e => {
     // when we click header
     // we change our title of sider bar
-    this.props.r.switchNavigation(e.value)
+    // this.props.r.switchNavigation(e.value)
+    window.scrollTo(0, 0)
   }
 
   shouldComponentUpdate(next) {

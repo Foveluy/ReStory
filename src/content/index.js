@@ -20,7 +20,7 @@ export default ({ component, readme, location }) => {
   // const path = location.pathname.substring(1)
 
   // const c = window.Config.navi.find(i => i.name === path)
-  console.log('渲染')
+  
   return (
     <div
       className="rs-body-markdown-body"

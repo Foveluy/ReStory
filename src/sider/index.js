@@ -27,6 +27,14 @@ export default class S extends React.Component {
     return true
   }
 
+  onSelect = ({ item, key, selectedKeys }) => {
+    console.log({ item, key, selectedKeys })
+  }
+
+  onOpenChange = (openKeys)=>{
+    console.log(openKeys)
+  }
+
   renderMenue = header => {
     return header.map((levelone, index) => {
       // the first layer is how many `level 1` title
@@ -134,7 +142,7 @@ export default class S extends React.Component {
 
     const openKeys = collectOpenkeys(c.header)
     return (
-      <Menu mode="inline" openKeys={openKeys}>
+      <Menu mode="inline" openKeys={openKeys} onSelect={this.onSelect}  onOpenChange={this.onOpenChange}>
         {this.renderMenue(c.header)}
       </Menu>
     )
