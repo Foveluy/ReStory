@@ -1,34 +1,35 @@
 import path from 'path'
 import fs from 'fs'
-
 import React from 'react'
-import { renderToString } from 'react-dom/server'
 import Helmet from 'react-helmet'
-
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux'
-import { Route } from 'react-router-dom'
-import { StaticRouter } from 'react-router'
-import createServerStore from './store'
-
-// import App from '../src/router'
-const App = require('../src/router').default
+const config = require('./config')
 
 // A simple helper function to prepare the HTML markup
-const prepHTML = (data, { html, head, body }) => {
+const prepHTML = (data, { html, head, body, css }) => {
   data = data.replace('<html lang="en">', `<html ${html}`)
   data = data.replace('</head>', `${head}</head>`)
   data = data.replace('<div id="root"></div>', `<div id="root">${body}</div>`)
-
+  data = data + `<style>${css}</style>`
   return data
 }
-
-const manifest = JSON.parse(fs.readFileSync(path.resolve('./serverbuild/asset-manifest.json'), 'utf-8'))
-const { R } = require(path.resolve('./serverbuild', manifest['main.js']))
 
 const universalLoader = (req, res) => {
   // Load in our HTML file from our build
   const filePath = path.resolve(__dirname, '../serverbuild/index.html')
+
+  // if there is static file
+
+  if (/(\.css|\.css\.map)$/.test(req.path)) {
+    res.send('')
+    res.status(200).end()
+    return
+  }
+
+  if (/\.js$/.test(req.path)) {
+    res.send(config.mainJsClient)
+    res.status(200).end()
+    return
+  }
 
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     // If there's an error... serve up something nasty
@@ -39,23 +40,10 @@ const universalLoader = (req, res) => {
     }
 
     // Create a store and sense of history based on the current path
-    const { store, history } = createServerStore(req.path)
+    const history = {}
 
-    // Render App in React
-    // const routeMarkup = renderToString(
-    //   <Provider store={store}>
-    //     <ConnectedRouter history={history}>
-    //       <Route component={App} />
-    //     </ConnectedRouter>
-    //   </Provider>
-    // )
-    const routeMarkup = R({ context: history, location: req.path })
-
-    // const routeMarkup = renderToString(
-    //   <StaticRouter context={history} location={req.path}>
-    //     <Shit />
-    //   </StaticRouter>
-    // )
+    // render the html
+    const routeMarkup = config.R({ context: history, location: req.path })
 
     // // Let Helmet know to insert the right tags
     const helmet = Helmet.renderStatic()
@@ -64,7 +52,8 @@ const universalLoader = (req, res) => {
     const html = prepHTML(htmlData, {
       html: helmet.htmlAttributes.toString(),
       head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
-      body: routeMarkup
+      body: routeMarkup,
+      css: config.mainCssClient
     })
     // Up, up, and away...
     res.send(html)

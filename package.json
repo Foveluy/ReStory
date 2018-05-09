@@ -77,7 +77,7 @@
   "scripts": {
     "start": "node scripts/start.js ./docs",
     "client": "node scripts/client.js ./docs",
-    "build": "node scripts/build.js ./docs",
+    "build": "node scripts/client.js ./docs&&node scripts/build.js ./docs && node server/index.js",
     "pb": "node ./scripts/generate.js && npm publish",
     "test": "node scripts/test.js --env=jsdom",
     "static": "node ./scripts/static.js&",

@@ -49,8 +49,7 @@ module.exports = function(source, map, meta) {
       header:JSON.parse('${JSON.stringify(extractHeader(join(docsPath, 'README.md')))}')
     };`,
     'globals.level = 2;',
-    siteConfig,
-    'console.warn(globals)'
+    siteConfig
   ].join('\n')
 
   selector.forEach(i => {
