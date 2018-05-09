@@ -8,7 +8,6 @@ import './codeblock.less'
 // window.self.Prism = Prism
 
 export const CodeBlock = ({ children, className }) => {
-  console.log(className)
   let i = ''
   className &&
     className.forEach((n, index) => {
@@ -25,7 +24,6 @@ export const CodeBlock = ({ children, className }) => {
     styled = Prism.highlight(children)
   }
 
-  
   return <code className={l ? l.string : i} dangerouslySetInnerHTML={{ __html: styled }} />
 }
 

@@ -6,7 +6,6 @@ import SiderBody from './sider'
 import HeaderBody from './header'
 import './index.css'
 import { hot } from 'react-hot-loader'
-import TestMd from './test.md'
 
 // const H = hot(module)(A)
 
@@ -19,16 +18,18 @@ const HeaderWithRouter = withRouter(HeaderBody)
 const SiderWithRouter = withRouter(SiderBody)
 const ContentWithRouter = withRouter(ContentBody)
 
+// here is the object for react-story loader injection.
 var globals = {}
 
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props)
+    //injection
     this.state = {
       Config: globals.Config,
       MdxComponent: globals.component,
-      READMEMDX: globals.README
+      READMEMDX: globals.README,
+      siteConfig: globals.siteConfig
     }
   }
 
@@ -50,7 +51,7 @@ export default class App extends React.Component {
             height: HeaderHeight
           }}
         >
-          <HeaderWithRouter navi={Config && Config.navi} />
+          <HeaderWithRouter navi={Config && Config.navi} {...this.state} />
         </Header>
         <Sider
           style={{

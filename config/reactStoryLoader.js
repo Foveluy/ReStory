@@ -9,6 +9,11 @@ const FormatCodeToString = obj => {
   return `globals.Config = JSON.parse('${st}')`
 }
 
+const FormatCodeToGlobals = (key, obj) => {
+  const st = JSON.stringify(obj)
+  return `globals.${key} = JSON.parse('${st}')`
+}
+
 const ImportMarkdown = (route, path) => {
   return [`\nimport ${route} from '${path}';`, `globals.component["${route}"] = ${route};`].join('\n')
 }
@@ -26,6 +31,11 @@ module.exports = function(source, map, meta) {
     navi: selector
   })
 
+  const siteConfig = FormatCodeToGlobals('siteConfig', {
+    title: 'ReactStory',
+    repo: 'ReactStory'
+  })
+
   let imString = [
     `import README from '${join(docsPath, 'README.md')}';\n`,
     'globals.component = {};',
@@ -39,6 +49,7 @@ module.exports = function(source, map, meta) {
       header:JSON.parse('${JSON.stringify(extractHeader(join(docsPath, 'README.md')))}')
     };`,
     'globals.level = 2;',
+    siteConfig,
     ' // first step is getting the README.md'
   ].join('\n')
 
