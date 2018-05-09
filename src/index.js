@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import registerServiceWorker from './registerServiceWorker'
 import App from './router'
 import { BrowserRouter as Router } from 'react-router-dom'
-import "./index.css"
+import './index.css'
 
 ReactDOM.hydrate(
   <Router>

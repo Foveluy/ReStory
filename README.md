@@ -27,8 +27,8 @@ Copyright (c) ZhengFang <snakegear@163.com>
 ## todo
 - [ ] CLI 的构建
 - [ ] 用户能够安装自己的组件
-- [ ] 一件部署：生成 SSR 版本和 client 版本
-   - [ ] SSR 渲染时 CSS 问题 
+- [x] 一件部署：生成 SSR 版本和 client 版本
+   - [x] SSR 渲染时 CSS 问题 
 - [ ] markdown 拓展问题
 - [ ] 多语言支持
 - [ ] 响应式

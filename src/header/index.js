@@ -11,7 +11,8 @@ export default class Header extends React.Component {
   }
 
   shouldComponentUpdate(next) {
-    return next.location.pathname !== this.props.location.pathname
+    return true
+    // return next.location.pathname !== this.props.location.pathname
   }
 
   componentDidMount() {
@@ -48,13 +49,14 @@ export default class Header extends React.Component {
           <Menu
             onClick={this.handleClick}
             selectedKeys={[current ? current.route : 'readme']}
-            mode="horizontal"
-            style={{ borderBottomWidth: 0, marginRight: '1rem' }}
+            mode="inline"
+            style={{ borderBottom: '1px solid rgb(232, 232, 232)' }}
           >
             <Menu.Item key={'readme'}>
               <Link to={'/README'}>README</Link>
             </Menu.Item>
             {navi.map((nav, index) => {
+              console.log(nav)
               return (
                 <Menu.Item key={nav.route}>
                   <Link to={'/' + nav.route}>{nav.name}</Link>
@@ -62,14 +64,6 @@ export default class Header extends React.Component {
               )
             })}
           </Menu>
-          <iframe
-            title="github-start"
-            src="https://ghbtns.com/github-btn.html?user=Foveluy&repo=ReactStory&type=star&count=true"
-            frameBorder="0"
-            scrolling="0"
-            width="150px"
-            height="20px"
-          />
         </div>
       </React.Fragment>
     )

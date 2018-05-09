@@ -26,7 +26,7 @@ export default class Contentbody extends React.Component {
       <div
         className="rs-body-markdown-body"
         style={{
-          padding: 24,
+          padding:24,
           background: '#fff',
           width: '100%',
           maxWidth: 740

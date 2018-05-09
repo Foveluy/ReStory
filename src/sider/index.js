@@ -132,6 +132,7 @@ export default class S extends React.Component {
           selectedKeys={this.state.selectedKeys}
           onSelect={this.onSelect}
           onOpenChange={this.onOpenChange}
+          inlineCollapsed={true}
         >
           {this.renderMenue(header)}
         </Menu>
