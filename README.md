@@ -32,3 +32,5 @@ Copyright (c) ZhengFang <snakegear@163.com>
 - [ ] markdown 拓展问题
 - [ ] 多语言支持
 - [ ] 响应式
+- [ ] 首页制作
+- [ ] github风格表格

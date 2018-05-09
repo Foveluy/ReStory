@@ -9,6 +9,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getClientEnvironment = require('./env')
 const paths = require('./paths')
+var frontmatter = require('remark-frontmatter')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -123,7 +124,7 @@ module.exports = {
       },
       {
         test: /\.md$/,
-        use: ['babel-loader', '@mdx-js/loader']
+        use: ['babel-loader', { loader: '@mdx-js/loader', options: { mdPlugins: [frontmatter] } }]
       },
       {
         // "oneOf" will traverse all following loaders until one will
