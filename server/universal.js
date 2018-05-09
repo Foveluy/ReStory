@@ -10,8 +10,6 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Route } from 'react-router-dom'
 import { StaticRouter } from 'react-router'
 import createServerStore from './store'
-import { Shit } from '../src'
-const { R } = require('../build/static/js/main')
 
 // import App from '../src/router'
 const App = require('../src/router').default
@@ -25,9 +23,12 @@ const prepHTML = (data, { html, head, body }) => {
   return data
 }
 
+const manifest = JSON.parse(fs.readFileSync(path.resolve('./serverbuild/asset-manifest.json'), 'utf-8'))
+const { R } = require(path.resolve('./serverbuild', manifest['main.js']))
+
 const universalLoader = (req, res) => {
   // Load in our HTML file from our build
-  const filePath = path.resolve(__dirname, '../build/index.html')
+  const filePath = path.resolve(__dirname, '../serverbuild/index.html')
 
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     // If there's an error... serve up something nasty
@@ -65,7 +66,6 @@ const universalLoader = (req, res) => {
       head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
       body: routeMarkup
     })
-
     // Up, up, and away...
     res.send(html)
   })

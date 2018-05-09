@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
-import './index.css'
+// import './index.css'
 import { hot } from 'react-hot-loader'
 
 // const H = hot(module)(A)

@@ -9,7 +9,21 @@ require('ignore-styles')
 require('babel-register')({
   ignore: /\/(build|node_modules)\//,
   presets: ['env', 'react-app'],
+  compact: false
 })
+
+
+require('css-modules-require-hook')({
+    extensions: ['.scss'],
+    preprocessCss: (data, filename) =>
+        require('node-sass').renderSync({
+            data,
+            file: filename
+        }).css,
+    camelCase: true,
+    generateScopedName: '[name]__[local]__[hash:base64:8]'
+})
+
 
 // Now that the nonsense is over... load up the server entry point
 require('./server')

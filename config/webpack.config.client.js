@@ -49,17 +49,16 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 // The development configuration is different and lives in a separate file.
 module.exports = {
   // here is the code for exporting node.js js files
-  target: 'node',
   // Don't attempt to continue if there are any errors.
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appServerIndexJs],
+  entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     // The build folder.
-    path: paths.appServerBuild,
+    path: paths.appBuild,
     // Generated JS file names (with nested folders).
     // There will be one main bundle, and one file per asynchronous chunk.
     // We don't currently advertise code splitting but Webpack supports it.
@@ -69,8 +68,7 @@ module.exports = {
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
-    libraryTarget: 'commonjs2'
+    devtoolModuleFilenameTemplate: info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -154,7 +152,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              compact: false,
+              compact: true,
               plugins: [
                 ['transform-remove-console', { exclude: ['error', 'warn'] }],
                 [
@@ -172,21 +170,7 @@ module.exports = {
               cacheDirectory: true
             }
           },
-          // {
-          //   test: /\.less$/,
-          //   use: [
-          //     'isomorphic-style-loader',
-          //     {
-          //       loader: 'style-loader' // creates style nodes from JS strings
-          //     },
-          //     {
-          //       loader: 'css-loader' // translates CSS into CommonJS
-          //     },
-          //     {
-          //       loader: 'less-loader' // compiles Less to CSS
-          //     }
-          //   ]
-          // },
+
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -200,7 +184,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test:  /\.(css|less)$/,
+            test: /\.(css|less)$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {

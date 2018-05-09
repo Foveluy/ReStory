@@ -6,12 +6,12 @@ const { extractHeader } = require('./r')
 
 const FormatCodeToString = obj => {
   const st = JSON.stringify(obj)
-  return `globals.Config = JSON.parse('${st}')`
+  return ['try{', `globals.Config = JSON.parse('${st}')`, '}catch(e){', 'console.warn(e)', '}'].join('\n')
 }
 
 const FormatCodeToGlobals = (key, obj) => {
   const st = JSON.stringify(obj)
-  return `globals.${key} = JSON.parse('${st}')`
+  return ['try{', `globals.${key} = JSON.parse('${st}')`, '}catch(e){', 'console.warn(e)', '}'].join('\n')
 }
 
 const ImportMarkdown = (route, path) => {
@@ -50,7 +50,7 @@ module.exports = function(source, map, meta) {
     };`,
     'globals.level = 2;',
     siteConfig,
-    ' // first step is getting the README.md'
+    'console.warn(globals)'
   ].join('\n')
 
   selector.forEach(i => {

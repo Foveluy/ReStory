@@ -82,6 +82,9 @@ export default PageStatistic => {
           {children}
         </code>
       )
+    },
+    yaml: ({ children }) => {
+      console.log(children)
     }
   }
 }

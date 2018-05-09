@@ -2,6 +2,8 @@
 
 // const { resolve, join } = require('path')
 const fs = require('fs-extra')
+var frontmatter = require('remark-frontmatter')
+const { createCompiler } = require('@mdx-js/mdx')
 
 // const isMarkdown = f => /\.md$/.test(f)
 // const naviObject = () => {}
@@ -87,9 +89,17 @@ function extractHeader(src) {
 
 const { R } = require('./build/static/js/main')
 
-
 const str = R()
 
 console.log(str)
+
+
+// console.log(options)
+
+// const c = createCompiler().use(frontmatter,['yaml', 'toml'])
+
+
+// const i = c.processSync('#-----sadasdasd')
+// console.log(i)
 
 // console.log(extractHeader('./README.md'))

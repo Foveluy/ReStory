@@ -124,7 +124,13 @@ module.exports = {
       },
       {
         test: /\.md$/,
-        use: ['babel-loader', { loader: '@mdx-js/loader', options: { mdPlugins: [frontmatter] } }]
+        use: [
+          'babel-loader',
+          {
+            loader: '@mdx-js/loader',
+            options: { mdPlugins: [frontmatter], type: 'custom', fence: '+=+=+=+' }
+          }
+        ]
       },
       {
         // "oneOf" will traverse all following loaders until one will
