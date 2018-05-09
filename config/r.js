@@ -46,8 +46,6 @@ const modulesMaker = (path, files) => {
       if (fs.statSync(join(path, f)).isDirectory()) {
         const dirfiles = fs.readdirSync(join(path, f))
         let inside = modulesMaker(join(path, f), dirfiles)
-        console.log(inside)
-        console.log()
         return {
           route: chinese2pinyin(f),
           name: f,

@@ -6,11 +6,11 @@ const { extractHeader } = require('./r')
 
 const FormatCodeToString = obj => {
   const st = JSON.stringify(obj)
-  return `window.Config = JSON.parse('${st}')`
+  return `globals.Config = JSON.parse('${st}')`
 }
 
 const ImportMarkdown = (route, path) => {
-  return [`\nimport ${route} from '${path}';`, `window.component["${route}"] = ${route};`].join('\n')
+  return [`\nimport ${route} from '${path}';`, `globals.component["${route}"] = ${route};`].join('\n')
 }
 
 module.exports = function(source, map, meta) {
@@ -28,8 +28,8 @@ module.exports = function(source, map, meta) {
 
   let imString = [
     `import README from '${join(docsPath, 'README.md')}';\n`,
-    'window.component = {};',
-    `window.README = {
+    'globals.component = {};',
+    `globals.README = {
       route:'README',
       name:'README',
       path:void 666,
@@ -38,7 +38,7 @@ module.exports = function(source, map, meta) {
       component:README,
       header:JSON.parse('${JSON.stringify(extractHeader(join(docsPath, 'README.md')))}')
     };`,
-    'window.level = 2;',
+    'globals.level = 2;',
     ' // first step is getting the README.md'
   ].join('\n')
 
@@ -54,6 +54,6 @@ module.exports = function(source, map, meta) {
     }
   })
 
-  this.callback(null, originCode + ';\n' + imString + source, map, meta)
+  this.callback(null, source + ';\n' + originCode + ';\n' + imString, map, meta)
   return // always return undefined when calling callback()
 }

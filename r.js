@@ -85,4 +85,11 @@ function extractHeader(src) {
   return extract
 }
 
-console.log(extractHeader('./README.md'))
+const { R } = require('./build/static/js/main')
+
+
+const str = R()
+
+console.log(str)
+
+// console.log(extractHeader('./README.md'))

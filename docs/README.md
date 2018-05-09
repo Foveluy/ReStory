@@ -1,3 +1,6 @@
+import Test from './something'
+
+
 # 介绍
 
 ReactStory 是一款极其轻便、支持在 Markdown 里直接书写 React 组件的静态文档生成器。它的诞生主要是为了能够满足 React 组件和 Markdown 同时书写的需求而准备的。
@@ -16,7 +19,7 @@ ReactStory 是一个由 React、React Router、Webpack、Node.js 驱动的单页
 * 自动生成 Service Worker
 * Google Analytics 集成
 
-``` js{4-6}
+```js{4-6}
 export default {
   data () {
     return {
@@ -25,6 +28,8 @@ export default {
   }
 }
 ```
+
+<Test/>
 
 ## License
 

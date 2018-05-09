@@ -1,11 +1,11 @@
 import React from 'react'
-import './codeblock.less'
+
 import Prism from 'prismjs'
 
 import languages from 'prism-languages'
 import { getRidOf } from './util'
-
-window.self.Prism = Prism
+import './codeblock.less'
+// window.self.Prism = Prism
 
 export const CodeBlock = ({ children, className }) => {
   console.log(className)
@@ -130,7 +130,7 @@ export function make(pushstate) {
       line.parentNode.removeChild(line)
     })
 
-    var range = (hash.match(/\.([\d,-]+)$/) || [, ''])[1]
+    var range = (hash.match(/\.([\d,-]+)$/) || [0, ''])[1]
 
     if (!range || document.getElementById(hash)) {
       return

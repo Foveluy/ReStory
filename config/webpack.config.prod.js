@@ -48,6 +48,8 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
 module.exports = {
+  // here is the code for exporting node.js js files
+  target: 'node',
   // Don't attempt to continue if there are any errors.
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
@@ -67,7 +69,8 @@ module.exports = {
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
+    devtoolModuleFilenameTemplate: info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
+    libraryTarget: 'commonjs2'
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -96,7 +99,7 @@ module.exports = {
       // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+      // new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
     ]
   },
   module: {
@@ -105,7 +108,14 @@ module.exports = {
       // TODO: Disable require.ensure as it's not a standard language feature.
       // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
       // { parser: { requireEnsure: false } },
-
+      {
+        test: /\.md$/,
+        use: ['babel-loader', '@mdx-js/loader']
+      },
+      {
+        test: /router.js/,
+        use: ['babel-loader', path.resolve('./config/reactStoryLoader.js')]
+      },
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {

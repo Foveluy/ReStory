@@ -120,7 +120,9 @@ export default class S extends React.Component {
   render() {
     const path = this.props.location.pathname.substring(1)
 
-    const c = window.Config.navi.find(i => i.route === path)
+    const c = this.props.Config.navi.find(i => i.route === path)
+
+    console.log(this.props)
 
     const createMenu = (openKeys, header) => {
       return (
@@ -146,16 +148,16 @@ export default class S extends React.Component {
     }
 
     if (path === 'README') {
-      const openKeys = collectOpenkeys(window.README.header)
+      const openKeys = collectOpenkeys(this.props.READMEMDX.header)
 
-      return createMenu(openKeys, window.README.header)
+      return createMenu(openKeys, this.props.READMEMDX.header)
     }
 
     if (!c) {
       // nested header
       const nested = path.split('/')
       const father = nested[0]
-      const f = window.Config.navi.find(i => i.route === father)
+      const f = this.props.Config.navi.find(i => i.route === father)
       if (f) return this.renderDirMenu(f)
       return null
     }

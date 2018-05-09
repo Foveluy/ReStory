@@ -3,14 +3,18 @@ import fs from 'fs'
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-// import Helmet from 'react-helmet'
+import Helmet from 'react-helmet'
 
 import { Provider } from 'react-redux'
-// import { ConnectedRouter } from 'react-router-redux'
+import { ConnectedRouter } from 'react-router-redux'
 import { Route } from 'react-router-dom'
-// import createServerStore from './store'
+import { StaticRouter } from 'react-router'
+import createServerStore from './store'
+import { Shit } from '../src'
+const { R } = require('../build/static/js/main')
 
 // import App from '../src/router'
+const App = require('../src/router').default
 
 // A simple helper function to prepare the HTML markup
 const prepHTML = (data, { html, head, body }) => {
@@ -34,7 +38,7 @@ const universalLoader = (req, res) => {
     }
 
     // Create a store and sense of history based on the current path
-    // const { store, history } = createServerStore(req.path)
+    const { store, history } = createServerStore(req.path)
 
     // Render App in React
     // const routeMarkup = renderToString(
@@ -44,22 +48,26 @@ const universalLoader = (req, res) => {
     //     </ConnectedRouter>
     //   </Provider>
     // )
-     const routeMarkup = renderToString(
-      <div>123123嘿，我是ssr</div>
-    )
+    const routeMarkup = R({ context: history, location: req.path })
+
+    // const routeMarkup = renderToString(
+    //   <StaticRouter context={history} location={req.path}>
+    //     <Shit />
+    //   </StaticRouter>
+    // )
 
     // // Let Helmet know to insert the right tags
-    // const helmet = Helmet.renderStatic()
+    const helmet = Helmet.renderStatic()
 
     // // Form the final HTML response
-    // const html = prepHTML(htmlData, {
-    //   html: helmet.htmlAttributes.toString(),
-    //   head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
-    //   body: routeMarkup
-    // })
+    const html = prepHTML(htmlData, {
+      html: helmet.htmlAttributes.toString(),
+      head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
+      body: routeMarkup
+    })
 
     // Up, up, and away...
-    res.send(routeMarkup)
+    res.send(html)
   })
 }
 

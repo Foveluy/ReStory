@@ -21,8 +21,7 @@ export default class Contentbody extends React.Component {
   }
 
   render() {
-    const { component, readme, location } = this.props
-
+    const { component, readme } = this.props
     return (
       <div
         className="rs-body-markdown-body"

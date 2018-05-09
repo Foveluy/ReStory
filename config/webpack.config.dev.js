@@ -102,9 +102,10 @@ module.exports = {
       // { parser: { requireEnsure: false } },
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
+
       {
         test: /router.js/,
-        use: ['babel-loader', path.resolve('./config/reactStoryLoader.js')]
+        use: [path.resolve('./config/reactStoryLoader.js')]
       },
       {
         test: /\.(js|jsx|mjs)$/,
@@ -119,6 +120,10 @@ module.exports = {
           }
         ],
         include: paths.appSrc
+      },
+      {
+        test: /\.md$/,
+        use: ['babel-loader', '@mdx-js/loader']
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -136,14 +141,10 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]'
             }
           },
-          {
-            test: /\.md$/,
-            use: ['babel-loader', '@mdx-js/loader']
-          },
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: paths.appSrc,
+            include: [paths.appSrc, path.resolve(process.argv[2])],
             loader: require.resolve('babel-loader'),
             options: {
               plugins: [
