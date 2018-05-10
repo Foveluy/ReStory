@@ -1,105 +1,33 @@
-// const { chinese2pinyin } = require('./config/chinesepinyin')
-
-// const { resolve, join } = require('path')
-const fs = require('fs-extra')
-var frontmatter = require('remark-frontmatter')
-const { createCompiler } = require('@mdx-js/mdx')
-
-// const isMarkdown = f => /\.md$/.test(f)
-// const naviObject = () => {}
-
-// const modulesMaker = (path, files) => {
-//   let i = files
-//     .filter(f => {
-//       if (isMarkdown(f)) return f // markdown
-//       if (fs.statSync(join(path, f)).isDirectory()) return f //isDirectory
-//     })
-//     .map(f => {
-//       if (fs.statSync(join(path, f)).isDirectory()) {
-//         const dirfiles = fs.readdirSync(join(path, f))
-//         let inside = modulesMaker(join(path, f), dirfiles)
-//         console.log(inside)
-//         console.log()
-//         return {
-//           route: chinese2pinyin(f),
-//           name: f,
-//           path: join(path, f),
-//           children: inside,
-//           type: 'dir'
-//         }
-//       }
-
-//       return {
-//         route: chinese2pinyin(f.replace('.md', '')),
-//         name: f.replace('.md', ''),
-//         path: resolve(join(path, f)),
-//         children: void 666,
-//         type: 'file'
-//       }
-//     })
-//   return i
-// }
-
-// const scan = src => {
-//   const naviPath = join(src, 'navi')
-//   const files = fs.readdirSync(resolve(naviPath))
-
-//   let i = modulesMaker(naviPath, files)
-
-//   // * 1.文件(夹)名
-//   // * 2.文件路径
-//   // * 3.chilren:[]|void 666
-//   // * 4.type:file|dir
-
-//   console.log(i)
-// }
-
-// scan('./docs')
-
-function extractHeader(src) {
-  var i = fs.readFileSync(src, 'utf-8')
-
-  let extract = []
-  let currentH1 = 0
-
-  while (1) {
-    let out = i.match(/^(\#{1,6})([^\#\n]+)$/m)
-
-    if (out === null) break
-    const level = out[1].length
-    if (level === 1) {
-      extract.push(out[2].substring(1))
-      currentH1 = extract.length - 1
-      extract[currentH1] = [extract[currentH1], []]
-    } else if (level === 2) {
-      if (!extract[currentH1]) {
-        extract[currentH1] = ['no-h1', []]
-        currentH1 = extract.length - 1
-      }
-      extract[currentH1][1].push(out[2].substring(1))
-    }
-
-    // console.log(out[2])
-    // console.log(out[0])
-
-    i = out.input.replace(out[0], '<shit>')
-  }
-  return extract
+const fun1 = async (ctx, next) => {
+  next()
+  console.log('我是中间件1')
+  console.log('哈哈哈')
 }
 
-const { R } = require('./build/static/js/main')
+const fun2 = async (ctx, next) => {
+  console.log('我是中间件2')
+  // next()
+}
 
-const str = R()
+const mid = []
+mid.push(fun1)
+mid.push(fun2)
 
-console.log(str)
+let i = -1
 
-
-// console.log(options)
-
-// const c = createCompiler().use(frontmatter,['yaml', 'toml'])
-
-
-// const i = c.processSync('#-----sadasdasd')
-// console.log(i)
-
-// console.log(extractHeader('./README.md'))
+dispatch(0)
+function dispatch(index) {
+  if (index <= i) return Promise.reject(new Error('next() called multiple times'))
+  i = index
+  let fn = mid[index]
+  if (!fn) return Promise.resolve()
+  try {
+    Promise.resolve(
+      fn('ddd', function next() {
+        return dispatch(index + 1)
+      })
+    )
+  } catch (e) {
+    return Promise.reject(e)
+  }
+}
