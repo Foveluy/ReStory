@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
+import { isSSR } from './util'
 // import './index.css'
 // import { hot } from 'react-hot-loader'
 
@@ -36,41 +37,43 @@ export default class App extends React.Component {
   }
 
   resize = () => {
-    const win = window
-    if (win.innerWidth <= 769) {
-      this.setState({
-        collapsed: true,
-        SiderWidth: 0,
-        collapsedButtonShow: true
-      })
-    } else {
-      this.setState({
-        collapsed: false,
-        SiderWidth: 320,
-        collapsedButtonShow: false
-      })
-    }
+    isSSR(win => {
+      if (win.innerWidth <= 769) {
+        this.setState({
+          collapsed: true,
+          SiderWidth: 0,
+          collapsedButtonShow: true
+        })
+      } else {
+        this.setState({
+          collapsed: false,
+          SiderWidth: 320,
+          collapsedButtonShow: false
+        })
+      }
+    })
   }
   shouldComponentUpdate(p, s) {
     return s.collapsed !== this.state.collapsed || this.props.location.pathname !== p.location.pathname
   }
 
-  componentWillMount() {
-    const win = window
-    win.removeEventListener('resize', this.resize)
+  componentWillUnmount() {
+    isSSR(win => {
+      win.removeEventListener('resize', this.resize)
+    })
   }
 
   componentDidMount() {
-    const win = window
-
-    if (win.innerWidth <= 769) {
-      this.setState({
-        collapsed: true,
-        SiderWidth: 0,
-        collapsedButtonShow: true
-      })
-    }
-    win.addEventListener('resize', this.resize)
+    isSSR(win => {
+      if (win.innerWidth <= 769) {
+        this.setState({
+          collapsed: true,
+          SiderWidth: 0,
+          collapsedButtonShow: true
+        })
+      }
+      win.addEventListener('resize', this.resize)
+    })
   }
 
   collapsed = () => {
@@ -119,7 +122,6 @@ export default class App extends React.Component {
         <Sider
           collapsedWidth={0}
           collapsed={this.state.collapsed}
-          
           style={{
             height: this.state.collapsedButtonShow ? '85vh' : '100vh',
             position: 'fixed',

@@ -31,9 +31,13 @@ Copyright (c) ZhengFang <mailto:snakegear@163.com>
 * [x] 一件部署：生成 SSR 版本和 client 版本
   * [x] SSR 渲染时 CSS 问题
 * [ ] sider 问题
-* [ ] markdown 拓展问题
-* [ ] 多语言支持
 * [x] 响应式
+* [ ] header的顺序问题
+* [ ] 图片分辨率问题
 * [ ] 首页制作
 * [ ] github 风格表格
+
+## after 1.0
+* [ ] 多语言支持
 * [ ] 前后页
+* [ ] markdown 拓展问题

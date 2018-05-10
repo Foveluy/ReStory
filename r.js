@@ -9,6 +9,7 @@ const fun2 = async (ctx, next) => {
   // next()
 }
 
+
 const mid = []
 mid.push(fun1)
 mid.push(fun2)

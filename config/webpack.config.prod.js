@@ -151,11 +151,12 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: paths.appSrc,
+            include: [paths.appSrc, path.resolve(process.argv[2])],
             loader: require.resolve('babel-loader'),
             options: {
               compact: false,
               plugins: [
+                'transform-decorators-legacy',
                 ['transform-remove-console', { exclude: ['error', 'warn'] }],
                 [
                   'import',
@@ -200,7 +201,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test:  /\.(css|less)$/,
+            test: /\.(css|less)$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
