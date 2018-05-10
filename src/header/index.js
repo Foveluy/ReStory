@@ -22,10 +22,12 @@ export default class Header extends React.Component {
     const { navi, mode } = this.props
     let current = navi.find(n => '/' + n.route === this.props.location.pathname)
     // todo nested path
+    // what we do here is
+    // if `current === undefined` it means it probably is a folder
+    // so we do a feather check
     if (!current) {
       const split = this.props.location.pathname.substring(1).split('/')
       const father = split[0]
-      // console.log('fater', father)
       for (let idx in navi) {
         const files = navi[idx]
         if (files.type === 'dir') {
@@ -37,12 +39,14 @@ export default class Header extends React.Component {
       }
     }
 
+    const selectkey = this.props.location.pathname === '/' ? null : current ? current.route : 'readme'
+
     return (
       <React.Fragment>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Menu
             onClick={this.handleClick}
-            selectedKeys={[current ? current.route : 'readme']}
+            selectedKeys={[selectkey]}
             mode={mode}
             style={{ borderBottom: mode === 'horizontal' ? 0 : '1px solid rgb(232, 232, 232)' }}
           >

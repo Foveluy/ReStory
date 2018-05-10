@@ -9,3 +9,8 @@ body {
     color: rgb(40, 44, 52);
     font-weight: 900;
 }
+
+.logo > a{
+    text-decoration: none;
+    color: rgb(40, 44, 52);
+}

@@ -27,6 +27,11 @@ export default class S extends React.Component {
     selectedKeys: []
   }
 
+  shouldComponentUpdate(next) {
+    // return false
+    return true 
+  }
+
   onSelect = ({ item, key, selectedKeys }) => {
     this.setState({
       selectedKeys: selectedKeys
@@ -121,7 +126,6 @@ export default class S extends React.Component {
     const path = this.props.location.pathname.substring(1)
 
     const c = this.props.Config.navi.find(i => i.route === path)
-
     const createMenu = (openKeys, header) => {
       return (
         <Menu

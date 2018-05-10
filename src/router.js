@@ -1,10 +1,12 @@
 import React from 'react'
 import { Layout, Button, Icon } from 'antd'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Route, Link } from 'react-router-dom'
 import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
 import { isSSR } from './util'
+import FrontPage from './frontpage'
+
 // import './index.css'
 // import { hot } from 'react-hot-loader'
 
@@ -14,7 +16,6 @@ const { Content, Footer, Header, Sider } = Layout
 const Border = '1px solid rgb(232, 232, 232)'
 const HeaderWithRouter = withRouter(HeaderBody)
 const SiderWithRouter = withRouter(SiderBody)
-const ContentWithRouter = withRouter(ContentBody)
 
 // here is the object for react-story loader injection.
 var globals = {}
@@ -89,6 +90,31 @@ export default class App extends React.Component {
     })
   }
 
+  renderSider = (Config, MdxComponent, READMEMDX) => {
+    if (this.props.location.pathname === '/') return null
+    return (
+      <Sider
+        collapsedWidth={0}
+        collapsed={this.state.collapsed}
+        style={{
+          paddingTop: this.state.HeaderHeight,
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          background: 'white',
+          borderRight: Border,
+          overflow: 'auto'
+        }}
+        width={this.state.SiderWidth}
+      >
+        {this.state.collapsedButtonShow ? (
+          <HeaderWithRouter navi={Config && Config.navi} {...this.state} mode="inline" />
+        ) : null}
+        <SiderWithRouter {...this.state} />
+      </Sider>
+    )
+  }
+
   render() {
     const { Config, MdxComponent, READMEMDX } = this.state
     return (
@@ -99,47 +125,27 @@ export default class App extends React.Component {
             background: '#fff',
             width: '100%',
             top: 0,
+            zIndex: 3,
             position: 'fixed',
             borderBottom: Border,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            zIndex: 3,
             height: this.state.HeaderHeight
           }}
         >
-          <Button
-            ghost={true}
-            type="primary"
-            onClick={this.collapsed}
-            style={{ display: this.state.collapsedButtonShow ? '' : 'none', marginRight: 12 }}
-          >
-            <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-          </Button>
-          <div className="logo">{this.state.siteConfig.title}</div>
+          <div className="logo">
+            <Link to={'/'}>{this.state.siteConfig.title}</Link>
+          </div>
           {this.state.collapsedButtonShow ? null : <HeaderWithRouter navi={Config && Config.navi} {...this.state} />}
         </Header>
-        <Sider
-          collapsedWidth={0}
-          collapsed={this.state.collapsed}
+        {this.renderSider(Config, MdxComponent, READMEMDX)}
+        <Layout
           style={{
-            height: this.state.collapsedButtonShow ? '85vh' : '100vh',
-            position: 'fixed',
-            left: 0,
-            zIndex: 10,
-            background: 'white',
-            borderRight: Border,
             marginTop: this.state.HeaderHeight,
-            overflow: 'scroll'
+            marginLeft: this.props.location.pathname === '/' ? 0 : this.state.SiderWidth
           }}
-          width={this.state.SiderWidth}
         >
-          {this.state.collapsedButtonShow ? (
-            <HeaderWithRouter navi={Config && Config.navi} {...this.state} mode="inline" />
-          ) : null}
-          <SiderWithRouter {...this.state} />
-        </Sider>
-        <Layout style={{ marginLeft: this.state.SiderWidth }}>
           <Content
             style={{
               overflow: 'initial',
@@ -148,7 +154,11 @@ export default class App extends React.Component {
               background: '#fff'
             }}
           >
-            <ContentWithRouter component={MdxComponent} readme={READMEMDX} />
+            {this.props.location.pathname === '/' ? (
+              <Route exact path="/" component={FrontPage} />
+            ) : (
+              <ContentBody component={MdxComponent} readme={READMEMDX} />
+            )}
           </Content>
           <Footer style={{ textAlign: 'center', background: '#fff' }}>ReactStory ©2018 Created by ZhengFang</Footer>
         </Layout>

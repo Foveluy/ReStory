@@ -2,6 +2,8 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import markdown from '../rscomponent/markdown'
 import { make } from '../rscomponent/codeblock'
+import { withRouter } from 'react-router-dom'
+import FrontPage from '../frontpage'
 
 class MDXLoader extends React.Component {
   componentDidMount() {
@@ -14,6 +16,7 @@ class MDXLoader extends React.Component {
   }
 }
 
+@withRouter
 export default class Contentbody extends React.Component {
   shouldComponentUpdate(nextprop) {
     const { location } = this.props
@@ -26,13 +29,13 @@ export default class Contentbody extends React.Component {
       <div
         className="rs-body-markdown-body"
         style={{
-          padding:24,
+          padding: 24,
           background: '#fff',
           width: '100%',
           maxWidth: 740
         }}
       >
-        <Route exact path={'/README'} component={() => <MDXLoader MDXComponent={readme.component} />} />
+        <Route path={'/README'} component={() => <MDXLoader MDXComponent={readme.component} />} />
         {Object.keys(component).map((key, idx) => {
           return (
             <Route
