@@ -16,22 +16,24 @@ ReactStory 是一个由 React、React Router、Webpack、Node.js 驱动的单页
 * 自动生成 Service Worker
 * Google Analytics 集成
 * more
-   * image support
+  * image support
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) ZhengFang <snakegear@163.com> 
+Copyright (c) ZhengFang <mailto:snakegear@163.com>
 
 ## todo
-- [ ] CLI 的构建
-- [ ] 用户能够安装自己的组件
-- [x] 一件部署：生成 SSR 版本和 client 版本
-   - [x] SSR 渲染时 CSS 问题 
-- [ ] markdown 拓展问题
-- [ ] 多语言支持
-- [ ] 响应式
-- [ ] 首页制作
-- [ ] github风格表格
-- [ ] 前后页
+
+* [ ] CLI 的构建
+* [ ] 用户能够安装自己的组件
+* [x] 一件部署：生成 SSR 版本和 client 版本
+  * [x] SSR 渲染时 CSS 问题
+* [ ] sider 问题
+* [ ] markdown 拓展问题
+* [ ] 多语言支持
+* [x] 响应式
+* [ ] 首页制作
+* [ ] github 风格表格
+* [ ] 前后页

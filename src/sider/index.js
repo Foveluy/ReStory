@@ -122,8 +122,6 @@ export default class S extends React.Component {
 
     const c = this.props.Config.navi.find(i => i.route === path)
 
-    console.log(this.props)
-
     const createMenu = (openKeys, header) => {
       return (
         <Menu

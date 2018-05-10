@@ -11,20 +11,15 @@ export default class Header extends React.Component {
   }
 
   shouldComponentUpdate(next) {
-    return true
-    // return next.location.pathname !== this.props.location.pathname
+    return next.location.pathname !== this.props.location.pathname || next.collapsed !== this.props.collapsed
   }
 
-  componentDidMount() {
-    // when this component got mouted,
-    // we change our title of sider bar
-    // const { navi } = this.props
-    // const current = navi.find(n => '/' + n === this.props.location.pathname)
-    // this.props.r.switchNavigation(current)
+  static defaultProps = {
+    mode: 'horizontal'
   }
 
   render() {
-    const { navi } = this.props
+    const { navi, mode } = this.props
     let current = navi.find(n => '/' + n.route === this.props.location.pathname)
     // todo nested path
     if (!current) {
@@ -44,19 +39,17 @@ export default class Header extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="logo">{this.props.siteConfig.title}</div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Menu
             onClick={this.handleClick}
             selectedKeys={[current ? current.route : 'readme']}
-            mode="inline"
-            style={{ borderBottom: '1px solid rgb(232, 232, 232)' }}
+            mode={mode}
+            style={{ borderBottom: mode === 'horizontal' ? 0 : '1px solid rgb(232, 232, 232)' }}
           >
             <Menu.Item key={'readme'}>
               <Link to={'/README'}>README</Link>
             </Menu.Item>
             {navi.map((nav, index) => {
-              console.log(nav)
               return (
                 <Menu.Item key={nav.route}>
                   <Link to={'/' + nav.route}>{nav.name}</Link>

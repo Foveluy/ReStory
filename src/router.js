@@ -5,7 +5,7 @@ import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
 // import './index.css'
-import { hot } from 'react-hot-loader'
+// import { hot } from 'react-hot-loader'
 
 // const H = hot(module)(A)
 
@@ -18,6 +18,7 @@ const ContentWithRouter = withRouter(ContentBody)
 // here is the object for react-story loader injection.
 var globals = {}
 
+@withRouter
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -51,8 +52,7 @@ export default class App extends React.Component {
     }
   }
   shouldComponentUpdate(p, s) {
-    return true
-    // return s.collapsed !== this.state.collapsed
+    return s.collapsed !== this.state.collapsed || this.props.location.pathname !== p.location.pathname
   }
 
   componentWillMount() {
@@ -76,7 +76,7 @@ export default class App extends React.Component {
   collapsed = () => {
     this.setState({
       collapsed: !this.state.collapsed,
-      SiderWidth: this.state.collapsed ? 320 : 0
+      SiderWidth: this.state.collapsed ? 200 : 0
     })
   }
   siderClose = () => {
@@ -113,13 +113,15 @@ export default class App extends React.Component {
           >
             <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
           </Button>
-          {/* <HeaderWithRouter navi={Config && Config.navi} {...this.state} /> */}
+          <div className="logo">{this.state.siteConfig.title}</div>
+          {this.state.collapsedButtonShow ? null : <HeaderWithRouter navi={Config && Config.navi} {...this.state} />}
         </Header>
         <Sider
           collapsedWidth={0}
           collapsed={this.state.collapsed}
+          
           style={{
-            height: '92vh',
+            height: this.state.collapsedButtonShow ? '85vh' : '100vh',
             position: 'fixed',
             left: 0,
             zIndex: 10,
@@ -130,10 +132,12 @@ export default class App extends React.Component {
           }}
           width={this.state.SiderWidth}
         >
-          <HeaderWithRouter navi={Config && Config.navi} {...this.state} />
+          {this.state.collapsedButtonShow ? (
+            <HeaderWithRouter navi={Config && Config.navi} {...this.state} mode="inline" />
+          ) : null}
           <SiderWithRouter {...this.state} />
         </Sider>
-        <Layout style={{ marginLeft: this.state.SiderWidth }} onClick={this.siderClose}>
+        <Layout style={{ marginLeft: this.state.SiderWidth }}>
           <Content
             style={{
               overflow: 'initial',
