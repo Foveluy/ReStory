@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom'
 import markdown from '../rscomponent/markdown'
 import { make } from '../rscomponent/codeblock'
 import { withRouter } from 'react-router-dom'
-import FrontPage from '../frontpage'
 
 class MDXLoader extends React.Component {
   componentDidMount() {

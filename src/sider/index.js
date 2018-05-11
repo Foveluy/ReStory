@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu } from 'antd'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
 
 import './index.less'
 
@@ -22,6 +22,7 @@ const collectOpenkeys = header => {
   return openKeys
 }
 
+@withRouter
 export default class S extends React.Component {
   state = {
     selectedKeys: []
@@ -29,7 +30,7 @@ export default class S extends React.Component {
 
   shouldComponentUpdate(next) {
     // return false
-    return true 
+    return true
   }
 
   onSelect = ({ item, key, selectedKeys }) => {
@@ -134,7 +135,6 @@ export default class S extends React.Component {
           selectedKeys={this.state.selectedKeys}
           onSelect={this.onSelect}
           onOpenChange={this.onOpenChange}
-          inlineCollapsed={true}
         >
           {this.renderMenue(header)}
         </Menu>

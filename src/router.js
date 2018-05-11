@@ -1,13 +1,14 @@
 import React from 'react'
-import { Layout, Button, Icon } from 'antd'
+import { Layout, Button } from 'antd'
 import { withRouter, Route, Link } from 'react-router-dom'
 import ContentBody from './content'
 import SiderBody from './sider'
 import HeaderBody from './header'
 import { isSSR } from './util'
 import FrontPage from './frontpage'
+import Drawer from 'react-motion-drawer'
+import './index.css'
 
-// import './index.css'
 // import { hot } from 'react-hot-loader'
 
 // const H = hot(module)(A)
@@ -30,10 +31,10 @@ export default class App extends React.Component {
       MdxComponent: globals.component,
       READMEMDX: globals.README,
       siteConfig: globals.siteConfig,
-      collapsed: false,
       SiderWidth: 320,
       HeaderHeight: 58,
-      collapsedButtonShow: false
+      screenMode: 'computer',
+      open: false
     }
   }
 
@@ -54,9 +55,6 @@ export default class App extends React.Component {
       }
     })
   }
-  shouldComponentUpdate(p, s) {
-    return s.collapsed !== this.state.collapsed || this.props.location.pathname !== p.location.pathname
-  }
 
   componentWillUnmount() {
     isSSR(win => {
@@ -68,12 +66,10 @@ export default class App extends React.Component {
     isSSR(win => {
       if (win.innerWidth <= 769) {
         this.setState({
-          collapsed: true,
-          SiderWidth: 0,
-          collapsedButtonShow: true
+          screenMode: 'mobile'
         })
       }
-      win.addEventListener('resize', this.resize)
+      // win.addEventListener('resize', this.resize)
     })
   }
 
@@ -89,9 +85,25 @@ export default class App extends React.Component {
       SiderWidth: 0
     })
   }
+  openshit = () => {
+    this.setState({ open: !this.state.open })
+  }
 
   renderSider = (Config, MdxComponent, READMEMDX) => {
     if (this.props.location.pathname === '/') return null
+    if (this.state.screenMode === 'mobile') {
+      return (
+        <div style={{ zIndex: 100 }}>
+          <Button onClick={this.openshit}>123123</Button>
+          <Drawer open={this.state.open} drawerStyle={{ background: 'white' }} width={200}>
+            <div>
+              <SiderWithRouter {...this.state} />
+            </div>
+          </Drawer>
+        </div>
+      )
+    }
+
     return (
       <Sider
         collapsedWidth={0}
@@ -107,16 +119,13 @@ export default class App extends React.Component {
         }}
         width={this.state.SiderWidth}
       >
-        {this.state.collapsedButtonShow ? (
-          <HeaderWithRouter navi={Config && Config.navi} {...this.state} mode="inline" />
-        ) : null}
         <SiderWithRouter {...this.state} />
       </Sider>
     )
   }
 
   render() {
-    const { Config, MdxComponent, READMEMDX } = this.state
+    const { Config, MdxComponent, READMEMDX, screenMode } = this.state
     return (
       <Layout>
         <Header
@@ -137,13 +146,13 @@ export default class App extends React.Component {
           <div className="logo">
             <Link to={'/'}>{this.state.siteConfig.title}</Link>
           </div>
-          {this.state.collapsedButtonShow ? null : <HeaderWithRouter navi={Config && Config.navi} {...this.state} />}
+          {screenMode === 'mobile' ? null : <HeaderWithRouter navi={Config && Config.navi} {...this.state} />}
         </Header>
         {this.renderSider(Config, MdxComponent, READMEMDX)}
         <Layout
           style={{
             marginTop: this.state.HeaderHeight,
-            marginLeft: this.props.location.pathname === '/' ? 0 : this.state.SiderWidth
+            marginLeft: this.props.location.pathname === '/' ? 0 : screenMode === 'mobile' ? 0 : this.state.SiderWidth
           }}
         >
           <Content
