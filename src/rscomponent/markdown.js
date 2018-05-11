@@ -2,6 +2,7 @@ import React from 'react'
 import { CodeBlock } from './codeblock'
 import './markdown.less'
 import { getRidOf } from './util'
+import { AutoImage } from './autoimage'
 
 const ListStyle = { marginTop: 30, fontSize: 16, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
 
@@ -83,8 +84,11 @@ export default PageStatistic => {
         </code>
       )
     },
-    yaml: ({ children }) => {
-      console.log(children)
+    img: d => {
+      console.log(d)
+      let isShields = /shields/.test(d.src)
+      // <img className={isShields ? '' : 'md-img'} alt={d.alt} src={d.src} />
+      return <AutoImage className={isShields ? '' : 'md-img'} alt={d.alt} src={d.src} />
     }
   }
 }

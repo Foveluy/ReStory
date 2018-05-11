@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button } from 'antd'
+import { Layout, Button, Icon } from 'antd'
 import { withRouter, Route, Link } from 'react-router-dom'
 import ContentBody from './content'
 import SiderBody from './sider'
@@ -88,19 +88,22 @@ export default class App extends React.Component {
   openshit = () => {
     this.setState({ open: !this.state.open })
   }
+  closeDrawer = thing => {
+    console.log(thing)
+    if (thing === false) {
+      this.setState({ open: false })
+    }
+    //
+  }
 
   renderSider = (Config, MdxComponent, READMEMDX) => {
     if (this.props.location.pathname === '/') return null
     if (this.state.screenMode === 'mobile') {
       return (
-        <div style={{ zIndex: 100 }}>
-          <Button onClick={this.openshit}>123123</Button>
-          <Drawer open={this.state.open} drawerStyle={{ background: 'white' }} width={200}>
-            <div>
-              <SiderWithRouter {...this.state} />
-            </div>
-          </Drawer>
-        </div>
+        <Drawer open={this.state.open} onChange={this.closeDrawer} drawerStyle={{ background: 'white' }} width={200}>
+          <HeaderWithRouter navi={Config && Config.navi} {...this.state} mode="inline" />
+          <SiderBody {...this.state} />
+        </Drawer>
       )
     }
 
@@ -143,6 +146,11 @@ export default class App extends React.Component {
             height: this.state.HeaderHeight
           }}
         >
+          {screenMode === 'mobile' && this.props.location.pathname !== '/' ? (
+            <Button type="primary" ghost={true} onClick={this.openshit}>
+              <Icon type={this.state.open ? 'menu-unfold' : 'menu-fold'} />
+            </Button>
+          ) : null}
           <div className="logo">
             <Link to={'/'}>{this.state.siteConfig.title}</Link>
           </div>
