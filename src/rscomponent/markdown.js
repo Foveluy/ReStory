@@ -55,19 +55,24 @@ export default PageStatistic => {
       return <ol style={ListStyle}>{children}</ol>
     },
     pre: ({ children }) => {
-      const className = children.props.props.className
+      const className = children.props.props && children.props.props.className
+
       let i = ''
       className &&
         className.forEach((n, index) => {
           i += n
         })
+      // for setting padding
+      i = i ? i : 'language-'
 
-      const langnumber = getRidOf(i)
-      const obj = langnumber ? { className: langnumber.string, 'data-line': langnumber.number } : { className: i }
+      const hightlinenumner = getRidOf(i)
+      const obj = hightlinenumner
+        ? { className: hightlinenumner.string, 'data-line': hightlinenumner.number }
+        : { className: i }
       return (
         <div className="rs-code-block">
           <div className="langs">
-            {langnumber ? langnumber.string.replace('language-', '') : i.replace('language-', '')}
+            {hightlinenumner ? hightlinenumner.string.replace('language-', '') : i.replace('language-', '')}
           </div>
           <pre {...obj} style={{ background: 'rgba(0,0,0,0)' }}>
             {children}

@@ -146,7 +146,7 @@ module.exports = {
           },
           {
             test: /\.md$/,
-            use: ['babel-loader', '@mdx-js/loader']
+            use: ['babel-loader', '@mdx-js/loader', path.resolve('./config/componentloader.js')]
           },
           // Process JS with Babel.
           {

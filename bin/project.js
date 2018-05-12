@@ -27,6 +27,18 @@ class ReactStoryInit {
     // console.log(args)
   }
 
+  dev(){
+
+  }
+
+  build(){
+
+  }
+  
+  deploy(){
+
+  }
+
   run() {
     const scriptpath = {
       dev: '../scripts/start',

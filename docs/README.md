@@ -1,3 +1,14 @@
+| Tables        |      Are      |  Cool |
+| ------------- | :-----------: | ----: |
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      |   centered    |   $12 |
+| zebra stripes |   are neat    |    $1 |
+| zebra stripes |   are neat    |    $1 |
+
+<Tip>这里是 tip</Tip>
+<Warning>这里是 Warning</Warning>
+<Danger>这里是 Danger</Danger>
+
 # 介绍
 
 ReactStory 是一款极其轻便、支持在 Markdown 里直接书写 React 组件的静态文档生成器。它的诞生主要是为了能够满足 React 组件和 Markdown 同时书写的需求而准备的。
@@ -16,7 +27,7 @@ ReactStory 是一个由 React、React Router、Webpack、Node.js 驱动的单页
 * 自动生成 Service Worker
 * Google Analytics 集成
 
-```js
+```js{4}
 export default {
   data() {
     return {
@@ -25,7 +36,6 @@ export default {
   }
 }
 ```
-
 
 ## License
 

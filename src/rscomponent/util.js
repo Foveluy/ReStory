@@ -1,3 +1,5 @@
+
+// get rid of the { }
 export const getRidOf = str => {
   if (/\{[^}]+\}/.test(str)) {
     return {

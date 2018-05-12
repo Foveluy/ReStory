@@ -33,3 +33,30 @@ h3 {
     max-width: 100%;
     display: block;
 }
+
+@border: 1px solid #dfe2e5;
+table {
+    text-align: center;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    border: @border;
+    th {
+        border: @border;
+        padding: .6em 1em;
+        font-weight: 900;
+        font-size: 17px;
+    }
+    tr {
+        border-top: @border;
+        td {
+            border: @border;
+            background: @border;
+            padding: .6em 1em;
+            font-weight: 700;
+            font-size: 15px;
+        }
+    }
+    tr:nth-child(2n) {
+        background-color: #f6f8fa;
+    }
+}

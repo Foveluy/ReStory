@@ -109,7 +109,7 @@ module.exports = {
 
       {
         test: /router.js/,
-        use: ['babel-loader', path.resolve('./config/reactStoryLoader.js')]
+        use: ['babel-loader', path.resolve('./config/reactStoryLoader.js'), path.resolve('./config/componentloader.js')]
       },
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
@@ -144,7 +144,7 @@ module.exports = {
           },
           {
             test: /\.md$/,
-            use: ['babel-loader', '@mdx-js/loader']
+            use: ['babel-loader', '@mdx-js/loader', path.resolve('./config/componentloader.js')]
           },
           // Process JS with Babel.
           {

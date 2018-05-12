@@ -129,7 +129,8 @@ module.exports = {
           {
             loader: '@mdx-js/loader',
             options: { mdPlugins: [frontmatter], type: 'custom', fence: '+=+=+=+' }
-          }
+          },
+          path.resolve('./config/componentloader.js')
         ]
       },
       {

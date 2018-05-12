@@ -21,7 +21,7 @@ export const CodeBlock = ({ children, className }) => {
   if (lng) {
     styled = Prism.highlight(children, lng)
   } else {
-    styled = Prism.highlight(children)
+    styled = children
   }
 
   return <code className={l ? l.string : i} dangerouslySetInnerHTML={{ __html: styled }} />

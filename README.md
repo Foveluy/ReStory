@@ -26,18 +26,22 @@ Copyright (c) ZhengFang <mailto:snakegear@163.com>
 
 ## todo
 
-* [ ] 没有写 code 的代码
+* [x] 没有写 code 的代码
 * [ ] CLI 的构建
 * [ ] 用户能够安装自己的组件
 * [x] 一件部署：生成 SSR 版本和 client 版本
   * [x] SSR 渲染时 CSS 问题
 * [x] sider 问题
 * [x] 响应式
-* [ ] header 的顺序问题
+* [ ] header 的顺序问题/header名字的问题
 * [x] 图片分辨率问题
 * [x] 首页制作
 * [ ] 首页可配置
-* [ ] github 风格表格
+* [x] github 风格表格
+* [ ] 没有 readme 的时候
+
+
+
 
 ## after 1.0
 
