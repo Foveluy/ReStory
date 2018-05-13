@@ -130,8 +130,14 @@ module.exports = {
       },
       {
         test: /\.md$/,
+        include: [paths.appSrc, path.resolve(process.cwd(), process.argv[3])],
         use: [
-          nodeModules('babel-loader'),
+          {
+            loader: nodeModules('babel-loader'),
+            options: {
+              presets: [nodeModules('babel-preset-react-app')]
+            }
+          },
           {
             loader: nodeModules('@mdx-js/loader')
           },
@@ -160,6 +166,7 @@ module.exports = {
             include: [paths.appSrc, path.resolve(process.cwd(), process.argv[3])],
             loader: nodeModules('babel-loader'),
             options: {
+              presets: [nodeModules('babel-preset-react-app')],
               plugins: [
                 nodeModules('react-hot-loader/babel'),
                 nodeModules('babel-plugin-transform-decorators-legacy'),
