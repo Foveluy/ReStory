@@ -1,3 +1,7 @@
+const fs = require('fs-extra')
+// Ensure environment variables are read.
+require('../config/env')
+
 const chalk = require('chalk')
 const { resolve } = require('path')
 const child_process = require('child_process')
@@ -27,39 +31,37 @@ class ReactStoryInit {
     // console.log(args)
   }
 
-  dev(){
-
+  dev() {
+    const devrun = require('./dev')
+    devrun()
   }
 
-  build(){
+  finished() {
+    console.log('全部完成了')
 
+    fs.copy(resolve(__dirname, '../build'), join(this.bootPath, 'build'))
+    fs.copy(resolve(__dirname, '../serverbuild'), join(this.bootPath, 'serverbuild'))
+    fs.copy(resolve(__dirname, '../server'), join(this.bootPath, 'server'))
   }
-  
-  deploy(){
 
+  build() {
+    let i = 0
+    const building = require('./build')
+    const buildingProject = require('./client')
+    building(type => {
+      i++
+      if (i == 2) this.finished()
+    })
+    buildingProject(() => {
+      i++
+      if (i == 2) this.finished()
+    })
   }
+
+  deploy() {}
 
   run() {
-    const scriptpath = {
-      dev: '../scripts/start',
-      build: '../scripts/build',
-      deploy: ''
-    }
-
-    const scripts = resolve(__dirname, scriptpath[this.mode])
-
-    let pid = 0
-    try {
-      const prs = child_process.exec(`node ${scripts} ${this.targetPath} --colors`)
-      pid = prs.pid
-      process.stdin.pipe(prs.stdin)
-      prs.stdout.pipe(process.stdout)
-      prs.stderr.pipe(process.stdout)
-    } catch (e) {
-      if (pid !== 0) process.kill(pid)
-      console.log(chalk.default.redBright(e))
-      process.exit(1)
-    }
+    this[this.mode]()
   }
 }
 ReactStoryInit.prototype.modes = {
@@ -68,4 +70,4 @@ ReactStoryInit.prototype.modes = {
   deploy: 1
 }
 
-new ReactStoryInit(process.cwd(), process.argv.slice(2)).run()
+module.exports = ReactStoryInit

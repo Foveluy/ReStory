@@ -3,3 +3,5 @@ doc
 config
 public
 build
+serverbuild
+r.js

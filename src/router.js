@@ -34,7 +34,8 @@ export default class App extends React.Component {
       SiderWidth: 320,
       HeaderHeight: 58,
       screenMode: 'computer',
-      open: false
+      open: false,
+      IndexJSPage: globals.IndexJSPage
     }
   }
 
@@ -128,7 +129,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { Config, MdxComponent, READMEMDX, screenMode } = this.state
+    const { Config, MdxComponent, READMEMDX, screenMode, IndexJSPage } = this.state
     return (
       <Layout>
         <Header
@@ -172,7 +173,7 @@ export default class App extends React.Component {
             }}
           >
             {this.props.location.pathname === '/' ? (
-              <Route exact path="/" component={FrontPage} />
+              <Route exact path="/" component={IndexJSPage ? IndexJSPage : FrontPage} />
             ) : (
               <ContentBody component={MdxComponent} readme={READMEMDX} />
             )}

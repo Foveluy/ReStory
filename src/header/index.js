@@ -51,7 +51,7 @@ export default class Header extends React.Component {
             style={{ borderBottom: mode === 'horizontal' ? 0 : '1px solid rgb(232, 232, 232)' }}
           >
             <Menu.Item key={'readme'}>
-              <Link to={'/README'}>README</Link>
+              <Link to={'/README'}>{this.props.READMEMDX.name}</Link>
             </Menu.Item>
             {navi.map((nav, index) => {
               return (

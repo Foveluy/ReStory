@@ -33,14 +33,14 @@ Copyright (c) ZhengFang <mailto:snakegear@163.com>
   * [x] SSR 渲染时 CSS 问题
 * [x] sider 问题
 * [x] 响应式
-* [ ] header 的顺序问题/header名字的问题
+* [x] header 的顺序问题
 * [x] 图片分辨率问题
 * [x] 首页制作
-* [ ] 首页可配置
+* [x] 首页可配置
 * [x] github 风格表格
-* [ ] 没有 readme 的时候
+* [x] readme 名字
 
-
+npm config set unsafe-perm true
 
 
 ## after 1.0

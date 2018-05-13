@@ -7,7 +7,7 @@
 
 <Tip>这里是 tip</Tip>
 <Warning>这里是 Warning</Warning>
-<Danger>这里是 Danger</Danger>
+<Danger>这里是 Dangera</Danger>
 
 # 介绍
 

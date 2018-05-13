@@ -9,7 +9,6 @@ const fun2 = async (ctx, next) => {
   // next()
 }
 
-
 const mid = []
 mid.push(fun1)
 mid.push(fun2)
@@ -32,3 +31,17 @@ function dispatch(index) {
     return Promise.reject(e)
   }
 }
+
+const { join, resolve } = require('path')
+const fs = require('fs-extra')
+
+
+const naviPath = join('./docs', 'navi')
+const files = fs.readdirSync(resolve(naviPath)).map(f => {
+  if (/^\d+./.test(f)) {
+    // console.log(f)
+  }
+  
+  return f.replace(/^\d+./, '')
+})
+console.log(files)

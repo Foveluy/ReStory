@@ -46,9 +46,10 @@ const modulesMaker = (path, files) => {
       if (fs.statSync(join(path, f)).isDirectory()) {
         const dirfiles = fs.readdirSync(join(path, f))
         let inside = modulesMaker(join(path, f), dirfiles)
+        let removedf = f.replace(/^\d+./, '')
         return {
-          route: chinese2pinyin(f),
-          name: f,
+          route: chinese2pinyin(removedf),
+          name: removedf,
           path: join(path, f),
           children: inside,
           type: 'dir',
@@ -56,9 +57,10 @@ const modulesMaker = (path, files) => {
         }
       }
 
+      let removedf = f.replace(/^\d+./, '').replace('.md', '')
       return {
-        route: chinese2pinyin(f.replace('.md', '')),
-        name: f.replace('.md', ''),
+        route: chinese2pinyin(removedf),
+        name: removedf,
         path: resolve(join(path, f)),
         children: void 666,
         type: 'file',

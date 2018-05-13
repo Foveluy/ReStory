@@ -9,7 +9,14 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getClientEnvironment = require('./env')
 const paths = require('./paths')
-var frontmatter = require('remark-frontmatter')
+const fs = require('fs')
+
+//things
+const nodeModules = src => {
+  console.log(__dirname,path.resolve(__dirname, `../node_modules/${src}`))
+  // fs.writeFileSync()
+  return path.resolve(__dirname, `../node_modules/${src}`)
+}
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -33,7 +40,7 @@ module.exports = {
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
     // We ship a few polyfills by default:
-    require.resolve('./polyfills'),
+    path.resolve(__dirname, './polyfills'),
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
     // When you save a file, the client will either apply hot updates (in case
@@ -42,9 +49,9 @@ module.exports = {
     // Note: instead of the default WebpackDevServer client, we use a custom one
     // to bring better experience for Create React App users. You can replace
     // the line below with these two lines if you prefer the stock client:
-    // require.resolve('webpack-dev-server/client') + '?/',
-    // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    // nodeModules('webpack-dev-server/client') + '?/',
+    // nodeModules('webpack/hot/dev-server'),
+    nodeModules('react-dev-utils/webpackHotDevClient'),
     // Finally, this is your app's code:
     paths.appIndexJs
     // We include the app code last so that if there is a runtime error during
@@ -106,7 +113,7 @@ module.exports = {
 
       {
         test: /router.js/,
-        use: [path.resolve('./config/reactStoryLoader.js')]
+        use: [path.resolve(__dirname, './reactStoryLoader.js')]
       },
       {
         test: /\.(js|jsx|mjs)$/,
@@ -115,9 +122,9 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint')
+              eslintPath: nodeModules('eslint')
             },
-            loader: require.resolve('eslint-loader')
+            loader: nodeModules('eslint-loader')
           }
         ],
         include: paths.appSrc
@@ -125,12 +132,12 @@ module.exports = {
       {
         test: /\.md$/,
         use: [
-          'babel-loader',
+          nodeModules('babel-loader'),
           {
-            loader: '@mdx-js/loader',
+            loader: nodeModules('@mdx-js/loader'),
             options: { mdPlugins: [frontmatter], type: 'custom', fence: '+=+=+=+' }
           },
-          path.resolve('./config/componentloader.js')
+          path.resolve(__dirname, './componentloader.js')
         ]
       },
       {
@@ -143,7 +150,7 @@ module.exports = {
           // A missing `test` is equivalent to a match.
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-            loader: require.resolve('url-loader'),
+            loader: nodeModules('url-loader'),
             options: {
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]'
@@ -152,8 +159,8 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: [paths.appSrc, path.resolve(process.argv[2])],
-            loader: require.resolve('babel-loader'),
+            include: [paths.appSrc, path.resolve(process.argv[3])],
+            loader: nodeModules('babel-loader'),
             options: {
               plugins: [
                 'react-hot-loader/babel',
@@ -195,15 +202,15 @@ module.exports = {
           {
             test: /\.css$/,
             use: [
-              require.resolve('style-loader'),
+              nodeModules('style-loader'),
               {
-                loader: require.resolve('css-loader'),
+                loader: nodeModules('css-loader'),
                 options: {
                   importLoaders: 1
                 }
               },
               {
-                loader: require.resolve('postcss-loader'),
+                loader: nodeModules('postcss-loader'),
                 options: {
                   // Necessary for external CSS imports to work
                   // https://github.com/facebookincubator/create-react-app/issues/2677
@@ -235,7 +242,7 @@ module.exports = {
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
             exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.md$/],
-            loader: require.resolve('file-loader'),
+            loader: nodeModules('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]'
             }

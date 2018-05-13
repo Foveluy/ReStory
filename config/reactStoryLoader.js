@@ -19,11 +19,12 @@ const ImportMarkdown = (route, path) => {
 }
 
 module.exports = function(source, map, meta) {
-  const docsPath = resolve(process.argv[2])
+  const docsPath = resolve(process.argv[3])
 
   this.addContextDependency(docsPath)
 
   const navi = join(docsPath, 'navi')
+  fs.ensureDirSync(navi)
 
   let selector = getMarkdown(docsPath)
 
@@ -36,12 +37,21 @@ module.exports = function(source, map, meta) {
     repo: 'ReactStory'
   })
 
+  fs.ensureFileSync(join(docsPath, '.reactstory/config.js'))
+  const readmeName = require(join(docsPath, '.reactstory/config.js')).readmeName || 'README'
+
+  const IndexJS = join(docsPath, 'index.js')
+  let importIndexJS = ''
+  if (fs.existsSync(IndexJS)) {
+    importIndexJS = [`import IndexJSPage from '${IndexJS}'`, 'globals.IndexJSPage = IndexJSPage;'].join('\n')
+  }
+
   let imString = [
     `import README from '${join(docsPath, 'README.md')}';\n`,
     'globals.component = {};',
     `globals.README = {
       route:'README',
-      name:'README',
+      name:'${readmeName}',
       path:void 666,
       children:void 666,
       type:'file',
@@ -49,6 +59,7 @@ module.exports = function(source, map, meta) {
       header:JSON.parse('${JSON.stringify(extractHeader(join(docsPath, 'README.md')))}')
     };`,
     'globals.level = 2;',
+    importIndexJS,
     siteConfig
   ].join('\n')
 
