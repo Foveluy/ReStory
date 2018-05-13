@@ -1,5 +1,3 @@
-
-
 module.exports = fn => {
   // Makes the script crash on unhandled rejections instead of silently
   // ignoring them. In the future, promise rejections that are not handled will
@@ -8,8 +6,9 @@ module.exports = fn => {
     throw err
   })
 
+  const path = require('path')
   // Ensure environment variables are read.
-  require('../config/env')
+  require(path.resolve(__dirname, '../config/env'))
 
   const path = require('path')
   const chalk = require('chalk')

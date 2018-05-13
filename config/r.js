@@ -1,6 +1,6 @@
-const { chinese2pinyin } = require('./chinesepinyin')
-
 const { resolve, join } = require('path')
+const { chinese2pinyin } = require(resolve(__dirname, './chinesepinyin'))
+
 const fs = require('fs-extra')
 
 const isMarkdown = f => /\.md$/.test(f)

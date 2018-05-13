@@ -9,8 +9,9 @@ process.on('unhandledRejection', err => {
   throw err
 })
 
+const path = require('path')
 // Ensure environment variables are read.
-require('../config/env')
+require(path.resolve(__dirname, '../config/env'))
 
 const fs = require('fs')
 const chalk = require('chalk')

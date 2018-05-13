@@ -1,8 +1,9 @@
-const { getMarkdown } = require('./r')
 const { resolve, join } = require('path')
 const fs = require('fs-extra')
 const chalk = require('chalk').default
-const { extractHeader } = require('./r')
+
+const { extractHeader } = require(resolve(__dirname, './r'))
+const { getMarkdown } = require(resolve(__dirname, './r'))
 
 const FormatCodeToString = obj => {
   const st = JSON.stringify(obj)

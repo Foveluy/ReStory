@@ -1,3 +1,5 @@
+import Shit from './d.js'
+
 | Tables        |      Are      |  Cool |
 | ------------- | :-----------: | ----: |
 | col 3 is      | right-aligned | $1600 |

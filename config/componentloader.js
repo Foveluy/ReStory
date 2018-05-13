@@ -5,7 +5,7 @@ module.exports = function(source, map, meta) {
   const preload = resolve(__dirname, '../src/block.js')
   const pre = `import { Tip, Warning, Danger } from '${preload}'`
 
-  const componentsPath = resolve(process.argv[2], './.reactstory/components')
+  const componentsPath = resolve(process.argv[3], './.reactstory/components')
   fs.ensureDirSync(componentsPath)
   const files = fs.readdirSync(componentsPath)
   const components =

@@ -13,7 +13,6 @@ const fs = require('fs')
 
 //things
 const nodeModules = src => {
-  console.log(__dirname,path.resolve(__dirname, `../node_modules/${src}`))
   // fs.writeFileSync()
   return path.resolve(__dirname, `../node_modules/${src}`)
 }
@@ -134,8 +133,7 @@ module.exports = {
         use: [
           nodeModules('babel-loader'),
           {
-            loader: nodeModules('@mdx-js/loader'),
-            options: { mdPlugins: [frontmatter], type: 'custom', fence: '+=+=+=+' }
+            loader: nodeModules('@mdx-js/loader')
           },
           path.resolve(__dirname, './componentloader.js')
         ]
@@ -159,12 +157,12 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: [paths.appSrc, path.resolve(process.argv[3])],
+            include: [paths.appSrc, path.resolve(process.cwd(), process.argv[3])],
             loader: nodeModules('babel-loader'),
             options: {
               plugins: [
-                'react-hot-loader/babel',
-                'transform-decorators-legacy',
+                nodeModules('react-hot-loader/babel'),
+                nodeModules('babel-plugin-transform-decorators-legacy'),
                 [
                   'import',
                   {
@@ -189,13 +187,13 @@ module.exports = {
             test: /\.less$/,
             use: [
               {
-                loader: 'style-loader' // creates style nodes from JS strings
+                loader: nodeModules('style-loader') // creates style nodes from JS strings
               },
               {
-                loader: 'css-loader' // translates CSS into CommonJS
+                loader: nodeModules('css-loader') // translates CSS into CommonJS
               },
               {
-                loader: 'less-loader' // compiles Less to CSS
+                loader: nodeModules('less-loader') // compiles Less to CSS
               }
             ]
           },

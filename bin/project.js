@@ -1,6 +1,8 @@
 const fs = require('fs-extra')
 // Ensure environment variables are read.
-require('../config/env')
+const path = require('path')
+// Ensure environment variables are read.
+require(path.resolve(__dirname, '../config/env'))
 
 const chalk = require('chalk')
 const { resolve } = require('path')
