@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import markdown from '../rscomponent/markdown'
 import { make } from '../rscomponent/codeblock'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect, Switch } from 'react-router-dom'
 
 class MDXLoader extends React.Component {
   componentDidMount() {
@@ -24,10 +24,7 @@ export default class Contentbody extends React.Component {
 
   render() {
     const { component, readme, location, siteConfig } = this.props
-    console.log(location.pathname, siteConfig.gitpagePrefix)
-    if (location.pathname === siteConfig.gitpagePrefix) {
-      return <Redirect to={'/'} />
-    }
+    console.log(component[location.pathname], location.pathname)
 
     return (
       <div
@@ -39,16 +36,19 @@ export default class Contentbody extends React.Component {
           maxWidth: 740
         }}
       >
-        {readme ? <Route path={'/README'} component={() => <MDXLoader MDXComponent={readme.component} />} /> : null}
-        {Object.keys(component).map((key, idx) => {
-          return (
-            <Route
-              key={key}
-              path={'/' + key.replace('_', '/')}
-              component={() => <MDXLoader MDXComponent={component[key]} />}
-            />
-          )
-        })}
+        <Switch>
+          {readme ? <Route path={'/README'} component={() => <MDXLoader MDXComponent={readme.component} />} /> : null}
+          {Object.keys(component).map((key, idx) => {
+            return (
+              <Route
+                key={key}
+                path={'/' + key.replace('_', '/')}
+                component={() => <MDXLoader MDXComponent={component[key]} />}
+              />
+            )
+          })}
+          <Redirect to="/" />
+        </Switch>
       </div>
     )
   }
