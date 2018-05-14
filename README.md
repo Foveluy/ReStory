@@ -1,4 +1,4 @@
-## What is Restory
+# Restory
 
 Restory (AKA ReactStory) is an extremely lightweight static document generator that supports writing React components directly in Markdown.
 
