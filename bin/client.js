@@ -10,7 +10,6 @@ module.exports = fn => {
   // Ensure environment variables are read.
   require(path.resolve(__dirname, '../config/env'))
 
-  const path = require('path')
   const chalk = require('chalk')
   const fs = require('fs-extra')
   const webpack = require('webpack')

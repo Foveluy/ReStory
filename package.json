@@ -1,6 +1,6 @@
 {
   "name": "restory",
-  "version": "0.1.17",
+  "version": "0.2.3",
   "bin": {
     "restory": "bin/run.js"
   },
@@ -87,22 +87,16 @@
   "scripts": {
     "start": "node ./bin/run.js dev ./docs",
     "client": "node scripts/client.js hack ./docs && node ./bin/run.js deploy ./docs",
-    "build": "node scripts/client.js ./docs&&node scripts/build.js ./docs && node server/index.js",
+    "s": "node ./bin/run.js build ./docs",
+    "build": "node scripts/client.js hack ./docs&&node scripts/build.js hack ./docs && node server/index.js",
     "test": "node scripts/test.js --env=jsdom",
     "static": "node ./scripts/static.js&",
     "clear": "rm -r build && rm -r serverbuild"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
+    "setupFiles": ["<rootDir>/config/polyfills.js"],
+    "testMatch": ["<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}", "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"],
     "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
@@ -110,26 +104,14 @@
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
-    "moduleFileExtensions": [
-      "web.js",
-      "mjs",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ]
+    "moduleFileExtensions": ["web.js", "mjs", "js", "json", "web.jsx", "jsx", "node"]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   },
   "eslintConfig": {
     "extends": "react-app"

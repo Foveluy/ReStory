@@ -11,11 +11,7 @@ const getClientEnvironment = require('./env')
 const paths = require('./paths')
 const fs = require('fs')
 
-//things
-const nodeModules = src => {
-  // fs.writeFileSync()
-  return path.resolve(__dirname, `../node_modules/${src}`)
-}
+const nodeModules = paths.nodeModules
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.

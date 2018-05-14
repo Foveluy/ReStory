@@ -5,7 +5,7 @@ const path = require('path')
 require(path.resolve(__dirname, '../config/env'))
 
 const chalk = require('chalk')
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 const child_process = require('child_process')
 
 class ReactStoryInit {
@@ -41,8 +41,10 @@ class ReactStoryInit {
   finished() {
     console.log('全部完成了')
 
-    fs.copy(resolve(__dirname, '../build'), join(this.bootPath, 'build'))
-    fs.copy(resolve(__dirname, '../serverbuild'), join(this.bootPath, 'serverbuild'))
+    if (fs.existsSync(join(this.bootPath, 'server'))) {
+      fs.removeSync(fs.existsSync(join(this.bootPath, 'server')))
+    }
+    fs.ensureDirSync(join(this.bootPath, 'server'))
     fs.copy(resolve(__dirname, '../server'), join(this.bootPath, 'server'))
   }
 

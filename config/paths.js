@@ -7,7 +7,6 @@ const url = require('url')
 const appDirectory = fs.realpathSync(path.resolve(__dirname, '../'))
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
-
 const envPublicUrl = process.env.PUBLIC_URL
 
 function ensureSlash(path, needsSlash) {
@@ -35,11 +34,16 @@ function getServedPath(appPackageJson) {
   return ensureSlash(servedUrl, true)
 }
 
+const nodeModules = src => {
+  // fs.writeFileSync()
+  return path.resolve(__dirname, `../node_modules/${src}`)
+}
+
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
-  appBuild: resolveApp('build'),
-  appServerBuild: resolveApp('serverbuild'),
+  appBuild: path.resolve(process.cwd(), path.join(process.argv[3], 'build')),
+  appServerBuild: path.resolve(process.cwd(), path.join(process.argv[3], 'serverbuild')),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.js'),
@@ -50,5 +54,6 @@ module.exports = {
   testsSetup: resolveApp('src/setupTests.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json'))
+  servedPath: getServedPath(resolveApp('package.json')),
+  nodeModules
 }

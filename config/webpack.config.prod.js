@@ -11,6 +11,8 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const paths = require('./paths')
 const getClientEnvironment = require('./env')
 
+const nodeModules = paths.nodeModules
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath
@@ -56,7 +58,7 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appServerIndexJs],
+  entry: [path.resolve(__dirname, './polyfills'), paths.appServerIndexJs],
   output: {
     // The build folder.
     path: paths.appServerBuild,
@@ -111,7 +113,7 @@ module.exports = {
 
       {
         test: /router.js/,
-        use: ['babel-loader', path.resolve('./config/reactStoryLoader.js')]
+        use: [nodeModules('babel-loader'), path.resolve(__dirname, './reactStoryLoader.js')]
       },
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
@@ -122,9 +124,9 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint')
+              eslintPath: nodeModules('eslint')
             },
-            loader: require.resolve('eslint-loader')
+            loader: nodeModules('eslint-loader')
           }
         ],
         include: paths.appSrc
@@ -138,7 +140,7 @@ module.exports = {
           // assets smaller than specified size as data URLs to avoid requests.
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-            loader: require.resolve('url-loader'),
+            loader: nodeModules('url-loader'),
             options: {
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]'
@@ -146,18 +148,27 @@ module.exports = {
           },
           {
             test: /\.md$/,
-            use: ['babel-loader', '@mdx-js/loader', path.resolve('./config/componentloader.js')]
+            use: [
+              {
+                loader: nodeModules('babel-loader'),
+                options: {
+                  presets: [nodeModules('babel-preset-react-app')]
+                }
+              },
+              nodeModules('@mdx-js/loader'),
+              path.resolve(__dirname, './componentloader.js')
+            ]
           },
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: [paths.appSrc, path.resolve(process.argv[2])],
-            loader: require.resolve('babel-loader'),
+            include: [paths.appSrc, path.resolve(process.argv[3])],
+            loader: nodeModules('babel-loader'),
             options: {
               compact: false,
               plugins: [
-                'transform-decorators-legacy',
-                ['transform-remove-console', { exclude: ['error', 'warn'] }],
+                nodeModules('babel-plugin-transform-decorators-legacy'),
+                [nodeModules('babel-plugin-transform-remove-console'), { exclude: ['error', 'warn'] }],
                 [
                   'import',
                   {
@@ -206,14 +217,14 @@ module.exports = {
               Object.assign(
                 {
                   fallback: {
-                    loader: require.resolve('style-loader'),
+                    loader: nodeModules('style-loader'),
                     options: {
                       hmr: false
                     }
                   },
                   use: [
                     {
-                      loader: require.resolve('css-loader'),
+                      loader: nodeModules('css-loader'),
                       options: {
                         importLoaders: 1,
                         minimize: true,
@@ -221,7 +232,7 @@ module.exports = {
                       }
                     },
                     {
-                      loader: require.resolve('postcss-loader'),
+                      loader: nodeModules('postcss-loader'),
                       options: {
                         // Necessary for external CSS imports to work
                         // https://github.com/facebookincubator/create-react-app/issues/2677
@@ -241,7 +252,7 @@ module.exports = {
                       }
                     },
                     {
-                      loader: 'less-loader' // compiles Less to CSS
+                      loader: nodeModules('less-loader') // compiles Less to CSS
                     }
                   ]
                 },
@@ -255,7 +266,7 @@ module.exports = {
           // This loader doesn't use a "test" so it will catch all modules
           // that fall through the other loaders.
           {
-            loader: require.resolve('file-loader'),
+            loader: nodeModules('file-loader'),
             // Exclude `js` files to keep "css" loader working as it injects
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
