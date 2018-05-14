@@ -36,14 +36,15 @@ module.exports = function(source, map, meta) {
 
   fs.ensureFileSync(join(docsPath, '.reactstory/config.js'))
   const _siteConfig = require(join(docsPath, '.reactstory/config.js'))
-  const { title, repo, footer, github } = _siteConfig
+  const { title, repo, footer, github, gitpagePrefix } = _siteConfig
   const readmeName = _siteConfig.readmeName || 'README'
 
   const siteConfig = FormatCodeToGlobals('siteConfig', {
     title: title || 'ReStory',
     github: github === void 666 ? true : github,
     repo: repo || 'https://github.com/Foveluy/ReStory',
-    footer: footer || 'ReStory ©2018 Created by ZhengFang'
+    footer: footer || 'ReStory ©2018 Created by ZhengFang',
+    gitpagePrefix: gitpagePrefix
   })
 
   const IndexJS = join(docsPath, 'index.js')

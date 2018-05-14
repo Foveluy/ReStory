@@ -21,7 +21,6 @@ const SiderWithRouter = withRouter(SiderBody)
 // here is the object for react-story loader injection.
 var globals = {}
 
-
 @withRouter
 export default class App extends React.Component {
   constructor(props) {
@@ -175,7 +174,7 @@ export default class App extends React.Component {
             {this.props.location.pathname === '/' ? (
               <Route exact path="/" component={IndexJSPage ? IndexJSPage : FrontPage} />
             ) : (
-              <ContentBody component={MdxComponent} readme={READMEMDX} />
+              <ContentBody component={MdxComponent} readme={READMEMDX} {...this.props} />
             )}
           </Content>
           <Footer style={{ textAlign: 'center', background: '#fff' }}>{this.state.siteConfig.footer}</Footer>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import markdown from '../rscomponent/markdown'
 import { make } from '../rscomponent/codeblock'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 class MDXLoader extends React.Component {
   componentDidMount() {
@@ -23,7 +23,11 @@ export default class Contentbody extends React.Component {
   }
 
   render() {
-    const { component, readme } = this.props
+    const { component, readme, location, siteConfig } = this.props
+    if (location.pathname === siteConfig.gitpagePrefix) {
+      return <Redirect to={'/'} />
+    }
+
     return (
       <div
         className="rs-body-markdown-body"

@@ -3,5 +3,6 @@ module.exports = {
   title: 'ReStory',
   github: true,
   repo: 'https://github.com/Foveluy/ReStory',
-  footer: 'ReStory ©2018 Created by ZhengFang'
+  footer: 'ReStory ©2018 Created by ZhengFang',
+  gitpagePrefix: 'ReStory'
 }
