@@ -62,8 +62,16 @@ class ReactStoryInit {
 
   deploy() {
     const manifestJson = require('../build/asset-manifest.json')
-    const css = fs.readFileSync(resolve(__dirname, `../build/${manifestJson['main.css']}`))
-    const js = fs.readFileSync(resolve(__dirname, `../build/${manifestJson['main.js']}`))
+    const jsName = manifestJson['main.js'].replace('static/js/', '')
+    const cssName = manifestJson['main.css'].replace('static/css/', '')
+
+    fs.ensureFileSync(resolve(__dirname, `../docs/${jsName}`))
+    fs.ensureFileSync(resolve(__dirname, `../docs/${cssName}`))
+    fs.copyFileSync(resolve(__dirname, `../build/${manifestJson['main.js']}`), resolve(__dirname, `../docs/${jsName}`))
+    fs.copyFileSync(
+      resolve(__dirname, `../build/${manifestJson['main.css']}`),
+      resolve(__dirname, `../docs/${cssName}`)
+    )
 
     const html = [
       '<!DOCTYPE html>',
@@ -74,11 +82,11 @@ class ReactStoryInit {
       '  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-tomorrow.min.css" rel="stylesheet">',
       '  <meta name="theme-color" content="#000000">',
       ' <title>ReactStory</title>',
-      `<style>${css}</stlye>`,
+      `<link href="/${cssName}" rel="stylesheet">`,
       '</head><body><div id="root"></div></body>',
       '</html>',
-      `<script>${js}</script>`
-    ].join('\n')
+      `<script type="text/javascript" src="/${jsName}" ></script>`
+    ].join(' ')
 
     fs.ensureFileSync(resolve(__dirname, '../docs/index.html'))
     fs.writeFileSync(resolve(__dirname, '../docs/index.html'), html)
