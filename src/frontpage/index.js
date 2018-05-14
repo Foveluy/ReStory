@@ -17,7 +17,7 @@ export default () => {
       <div className="get-start-block">
         <h1 className="story-logo">Restory</h1>
         <p className="story-bref">A static site generator with MDX for React documentation</p>
-        <Link to="/README">
+        <Link to="/Guide/Introduction">
           <span className="story-get-start">Get Started </span>
         </Link>
       </div>
