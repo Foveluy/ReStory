@@ -2,6 +2,10 @@
 
 Restory (AKA ReactStory) is an extremely lightweight static document generator that supports writing React components directly in Markdown.
 
+## Document
+
+see the [Document](https://foveluy.github.io/ReStory/) on Gitpage
+
 ## How does it work
 
 Restory is a single-page application driven by React, React Router, Webpack, and Node.js. Restory will complete the rendering of the page during the building phase, providing a superb browsing experience and very good search engine optimization (SEO) for the production environment.
