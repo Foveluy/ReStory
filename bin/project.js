@@ -82,10 +82,10 @@ class ReactStoryInit {
       '  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-tomorrow.min.css" rel="stylesheet">',
       '  <meta name="theme-color" content="#000000">',
       ' <title>ReactStory</title>',
-      `<link href="/${cssName}" rel="stylesheet">`,
+      `<link href="${cssName}" rel="stylesheet">`,
       '</head><body><div id="root"></div></body>',
       '</html>',
-      `<script type="text/javascript" src="/${jsName}" ></script>`
+      `<script type="text/javascript" src="${jsName}" ></script>`
     ].join(' ')
 
     fs.ensureFileSync(resolve(__dirname, '../docs/index.html'))
