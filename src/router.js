@@ -21,6 +21,7 @@ const SiderWithRouter = withRouter(SiderBody)
 // here is the object for react-story loader injection.
 var globals = {}
 
+
 @withRouter
 export default class App extends React.Component {
   constructor(props) {
@@ -90,7 +91,6 @@ export default class App extends React.Component {
     this.setState({ open: !this.state.open })
   }
   closeDrawer = thing => {
-    console.log(thing)
     if (thing === false) {
       this.setState({ open: false })
     }
@@ -178,7 +178,7 @@ export default class App extends React.Component {
               <ContentBody component={MdxComponent} readme={READMEMDX} />
             )}
           </Content>
-          <Footer style={{ textAlign: 'center', background: '#fff' }}>ReactStory ©2018 Created by ZhengFang</Footer>
+          <Footer style={{ textAlign: 'center', background: '#fff' }}>{this.state.siteConfig.footer}</Footer>
         </Layout>
       </Layout>
     )

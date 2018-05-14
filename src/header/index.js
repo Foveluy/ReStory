@@ -19,7 +19,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    const { navi, mode } = this.props
+    const { navi, mode, siteConfig } = this.props
     let current = navi.find(n => '/' + n.route === this.props.location.pathname)
     // todo nested path
     // what we do here is
@@ -50,9 +50,11 @@ export default class Header extends React.Component {
             mode={mode}
             style={{ borderBottom: mode === 'horizontal' ? 0 : '1px solid rgb(232, 232, 232)' }}
           >
-            <Menu.Item key={'readme'}>
-              <Link to={'/README'}>{this.props.READMEMDX.name}</Link>
-            </Menu.Item>
+            {this.props.READMEMDX ? (
+              <Menu.Item key={'readme'}>
+                <Link to={'/README'}>{this.props.READMEMDX.name}</Link>
+              </Menu.Item>
+            ) : null}
             {navi.map((nav, index) => {
               return (
                 <Menu.Item key={nav.route}>
@@ -60,6 +62,11 @@ export default class Header extends React.Component {
                 </Menu.Item>
               )
             })}
+            {siteConfig.github === true ? (
+              <Menu.Item key={'github'}>
+                <a href={siteConfig.repo}>Github</a>
+              </Menu.Item>
+            ) : null}
           </Menu>
         </div>
       </React.Fragment>

@@ -1,3 +1,7 @@
 module.exports = {
-  readmeName: '介绍'
+  readmeName: 'Introduction',
+  title: 'ReStory',
+  github: false,
+  repo: 'https://github.com/Foveluy/ReStory',
+  footer: 'ReStory ©2018 Created by ZhengFang'
 }

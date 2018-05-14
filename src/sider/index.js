@@ -150,9 +150,9 @@ export default class S extends React.Component {
       return <Redirect to={route} />
     }
 
-    if (path === 'README') {
+    if (path === 'README' && this.props.READMEMDX) {
+      // this.props.READMEMDX might be undefined
       const openKeys = collectOpenkeys(this.props.READMEMDX.header)
-
       return createMenu(openKeys, this.props.READMEMDX.header)
     }
 

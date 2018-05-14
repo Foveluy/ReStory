@@ -8,7 +8,7 @@ const merge = ary => {
       string += a
     }
   })
-  return string
+  return string.replace(' ', '')
 }
 
 const chinese2pinyin = word => {

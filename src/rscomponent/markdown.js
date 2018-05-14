@@ -7,7 +7,7 @@ import { AutoImage } from './autoimage'
 const ListStyle = { marginTop: 30, fontSize: 16, lineHeight: 1.7, maxWidth: '42em', fontWeight: '700' }
 
 const Hash = ({ url }) => (
-  <a href={`#${url}`} style={{ marginLeft: '-.87em', float: 'left', fontSize: '.85em', marginTop: '.1em' }}>
+  <a className="anchor-link" href={`#${url}`} style={{ float: 'left', fontSize: '.85em', marginTop: '.1em' }}>
     #
   </a>
 )

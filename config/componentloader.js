@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 
 module.exports = function(source, map, meta) {
   const preload = resolve(__dirname, '../src/block.js')
-  const pre = `import { Tip, Warning, Danger } from '${preload}'`
+  const pre = `import { Tip, Warning, Danger } from '${preload}'\n`
 
   const componentsPath = resolve(process.argv[3], './.reactstory/components')
   fs.ensureDirSync(componentsPath)
