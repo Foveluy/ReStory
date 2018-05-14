@@ -171,7 +171,7 @@ module.exports = {
                 nodeModules('babel-plugin-transform-decorators-legacy'),
                 [nodeModules('babel-plugin-transform-remove-console'), { exclude: ['error', 'warn'] }],
                 [
-                  'import',
+                  nodeModules('babel-plugin-import'),
                   {
                     libraryName: 'antd',
                     libraryDirectory: 'es',

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { Link, Redirect, withRouter } from 'react-router-dom'
+import { isSSR } from '../util'
 
 import './index.less'
 
@@ -85,6 +86,12 @@ export default class S extends React.Component {
     })
   }
 
+  scrollToTop = () => {
+    isSSR(win => {
+      win.scrollTo(0, 0)
+    })
+  }
+
   renderDirMenu = navi => {
     const children = navi.children
     let openKeys = []
@@ -100,7 +107,7 @@ export default class S extends React.Component {
         <Menu.SubMenu
           key={'/' + navi.route + '/' + file.route}
           title={
-            <Link className="dir-menu-link" to={'/' + navi.route + '/' + file.route}>
+            <Link onClick={this.scrollToTop} className="dir-menu-link" to={'/' + navi.route + '/' + file.route}>
               {file.name}
             </Link>
           }

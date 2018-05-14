@@ -167,7 +167,7 @@ module.exports = {
                 nodeModules('react-hot-loader/babel'),
                 nodeModules('babel-plugin-transform-decorators-legacy'),
                 [
-                  'import',
+                  nodeModules('babel-plugin-import'),
                   {
                     libraryName: 'antd',
                     libraryDirectory: 'es',

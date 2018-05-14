@@ -42,7 +42,7 @@ class ReactStoryInit {
     console.log('全部完成了')
 
     if (fs.existsSync(join(this.bootPath, 'server'))) {
-      fs.removeSync(fs.existsSync(join(this.bootPath, 'server')))
+      fs.removeSync(join(this.bootPath, 'server'))
     }
     fs.ensureDirSync(join(this.bootPath, 'server'))
     fs.copy(resolve(__dirname, '../server'), join(this.bootPath, 'server'))
@@ -61,17 +61,36 @@ class ReactStoryInit {
       if (i == 2) this.finished()
     })
   }
+  simpleSSR() {
+    child_process.exec('npm init -y', () => {
+      child_process.exec(
+        'npm install --save babel-register babel-preset-env babel-preset-react-app express react react-helmet'
+      )
+    })
+  }
+
+  _delete() {
+    const manifestJson = require('../docs/build/asset-manifest.json')
+    const jsName = manifestJson['main.js'].replace('static/js/', '')
+    const cssName = manifestJson['main.css'].replace('static/css/', '')
+    fs.removeSync(resolve(__dirname, `../docs/${jsName}`))
+    fs.removeSync(resolve(__dirname, `../docs/${cssName}`))
+    fs.removeSync(resolve(__dirname, `../docs/index.html`))
+  }
 
   deploy() {
-    const manifestJson = require('../build/asset-manifest.json')
+    const manifestJson = require('../docs/build/asset-manifest.json')
     const jsName = manifestJson['main.js'].replace('static/js/', '')
     const cssName = manifestJson['main.css'].replace('static/css/', '')
 
     fs.ensureFileSync(resolve(__dirname, `../docs/${jsName}`))
     fs.ensureFileSync(resolve(__dirname, `../docs/${cssName}`))
-    fs.copyFileSync(resolve(__dirname, `../build/${manifestJson['main.js']}`), resolve(__dirname, `../docs/${jsName}`))
     fs.copyFileSync(
-      resolve(__dirname, `../build/${manifestJson['main.css']}`),
+      resolve(__dirname, `../docs/build/${manifestJson['main.js']}`),
+      resolve(__dirname, `../docs/${jsName}`)
+    )
+    fs.copyFileSync(
+      resolve(__dirname, `../docs/build/${manifestJson['main.css']}`),
       resolve(__dirname, `../docs/${cssName}`)
     )
 
@@ -92,6 +111,7 @@ class ReactStoryInit {
 
     fs.ensureFileSync(resolve(__dirname, '../docs/index.html'))
     fs.writeFileSync(resolve(__dirname, '../docs/index.html'), html)
+    fs.removeSync(resolve(__dirname, '../docs/build'))
   }
 
   run() {
@@ -101,7 +121,9 @@ class ReactStoryInit {
 ReactStoryInit.prototype.modes = {
   dev: 1,
   build: 1,
-  deploy: 1
+  deploy: 1,
+  simpleSSR: 1,
+  _delete: 1
 }
 
 module.exports = ReactStoryInit
