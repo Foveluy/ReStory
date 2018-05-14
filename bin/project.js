@@ -60,7 +60,29 @@ class ReactStoryInit {
     })
   }
 
-  deploy() {}
+  deploy() {
+    const manifestJson = require('../build/asset-manifest.json')
+    const css = fs.readFileSync(resolve(__dirname, `../build/${manifestJson['main.css']}`))
+    const js = fs.readFileSync(resolve(__dirname, `../build/${manifestJson['main.js']}`))
+
+    const html = [
+      '<!DOCTYPE html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />',
+      '  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-tomorrow.min.css" rel="stylesheet">',
+      '  <meta name="theme-color" content="#000000">',
+      ' <title>ReactStory</title>',
+      `<style>${css}</stlye>`,
+      '</head><body><div id="root"></div></body>',
+      '</html>',
+      `<script>${js}</script>`
+    ].join('\n')
+
+    fs.ensureFileSync(resolve(__dirname, '../docs/index.html'))
+    fs.writeFileSync(resolve(__dirname, '../docs/index.html'), html)
+  }
 
   run() {
     this[this.mode]()

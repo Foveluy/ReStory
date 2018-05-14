@@ -24,6 +24,7 @@ export default class Contentbody extends React.Component {
 
   render() {
     const { component, readme, location, siteConfig } = this.props
+    console.log(location.pathname, siteConfig.gitpagePrefix)
     if (location.pathname === siteConfig.gitpagePrefix) {
       return <Redirect to={'/'} />
     }

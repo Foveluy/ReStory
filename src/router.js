@@ -174,7 +174,7 @@ export default class App extends React.Component {
             {this.props.location.pathname === '/' ? (
               <Route exact path="/" component={IndexJSPage ? IndexJSPage : FrontPage} />
             ) : (
-              <ContentBody component={MdxComponent} readme={READMEMDX} {...this.props} />
+              <ContentBody component={MdxComponent} readme={READMEMDX} {...this.state} />
             )}
           </Content>
           <Footer style={{ textAlign: 'center', background: '#fff' }}>{this.state.siteConfig.footer}</Footer>

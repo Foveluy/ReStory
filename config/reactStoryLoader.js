@@ -44,7 +44,7 @@ module.exports = function(source, map, meta) {
     github: github === void 666 ? true : github,
     repo: repo || 'https://github.com/Foveluy/ReStory',
     footer: footer || 'ReStory ©2018 Created by ZhengFang',
-    gitpagePrefix: gitpagePrefix
+    gitpagePrefix: gitpagePrefix || ''
   })
 
   const IndexJS = join(docsPath, 'index.js')

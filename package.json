@@ -86,7 +86,7 @@
   },
   "scripts": {
     "start": "node ./bin/run.js dev ./docs",
-    "client": "node scripts/client.js hack ./docs",
+    "client": "node scripts/client.js hack ./docs && node ./bin/run.js deploy ./docs",
     "build": "node scripts/client.js ./docs&&node scripts/build.js ./docs && node server/index.js",
     "test": "node scripts/test.js --env=jsdom",
     "static": "node ./scripts/static.js&",
