@@ -1,5 +1,7 @@
 # Restory
 
+![](https://github.com/Foveluy/ReStory/blob/master/docs/graphic.gif?raw=true)
+
 Restory (AKA ReactStory) is an extremely lightweight static document generator that supports writing React components directly in Markdown.
 
 ## Document
