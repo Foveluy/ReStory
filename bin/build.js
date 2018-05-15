@@ -2,7 +2,6 @@
 process.env.BABEL_ENV = 'production'
 process.env.NODE_ENV = 'production'
 
-
 module.exports = fn => {
   const path = require('path')
   const chalk = require('chalk')
@@ -31,7 +30,7 @@ module.exports = fn => {
 
   // Create the production build and print the deployment instructions.
   function build(previousFileSizes) {
-    console.log('Creating an optimized production build...')
+    console.log(chalk.default.greenBright('Creating an optimized production server build...'))
 
     let compiler = webpack(config)
     return new Promise((resolve, reject) => {
@@ -116,7 +115,7 @@ module.exports = fn => {
         const publicUrl = paths.publicUrl
         const publicPath = config.output.publicPath
         const buildFolder = path.relative(process.cwd(), paths.appServerBuild)
-        printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
+        // printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
         fn('server')
       },
       err => {

@@ -29,8 +29,6 @@ class ReactStoryInit {
     this.bootPath = props
     this.mode = args[0]
     this.targetPath = args[1]
-
-    // console.log(args)
   }
 
   dev() {
@@ -39,28 +37,32 @@ class ReactStoryInit {
   }
 
   finished() {
-    console.log('全部完成了')
+    // when build is finished, we simply did the right thing here.
+    console.log('Everything is done!')
+    const simpleServerOutputPath = join(this.bootPath, 'server')
+    const simpleServerBuiltInPath = resolve(__dirname, '../server')
 
-    if (fs.existsSync(join(this.bootPath, 'server'))) {
-      fs.removeSync(join(this.bootPath, 'server'))
+    if (fs.existsSync(simpleServerOutputPath)) {
+      fs.removeSync(simpleServerOutputPath)
     }
-    fs.ensureDirSync(join(this.bootPath, 'server'))
-    fs.copy(resolve(__dirname, '../server'), join(this.bootPath, 'server'))
+    fs.ensureDirSync(simpleServerOutputPath)
+    fs.copy(simpleServerBuiltInPath, simpleServerOutputPath)
   }
 
   build() {
-    let i = 0
-    const building = require('./build')
-    const buildingProject = require('./client')
-    building(type => {
+    let i = 0 // mark for build
+    const buildServer = require('./build')
+    const buildClient = require('./client')
+    buildServer(type => {
       i++
       if (i == 2) this.finished()
     })
-    buildingProject(() => {
+    buildClient(() => {
       i++
       if (i == 2) this.finished()
     })
   }
+
   simpleSSR() {
     child_process.exec('npm init -y', () => {
       child_process.exec(

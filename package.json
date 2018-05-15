@@ -89,7 +89,7 @@
     "client":
       "node ./bin/run.js _delete ./docs &&node scripts/client.js hack ./docs && node ./bin/run.js deploy ./docs",
     "s": "node ./bin/run.js build ./docs",
-    "build": "node scripts/client.js hack ./docs&&node scripts/build.js hack ./docs && node server/index.js",
+    "build": "node ./bin/run.js build ./docs && node server/index.js",
     "test": "node scripts/test.js --env=jsdom",
     "static": "node ./scripts/static.js&",
     "clear": "rm -r build && rm -r serverbuild"

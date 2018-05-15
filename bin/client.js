@@ -36,7 +36,7 @@ module.exports = fn => {
 
   // Create the production build and print the deployment instructions.
   function build(previousFileSizes) {
-    console.log('Creating an optimized production build...')
+    console.log(chalk.default.greenBright('Creating an optimized production client build...'))
 
     let compiler = webpack(config)
     return new Promise((resolve, reject) => {
@@ -121,7 +121,7 @@ module.exports = fn => {
         const publicUrl = paths.publicUrl
         const publicPath = config.output.publicPath
         const buildFolder = path.relative(process.cwd(), paths.appBuild)
-        printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
+        // printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
         fn('client')
       },
       err => {
