@@ -35,7 +35,8 @@ export default class App extends React.Component {
       HeaderHeight: 58,
       screenMode: 'computer',
       open: false,
-      IndexJSPage: globals.IndexJSPage
+      IndexJSPage: globals.IndexJSPage,
+      dynamic: null
     }
   }
 
@@ -64,13 +65,18 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    import('./test.dynamic').then(n => {
+      this.setState({
+        dynamic: <n.Dn />
+      })
+    })
+
     isSSR(win => {
       if (win.innerWidth <= 769) {
         this.setState({
           screenMode: 'mobile'
         })
       }
-      // win.addEventListener('resize', this.resize)
     })
   }
 
@@ -171,6 +177,7 @@ export default class App extends React.Component {
               background: '#fff'
             }}
           >
+            {this.state.dynamic}
             {this.props.location.pathname === '/' ? (
               <Route exact path="/" component={IndexJSPage ? IndexJSPage : FrontPage} />
             ) : (
