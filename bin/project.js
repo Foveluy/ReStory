@@ -70,12 +70,16 @@ class ReactStoryInit {
   }
 
   _delete() {
-    const manifestJson = require('../docs/build/asset-manifest.json')
-    const jsName = manifestJson['main.js'].replace('static/js/', '')
-    const cssName = manifestJson['main.css'].replace('static/css/', '')
-    fs.removeSync(resolve(__dirname, `../docs/${jsName}`))
-    fs.removeSync(resolve(__dirname, `../docs/${cssName}`))
-    fs.removeSync(resolve(__dirname, `../docs/index.html`))
+    try {
+      const manifestJson = require('../docs/build/asset-manifest.json')
+      const jsName = manifestJson['main.js'].replace('static/js/', '')
+      const cssName = manifestJson['main.css'].replace('static/css/', '')
+      fs.removeSync(resolve(__dirname, `../docs/${jsName}`))
+      fs.removeSync(resolve(__dirname, `../docs/${cssName}`))
+      fs.removeSync(resolve(__dirname, `../docs/index.html`))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   deploy() {

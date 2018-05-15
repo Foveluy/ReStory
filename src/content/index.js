@@ -25,10 +25,6 @@ export default class Contentbody extends React.Component {
   render() {
     const { component, readme, location, siteConfig } = this.props
 
-    if (location.pathname === siteConfig.gitpagePrefix) {
-      return <Redirect to={'/'} />
-    }
-
     return (
       <div
         className="rs-body-markdown-body"
