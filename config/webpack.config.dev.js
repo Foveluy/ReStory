@@ -10,6 +10,7 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getClientEnvironment = require('./env')
 const paths = require('./paths')
 const fs = require('fs')
+const webpackExtract = require('./webpack.extract')
 
 const nodeModules = paths.nodeModules
 
@@ -105,11 +106,7 @@ module.exports = {
       // { parser: { requireEnsure: false } },
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
-
-      {
-        test: /router.js/,
-        use: [path.resolve(__dirname, './reactStoryLoader.js')]
-      },
+      ...webpackExtract.rules(path, nodeModules),
       {
         test: /\.(js|jsx|mjs)$/,
         enforce: 'pre',
@@ -123,22 +120,6 @@ module.exports = {
           }
         ],
         include: paths.appSrc
-      },
-      {
-        test: /\.md$/,
-        include: [paths.appSrc, path.resolve(process.cwd(), process.argv[3])],
-        use: [
-          {
-            loader: nodeModules('babel-loader'),
-            options: {
-              presets: [nodeModules('babel-preset-react-app')]
-            }
-          },
-          {
-            loader: nodeModules('@mdx-js/loader')
-          },
-          path.resolve(__dirname, './componentloader.js')
-        ]
       },
       {
         // "oneOf" will traverse all following loaders until one will

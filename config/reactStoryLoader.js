@@ -5,19 +5,18 @@ const chalk = require('chalk').default
 const { extractHeader } = require(resolve(__dirname, './r'))
 const { getMarkdown } = require(resolve(__dirname, './r'))
 
-const FormatCodeToString = obj => {
-  const st = JSON.stringify(obj)
-  return ['try{', `globals.Config = JSON.parse('${st}')`, '}catch(e){', 'console.warn(e)', '}'].join('\n')
-}
-
 const FormatCodeToGlobals = (key, obj) => {
   const st = JSON.stringify(obj)
   return ['try{', `globals.${key} = JSON.parse('${st}')`, '}catch(e){', 'console.warn(e)', '}'].join('\n')
 }
 
+const Import = (importName, src) => {
+  return `\nimport ${importName} from '${src}';\n`
+}
+
 const ImportMarkdown = (route, path) => {
   const newR = route.replace(' ', '')
-  return [`\nimport ${newR} from '${path}';`, `globals.component["${newR}"] = ${newR};`].join('\n')
+  return [Import(newR, path), `globals.component["${newR}"] = ${newR};`].join('\n')
 }
 
 module.exports = function(source, map, meta) {
@@ -30,7 +29,7 @@ module.exports = function(source, map, meta) {
 
   let selector = getMarkdown(docsPath)
 
-  const originCode = FormatCodeToString({
+  const originCode = FormatCodeToGlobals('Config', {
     navi: selector
   })
 
@@ -50,13 +49,14 @@ module.exports = function(source, map, meta) {
   const IndexJS = join(docsPath, 'index.js')
   let importIndexJS = ''
   if (fs.existsSync(IndexJS)) {
-    importIndexJS = [`import IndexJSPage from '${IndexJS}'`, 'globals.IndexJSPage = IndexJSPage;'].join('\n')
+    importIndexJS = [Import('IndexJSPage', IndexJS), 'globals.IndexJSPage = IndexJSPage;'].join('\n')
   }
 
   let READMEConfig = ''
-  if (fs.existsSync(join(docsPath, 'README.md'))) {
+  const READMEPath = join(docsPath, 'README.md')
+  if (fs.existsSync(READMEPath)) {
     READMEConfig = [
-      `import README from '${join(docsPath, 'README.md')}';\n`,
+      Import('README', READMEPath),
       `globals.README = {
       route:'README',
       name:'${readmeName}',
@@ -64,7 +64,7 @@ module.exports = function(source, map, meta) {
       children:void 666,
       type:'file',
       component:README,
-      header:JSON.parse('${JSON.stringify(extractHeader(join(docsPath, 'README.md')))}')
+      header:JSON.parse('${JSON.stringify(extractHeader(READMEPath))}')
     };`
     ].join('\n')
   }

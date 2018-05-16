@@ -28,9 +28,6 @@ function extractHeader(src) {
       extract[currentH1][1].push(out[2].substring(1))
     }
 
-    // console.log(out[2])
-    // console.log(out[0])
-
     i = out.input.replace(out[0], '<shit>')
   }
   return extract

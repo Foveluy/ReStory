@@ -95,6 +95,7 @@ export default class S extends React.Component {
   renderDirMenu = navi => {
     const children = navi.children
     let openKeys = []
+    const path = this.props.location.pathname
     const menumaping = children.map(file => {
       // the first layer is file
       const header = file.header
@@ -103,11 +104,15 @@ export default class S extends React.Component {
         // the openKeys for submenu
         if (map[1].length !== 0) openKeys.push(map[0])
       })
+      const Url = '/' + navi.route + '/' + file.route
+
+      // for the color
+      const color = Url === path ? '-color' : ''
       return (
         <Menu.SubMenu
-          key={'/' + navi.route + '/' + file.route}
+          key={Url}
           title={
-            <Link onClick={this.scrollToTop} className="dir-menu-link" to={'/' + navi.route + '/' + file.route}>
+            <Link onClick={this.scrollToTop} className={`dir-menu-link${color}`} to={Url}>
               {file.name}
             </Link>
           }
@@ -116,7 +121,7 @@ export default class S extends React.Component {
         </Menu.SubMenu>
       )
     })
-    const path = this.props.location.pathname
+
     return (
       <Menu
         mode="inline"
