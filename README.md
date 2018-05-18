@@ -22,6 +22,7 @@ Restory is a single-page application driven by React, React Router, Webpack, and
 * [ ] Google Analytics
 * [ ] React-driven custom theme system
 * [ ] Search Box
+* [ ] docker support
 
 ## Inspiration
 

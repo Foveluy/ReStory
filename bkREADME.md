@@ -26,19 +26,8 @@ Copyright (c) ZhengFang <mailto:snakegear@163.com>
 
 ## todo
 
-* [x] 没有写 code 的代码
-* [ ] CLI 的构建
-* [ ] 用户能够安装自己的组件
-* [x] 一件部署：生成 SSR 版本和 client 版本
-  * [x] SSR 渲染时 CSS 问题
-* [x] sider 问题
-* [x] 响应式
-* [x] header 的顺序问题
-* [x] 图片分辨率问题
-* [x] 首页制作
-* [x] 首页可配置
-* [x] github 风格表格
-* [x] readme 名字
+* [ ] showdown 代替现在的解析
+* [ ] 部署云服务器官网 
 
 npm config set unsafe-perm true
 
