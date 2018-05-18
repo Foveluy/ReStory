@@ -14,6 +14,7 @@ module.exports = fn => {
   const printHostingInstructions = require('react-dev-utils/printHostingInstructions')
   const FileSizeReporter = require('react-dev-utils/FileSizeReporter')
   const printBuildError = require('react-dev-utils/printBuildError')
+  const signale = require('signale')
 
   const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild
   const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild
@@ -30,7 +31,7 @@ module.exports = fn => {
 
   // Create the production build and print the deployment instructions.
   function build(previousFileSizes) {
-    console.log(chalk.default.greenBright('Creating an optimized production server build...'))
+    signale.success('Creating an optimized production server build...')
 
     let compiler = webpack(config)
     return new Promise((resolve, reject) => {

@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 const path = require('path')
 // Ensure environment variables are read.
 require(path.resolve(__dirname, '../config/env'))
+const signale = require('signale');
 
 const chalk = require('chalk')
 const { resolve, join } = require('path')
@@ -38,7 +39,10 @@ class ReactStoryInit {
 
   finished() {
     // when build is finished, we simply did the right thing here.
-    console.log('Everything is done!')
+    signale.success('Everything is done!\n');
+
+    if (process.argv[4] === 'dontCopy') return
+
     const simpleServerOutputPath = join(this.bootPath, 'server')
     const simpleServerBuiltInPath = resolve(__dirname, '../server')
 
@@ -53,7 +57,7 @@ class ReactStoryInit {
     let i = 0 // mark for build
     const buildServer = require('./build')
     const buildClient = require('./client')
-    buildServer(type => {
+    buildServer(() => {
       i++
       if (i == 2) this.finished()
     })

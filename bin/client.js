@@ -24,6 +24,7 @@ module.exports = fn => {
   const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild
   const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild
   const useYarn = fs.existsSync(paths.yarnLockFile)
+  const signale = require('signale')
 
   // These sizes are pretty large. We'll warn for bundles exceeding them.
   const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
@@ -36,7 +37,7 @@ module.exports = fn => {
 
   // Create the production build and print the deployment instructions.
   function build(previousFileSizes) {
-    console.log(chalk.default.greenBright('Creating an optimized production client build...'))
+    signale.success('Creating an optimized production client build...')
 
     let compiler = webpack(config)
     return new Promise((resolve, reject) => {
