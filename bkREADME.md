@@ -1,4 +1,4 @@
-# 介绍
+## 介绍
 
 ReactStory 是一款极其轻便、支持在 Markdown 里直接书写 React 组件的静态文档生成器。它的诞生主要是为了能够满足 React 组件和 Markdown 同时书写的需求而准备的。
 
@@ -24,7 +24,7 @@ The MIT License (MIT)
 
 Copyright (c) ZhengFang <mailto:snakegear@163.com>
 
-## todo
+# todo
 
 * [ ] showdown 代替现在的解析
 * [ ] 部署云服务器官网 

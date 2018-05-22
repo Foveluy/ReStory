@@ -1,43 +1,20 @@
 const { resolve, join } = require('path')
 const { chinese2pinyin } = require(resolve(__dirname, './chinesepinyin'))
+const { extractHeader } = require(resolve(__dirname, './extractHeader'))
 
 const fs = require('fs-extra')
 
 const isMarkdown = f => /\.md$/.test(f)
 
-function extractHeader(src) {
-  var i = fs.readFileSync(src, 'utf-8')
-
-  let extract = []
-  let currentH1 = 0
-
-  while (1) {
-    let out = i.match(/^(\#{1,6})([^\#\n]+)$/m)
-
-    if (out === null) break
-    const level = out[1].length
-    if (level === 1) {
-      extract.push(out[2].substring(1))
-      currentH1 = extract.length - 1
-      extract[currentH1] = [extract[currentH1], []]
-    } else if (level === 2) {
-      if (!extract[currentH1]) {
-        extract[currentH1] = ['no-h1', []]
-        currentH1 = extract.length - 1
-      }
-      extract[currentH1][1].push(out[2].substring(1))
-    }
-
-    i = out.input.replace(out[0], '<shit>')
-  }
-  return extract
-}
-
+/**
+ *
+ * @param {string} path
+ * @param {Array<string>} files
+ */
 const modulesMaker = (path, files) => {
   let i = files
     .filter(f => {
-      if (isMarkdown(f)) return f // markdown
-      if (fs.statSync(join(path, f)).isDirectory()) return f //isDirectory
+      if (fs.statSync(join(path, f)).isDirectory() || isMarkdown(f)) return f //isDirectory
     })
     .map(f => {
       if (fs.statSync(join(path, f)).isDirectory()) {
@@ -67,19 +44,17 @@ const modulesMaker = (path, files) => {
   return i
 }
 
+/**
+ * we scan navi path
+ * get every .md path to load to restory
+ * @param {string} src
+ */
 const scan = src => {
   const naviPath = join(src, 'navi')
   const files = fs.readdirSync(resolve(naviPath))
 
   let i = modulesMaker(naviPath, files)
-
-  // * 1.文件(夹)名
-  // * 2.文件路径
-  // * 3.chilren:[]|void 666
-  // * 4.type:file|dir
-
   return i
 }
 
 exports.getMarkdown = scan
-exports.extractHeader = extractHeader

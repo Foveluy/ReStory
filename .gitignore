@@ -1,5 +1,5 @@
 *node_modules*
 .vscode
-package-lock
+package-lock.json
 build
 serverbuild

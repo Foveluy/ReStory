@@ -2,10 +2,10 @@ import path from 'path'
 import fs from 'fs'
 
 const _paths = {
-  manifestServer: path.resolve('./docs/serverbuild/asset-manifest.json'),
-  manifestClient: path.resolve('./docs/build/asset-manifest.json'),
-  serverBuild: './docs/serverbuild',
-  build: './docs/build'
+  manifestServer: path.resolve('./serverbuild/asset-manifest.json'),
+  manifestClient: path.resolve('./build/asset-manifest.json'),
+  serverBuild: './serverbuild',
+  build: './build'
 }
 
 const readFileUTF8 = src => fs.readFileSync(src, 'utf-8')

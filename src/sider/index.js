@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu } from 'antd'
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { isSSR } from '../util'
+import flatten from 'array-flatten'
 
 import './index.less'
 
@@ -34,7 +35,57 @@ export default class S extends React.Component {
     return true
   }
 
-  onSelect = ({ item, key, selectedKeys }) => {
+  componentDidMount() {
+    // window.addEventListener('scroll', this.autoSelectHeader)
+  }
+  componentWillUnmount() {
+    // window.removeEventListener('scroll', this.autoSelectHeader)
+  }
+
+  autoSelectHeader = () => {
+    //严重计算
+    const path = this.currentUrlPath()
+    const c = this.props.Config.navi.find(i => i.route === path)
+
+    const nested = path.split('/')
+    const father = nested[0]
+    const f = this.props.Config.navi.find(i => i.route === father)
+
+    let current = []
+    for (let i = 0; i < f.children.length; i++) {
+      if (f.children[i].route === nested[1]) {
+        current = f.children[i].header
+        break
+      }
+    }
+    const elementAry = flatten(current).map(e => document.getElementById(`${e}`))
+    elementAry.forEach((el, index) => {
+      if (!el) return
+      const top = el.getBoundingClientRect().top
+      if (top > -10 && top < 10) {
+        // performence optimise
+        if (this.state.selectedKeys[0] !== el.id) this.onSelect({ selectedKeys: [el.id] })
+      }
+    })
+
+    if (!c) return
+
+    // const elementAry = flatten(c.header).map(e => document.getElementById(`${e}`))
+    // // console.log(elementAry)
+    // elementAry.forEach((el, index) => {
+    //   const top = el.getBoundingClientRect().top
+    //   if (top > -10 && top < 10) {
+    //     // performence optimise
+    //     if (this.state.selectedKeys[0] !== el.id) this.onSelect({ selectedKeys: [el.id] })
+    //   }
+    // })
+  }
+
+  currentUrlPath = () => {
+    return this.props.location.pathname.substring(1)
+  }
+
+  onSelect = ({ selectedKeys }) => {
     this.setState({
       selectedKeys: selectedKeys
     })
@@ -56,7 +107,7 @@ export default class S extends React.Component {
         return levelone[1].map((leveltwo, index) => {
           // the second layer is how many `level 2` title
           return (
-            <Menu.Item key={leveltwo + index}>
+            <Menu.Item key={leveltwo}>
               <MenuLink>{leveltwo}</MenuLink>
             </Menu.Item>
           )
@@ -65,7 +116,7 @@ export default class S extends React.Component {
       if (levelone[1].length === 0) {
         // if there is no h2 inside
         return (
-          <Menu.Item key={level1 + index}>
+          <Menu.Item key={level1}>
             <MenuLink>{level1}</MenuLink>
           </Menu.Item>
         )
@@ -76,7 +127,7 @@ export default class S extends React.Component {
           {levelone[1].map((leveltwo, index) => {
             // the second layer is how many `level 2` title
             return (
-              <Menu.Item key={leveltwo + index}>
+              <Menu.Item key={leveltwo}>
                 <MenuLink>{leveltwo}</MenuLink>
               </Menu.Item>
             )
@@ -136,7 +187,7 @@ export default class S extends React.Component {
   }
 
   render() {
-    const path = this.props.location.pathname.substring(1)
+    const path = this.currentUrlPath()
 
     const c = this.props.Config.navi.find(i => i.route === path)
     const createMenu = (openKeys, header) => {

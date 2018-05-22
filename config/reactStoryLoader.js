@@ -2,7 +2,7 @@ const { resolve, join } = require('path')
 const fs = require('fs-extra')
 const chalk = require('chalk').default
 
-const { extractHeader } = require(resolve(__dirname, './r'))
+const { extractHeader } = require(resolve(__dirname, './extractHeader'))
 const { getMarkdown } = require(resolve(__dirname, './r'))
 
 const FormatCodeToGlobals = (key, obj) => {

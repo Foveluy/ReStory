@@ -10,16 +10,20 @@ process.on('unhandledRejection', err => {
 })
 
 const path = require('path')
+const clearConsole = require('react-dev-utils/clearConsole')
 // Ensure environment variables are read.
 require(path.resolve(__dirname, '../config/env'))
 
 const fs = require('fs')
 const chalk = require('chalk')
-console.log(chalk.green(`\nthanks for using ReactStory, just wait for compiler bootstrap...`))
+const signale = require('signale')
+// for fast interactive
+clearConsole()
+signale.success(`thanks for using ReactStory, just wait for compiler bootstrap...`)
 
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const clearConsole = require('react-dev-utils/clearConsole')
+
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles')
 const { choosePort, createCompiler, prepareProxy, prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
 const openBrowser = require('react-dev-utils/openBrowser')
@@ -78,7 +82,7 @@ module.exports = () => {
         if (isInteractive) {
           clearConsole()
         }
-        console.log(chalk.cyan('Starting to compile dependency...\n'))
+        signale.debug('Starting to compile dependency... please wait a second :)\n')
         openBrowser(urls.localUrlForBrowser)
       })
       ;['SIGINT', 'SIGTERM'].forEach(function(sig) {

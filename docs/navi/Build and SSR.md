@@ -10,13 +10,13 @@ restory build path/to/target
 
 During the build phase, Restory will build two version of your site: `client site render` and `server site render`.
 
-```js
+```bash
 .
 ├── README.md
-├── build // build folder for client site render
+├── build # build folder for client site render
 ├── navi
-├── server // simple `out-of-the-box` node.js server for SSR!
-└── serverbuild   // serverbuild folder for server site render
+├── server # simple `out-of-the-box` node.js server for SSR!
+└── serverbuild   # serverbuild folder for server site render
 ```
 
 When the building phase is finished , Restory will create a `server` folder, it is a simple `out-of-the-box` node.js server for SSR!
@@ -25,20 +25,20 @@ When the building phase is finished , Restory will create a `server` folder, it 
 
 Before we doing this , we have to install some node.js package.
 
-```js
-// setup package.json
+```bash
+# setup package.json
 npm init -y
 
-// install presets
+# install presets
 npm install --save babel-register babel-preset-env babel-preset-react-app
 
-// install express and  react、 react-helmet
+# install express and  react、 react-helmet
 npm install --save express react react-helmet
 ```
 
 After doing those, we just:
 
-```js
+```bash
 node ./server/index
 ```
 

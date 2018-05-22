@@ -7,7 +7,7 @@ import './index.css'
 // import { hot } from 'react-hot-loader'
 
 const Whole = () => (
-  <Router basename='/ReStory' >
+  <Router>
     <App />
   </Router>
 )

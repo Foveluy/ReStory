@@ -16,7 +16,7 @@ const prepHTML = (data, { html, head, body, css }) => {
 
 const universalLoader = (req, res) => {
   // Load in our HTML file from our build
-  const filePath = path.resolve(__dirname, '../docs/serverbuild/index.html')
+  const filePath = path.resolve(__dirname, '../serverbuild/index.html')
 
   // if there is static file
 
