@@ -125,6 +125,7 @@ export default class S extends React.Component {
           </Menu.Item>
         )
       }
+
       return (
         <Menu.SubMenu
           title={
@@ -205,7 +206,6 @@ export default class S extends React.Component {
 
   render() {
     const path = this.currentUrlPath()
-
     const c = this.props.Config.navi.find(i => i.route === path)
     const createMenu = (openKeys, header) => {
       return (
@@ -238,6 +238,7 @@ export default class S extends React.Component {
 
     if (!c) {
       // nested header
+      // means `path/to/markdown`
       const nested = path.split('/')
       const father = nested[0]
       const f = this.props.Config.navi.find(i => i.route === father)
