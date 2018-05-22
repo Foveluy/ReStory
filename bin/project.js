@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 // Ensure environment variables are read.
 const path = require('path')
-
+const npm = require('npm')
 // Ensure environment variables are read.
 require(path.resolve(__dirname, '../config/env'))
 const signale = require('signale')
@@ -69,13 +69,17 @@ class ReactStoryInit {
   }
 
   simpleServer() {
-    const str = [
-      'npm init -y &&',
-      'npm install --save babel-register babel-preset-env babel-preset-react-app &&',
-      'npm install --save express react react-helmet --color'
-    ].join(' ')
-    const c = child_process.exec(str, { encoding: 'utf-8' }, (err, stdout) => {})
-    c.stdout.pipe(process.stdout)
+    // const str = [
+    //   'npm init -y &&',
+    //   'npm install --save babel-register babel-preset-env babel-preset-react-app &&',
+    //   'npm install --save express react react-helmet --color'
+    // ].join(' ')
+    // const c = child_process.exec(str, { encoding: 'utf-8' }, (err, stdout) => {})
+    // c.stdout.pipe(process.stdout)
+    npm.load(() => {
+      npm.commands.install(['--save babel-register babel-preset-env babel-preset-react-app'])
+      // npm.commands.install('--save express react react-helmet')
+    })
   }
 
   _delete() {

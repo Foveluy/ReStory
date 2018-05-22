@@ -10,6 +10,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const paths = require('./paths')
 const getClientEnvironment = require('./env')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
 const nodeModules = paths.nodeModules
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -56,7 +57,10 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [path.resolve(__dirname, './polyfills'), paths.appIndexJs],
+  entry: {
+    main: [path.resolve(__dirname, './polyfills'), paths.appIndexJs],
+    vendor: ['react', 'react-dom', 'antd']
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -280,6 +284,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      chunks: ['vendor', 'main'],
+      defer: ['vendor', 'main'],
+      chunksSortMode: 'dependency',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -292,6 +299,9 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true
       }
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'defer'
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
@@ -358,6 +368,10 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+    }),
+    // optimize plugin for commonjs
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
     }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical

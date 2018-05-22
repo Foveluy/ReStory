@@ -14,9 +14,11 @@ const prepHTML = (data, { html, head, body, css }) => {
   return data
 }
 
+var uri = ''
+var h = ''
+
 const universalLoader = (req, res) => {
   // Load in our HTML file from our build
-  const filePath = config.htmlPage
 
   // if there is static file
 
@@ -26,39 +28,35 @@ const universalLoader = (req, res) => {
     return
   }
 
-  if (/\.js$/.test(req.path)) {
+  if (/main/.test(req.path)) {
     res.send(config.mainJsClient)
     res.status(200).end()
     return
   }
+  if (/vendor/.test(req.path)) {
+    res.send(config.vendorJSClient)
+    res.status(200).end()
+    return
+  }
 
-  fs.readFile(filePath, 'utf8', (err, htmlData) => {
-    // If there's an error... serve up something nasty
-    if (err) {
-      console.error('Read error', err)
+  // Create a store and sense of history based on the current path
+  const history = {}
 
-      return res.status(404).end()
-    }
+  // render the html
+  const routeMarkup = config.R({ context: history, location: req.path })
 
-    // Create a store and sense of history based on the current path
-    const history = {}
+  // // Let Helmet know to insert the right tags
+  const helmet = Helmet.renderStatic()
 
-    // render the html
-    const routeMarkup = config.R({ context: history, location: req.path })
-
-    // // Let Helmet know to insert the right tags
-    const helmet = Helmet.renderStatic()
-
-    // // Form the final HTML response
-    const html = prepHTML(htmlData, {
-      html: helmet.htmlAttributes.toString(),
-      head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
-      body: routeMarkup,
-      css: config.mainCssClient
-    })
-    // Up, up, and away...
-    res.send(html)
+  // // Form the final HTML response
+  const html = prepHTML(config.htmlText, {
+    html: helmet.htmlAttributes.toString(),
+    head: helmet.title.toString() + helmet.meta.toString() + helmet.link.toString(),
+    body: routeMarkup,
+    css: config.mainCssClient
   })
+  // Up, up, and away...
+  res.send(html)
 }
 
 export default universalLoader

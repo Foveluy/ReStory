@@ -48,7 +48,7 @@ export default class Header extends React.Component {
             onClick={this.handleClick}
             selectedKeys={[selectkey]}
             mode={mode}
-            style={{ borderBottom: mode === 'horizontal' ? 0 : '1px solid rgb(232, 232, 232)' }}
+            style={{ borderBottom: mode === 'horizontal' ? 0 : '1px solid rgb(233, 233, 233)' }}
           >
             {this.props.READMEMDX ? (
               <Menu.Item key={'readme'}>

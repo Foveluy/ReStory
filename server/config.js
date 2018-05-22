@@ -8,7 +8,7 @@ const _paths = {
   manifestClient: path.join(prefix, `./build/asset-manifest.json`),
   serverBuild: path.join(prefix, `./serverbuild`),
   build: path.join(prefix, `./build`),
-  html: path.join(prefix, `./serverbuild/index.html`)
+  html: path.join(prefix, `./build/index.html`)
 }
 
 const readFileUTF8 = src => fs.readFileSync(src, 'utf-8')
@@ -18,16 +18,21 @@ const manifestClient = JSON.parse(readFileUTF8(_paths.manifestClient))
 
 const cssPathClient = path.resolve(_paths.build, manifestClient['main.css'])
 const jsPathClient = path.resolve(_paths.build, manifestClient['main.js'])
+const vendorClient = path.resolve(_paths.build, manifestClient['vendor.js'])
 const { R } = require(path.resolve(_paths.serverBuild, manifestServer['main.js']))
 
 const mainJsClient = fs.readFileSync(jsPathClient, 'utf-8')
 const mainCssClient = fs.readFileSync(cssPathClient, 'utf-8')
+const vendorJSClient = fs.readFileSync(vendorClient, 'utf-8')
 const htmlPage = _paths.html
+
+const htmlText = fs.readFileSync(htmlPage, 'utf8')
 
 module.exports = {
   _paths,
   mainJsClient,
   mainCssClient,
+  vendorJSClient,
   R,
-  htmlPage
+  htmlText
 }
