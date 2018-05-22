@@ -6,11 +6,13 @@ import flatten from 'array-flatten'
 
 import './index.less'
 
-const MenuLink = ({ children, className = '' }) => {
+const MenuLink = ({ children, className = '', onClick, color }) => {
   return (
-    <a className={`rs-link`} href={`#${children}`}>
-      {children}
-    </a>
+    <div onClick={onClick}>
+      <a className={`rs-link`} style={{ color: color ? '#1890ff' : 'black' }} href={`#${children}`}>
+        {children}
+      </a>
+    </div>
   )
 }
 
@@ -27,7 +29,8 @@ const collectOpenkeys = header => {
 @withRouter
 export default class S extends React.Component {
   state = {
-    selectedKeys: []
+    selectedKeys: [],
+    lv1: ''
   }
 
   shouldComponentUpdate(next) {
@@ -87,6 +90,7 @@ export default class S extends React.Component {
 
   onSelect = ({ selectedKeys }) => {
     this.setState({
+      lv1: '',
       selectedKeys: selectedKeys
     })
   }
@@ -123,7 +127,21 @@ export default class S extends React.Component {
       }
 
       return (
-        <Menu.SubMenu title={<MenuLink>{level1}</MenuLink>} key={level1}>
+        <Menu.SubMenu
+          title={
+            <MenuLink
+              color={this.state.lv1 === level1 ? true : false}
+              onClick={() =>
+                this.setState({
+                  lv1: level1
+                })
+              }
+            >
+              {level1}
+            </MenuLink>
+          }
+          key={level1}
+        >
           {levelone[1].map((leveltwo, index) => {
             // the second layer is how many `level 2` title
             return (
