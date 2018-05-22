@@ -9,7 +9,7 @@ import './index.less'
 const MenuLink = ({ children, className = '', onClick, color }) => {
   return (
     <div onClick={onClick}>
-      <a className={`rs-link`} style={{ color: color ? '#1890ff' : 'black' }} href={`#${children}`}>
+      <a className={`rs-link`} style={{ color: color }} href={`#${children}`}>
         {children}
       </a>
     </div>
@@ -112,7 +112,7 @@ export default class S extends React.Component {
           // the second layer is how many `level 2` title
           return (
             <Menu.Item key={leveltwo}>
-              <MenuLink>{leveltwo}</MenuLink>
+              <MenuLink color="rgba(0,0,0,.45)">{leveltwo}</MenuLink>
             </Menu.Item>
           )
         })
@@ -125,12 +125,11 @@ export default class S extends React.Component {
           </Menu.Item>
         )
       }
-
       return (
         <Menu.SubMenu
           title={
             <MenuLink
-              color={this.state.lv1 === level1 ? true : false}
+              color={this.state.lv1 === level1 ? '#1890ff' : 'black'}
               onClick={() =>
                 this.setState({
                   lv1: level1
@@ -146,7 +145,7 @@ export default class S extends React.Component {
             // the second layer is how many `level 2` title
             return (
               <Menu.Item key={leveltwo}>
-                <MenuLink>{leveltwo}</MenuLink>
+                <MenuLink color="rgba(0,0,0,.45)">{leveltwo}</MenuLink>
               </Menu.Item>
             )
           })}
