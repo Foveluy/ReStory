@@ -1,9 +1,10 @@
 const fs = require('fs-extra')
 // Ensure environment variables are read.
 const path = require('path')
+
 // Ensure environment variables are read.
 require(path.resolve(__dirname, '../config/env'))
-const signale = require('signale');
+const signale = require('signale')
 
 const chalk = require('chalk')
 const { resolve, join } = require('path')
@@ -39,7 +40,7 @@ class ReactStoryInit {
 
   finished() {
     // when build is finished, we simply did the right thing here.
-    signale.success('Everything is done!\n');
+    signale.success('Everything is done!\n')
 
     if (process.argv[4] === 'dontCopy') return
 
@@ -67,12 +68,14 @@ class ReactStoryInit {
     })
   }
 
-  simpleSSR() {
-    child_process.exec('npm init -y', () => {
-      child_process.exec(
-        'npm install --save babel-register babel-preset-env babel-preset-react-app express react react-helmet'
-      )
-    })
+  simpleServer() {
+    const str = [
+      'npm init -y &&',
+      'npm install --save babel-register babel-preset-env babel-preset-react-app &&',
+      'npm install --save express react react-helmet --color'
+    ].join(' ')
+    const c = child_process.exec(str, { encoding: 'utf-8' }, (err, stdout) => {})
+    c.stdout.pipe(process.stdout)
   }
 
   _delete() {
@@ -132,7 +135,7 @@ ReactStoryInit.prototype.modes = {
   dev: 1,
   build: 1,
   deploy: 1,
-  simpleSSR: 1,
+  simpleServer: 1,
   _delete: 1
 }
 

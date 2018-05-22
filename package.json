@@ -131,5 +131,21 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "description": "![](https://github.com/Foveluy/ReStory/blob/master/docs/graphic.gif?raw=true)",
+  "main": "t.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/215566435/TrumpDoc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/215566435/TrumpDoc/issues"
+  },
+  "homepage": "https://github.com/215566435/TrumpDoc#readme"
 }
