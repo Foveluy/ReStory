@@ -84,7 +84,7 @@
     "start": "node ./bin/run.js dev ./docs",
     "client": "node ./bin/run.js _delete ./docs &&node scripts/client.js hack ./docs && node ./bin/run.js deploy ./docs",
     "s": "node ./bin/run.js build ./docs",
-    "build": "node ./bin/run.js build ./docs dontCopy && node server/index.js",
+    "build": "node ./bin/run.js build ./docs dontCopy && node server/index.js /docs",
     "test": "node scripts/test.js --env=jsdom",
     "static": "node ./scripts/static.js&",
     "clear": "rm -r build && rm -r serverbuild"
