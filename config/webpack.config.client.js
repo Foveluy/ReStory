@@ -171,6 +171,7 @@ module.exports = {
             loader: nodeModules('babel-loader'),
             options: {
               compact: true,
+              presets: [nodeModules('babel-preset-react-app')],
               plugins: [
                 nodeModules('babel-plugin-transform-decorators-legacy'),
                 [nodeModules('babel-plugin-transform-remove-console'), { exclude: ['error', 'warn'] }],

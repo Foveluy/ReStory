@@ -167,6 +167,7 @@ module.exports = {
             include: [paths.appSrc, path.resolve(process.cwd(), process.argv[3])],
             loader: nodeModules('babel-loader'),
             options: {
+              presets: [nodeModules('babel-preset-react-app')],
               compact: false,
               plugins: [
                 nodeModules('babel-plugin-transform-decorators-legacy'),
