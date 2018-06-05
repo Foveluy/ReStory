@@ -39,10 +39,9 @@ class ReactStoryInit {
       const indexPage = path.resolve(this.bootPath, 'index.js')
       if (!fs.existsSync(indexPage)) {
         fs.ensureFileSync(indexPage)
-        fs.writeFileSync(indexPage, '# This is a index page\n you can write any code here...', 'utf-8')
+        fs.writeFileSync(indexPage, '// This is a index page\n//you can write any code here...', 'utf-8')
       }
     }
-
     devrun()
   }
 
