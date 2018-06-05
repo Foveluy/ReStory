@@ -1,6 +1,6 @@
 {
   "name": "restory",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "bin": {
     "restory": "bin/run.js"
   },
@@ -83,7 +83,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
-    "start": "node ./bin/run.js dev ./docs dontCopy",
+    "start": "node ./bin/run.js dev ./docs",
     "client": "node ./bin/run.js _delete ./docs &&node scripts/client.js hack ./docs && node ./bin/run.js deploy ./docs",
     "s": "node ./bin/run.js build ./docs",
     "build": "node ./bin/run.js build ./docs dontCopy && node server/index.js ./docs",

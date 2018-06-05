@@ -10,6 +10,15 @@ const chalk = require('chalk')
 const { resolve, join } = require('path')
 const child_process = require('child_process')
 
+const indexPageInfo = [
+  '// This is a index page',
+  '//you can write any code here...',
+  'import React from "react"',
+  'export default () => {',
+  'return <div>index</div>',
+  '}'
+].join('\n')
+
 class ReactStoryInit {
   constructor(props, args) {
     args[0] = args[0] || 'dev'
@@ -39,7 +48,7 @@ class ReactStoryInit {
       const indexPage = path.resolve(this.bootPath, 'index.js')
       if (!fs.existsSync(indexPage)) {
         fs.ensureFileSync(indexPage)
-        fs.writeFileSync(indexPage, '// This is a index page\n//you can write any code here...', 'utf-8')
+        fs.writeFileSync(indexPage, indexPageInfo, 'utf-8')
       }
     }
     devrun()
