@@ -24,12 +24,6 @@ Restory is a single-page application driven by React, React Router, Webpack, and
 * [ ] Search Box
 * [ ] docker support
 
-```bash
-
-# 哦看阿斯顿
-```
-
-
 ## Inspiration
 
 This project is inspired by [VuePress](https://vuepress.vuejs.org) and uses [MDX](https://github.com/mdx-js/mdx) to write React subproject documents, making it easy for users to embed their own React components in documents.

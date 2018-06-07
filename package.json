@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^0.9.0",
-    "@mdx-js/mdx": "^0.8.1",
+    "@mdx-js/mdx": "^0.9.0",
     "antd": "^3.5.1",
     "array-flatten": "^2.1.1",
     "autoprefixer": "^7.2.6",
