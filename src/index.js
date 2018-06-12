@@ -4,7 +4,14 @@ import registerServiceWorker from './registerServiceWorker'
 import App from './router'
 import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
+
 // import { hot } from 'react-hot-loader'
+
+const res = new Function('React', 'return React.createElement("div",{},1234)')
+
+const Cpn = res(React)
+
+console.log(Cpn)
 
 const Whole = () => (
   <Router>
